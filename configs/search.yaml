@@ -1,0 +1,21 @@
+k: 10
+candidate_budget: 100
+methods:
+  postfilter:
+    enabled: true
+  twohop:
+    enabled: true
+  adaptivel:
+    enabled: true
+    n_sample: 128
+    m_max: 8
+  rc_adaptivel:
+    enabled: false
+    max_visited_nodes: null
+    max_distance_comparisons: null
+    query_timeout_ms: null
+instrumentation:
+  visited_nodes: true
+  distance_comparisons: true
+  predicate_evaluations: true
+  returned_count: true

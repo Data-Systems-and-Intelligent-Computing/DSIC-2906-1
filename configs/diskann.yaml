@@ -1,0 +1,13 @@
+# Paper-aligned anchor values. Tune only on development queries, then freeze.
+metric: cosine
+R: 64
+L_build: 100
+L_search: 100
+threads: 1
+build_threads: 1
+alpha: null
+index_prefix: index/diskann/tourism
+record:
+  build_time: true
+  index_size_bytes: true
+  peak_memory_bytes: true

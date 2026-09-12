@@ -1,0 +1,9 @@
+# Replace model_name after the development audit, then freeze this file.
+model_name: sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2
+model_version: null
+embedding_dimension: null
+normalize_embeddings: true
+similarity_metric: cosine
+batch_size: 64
+dtype: float32
+random_seed: 2906

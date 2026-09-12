@@ -1,0 +1,17 @@
+# Natural metadata only; do not synthesize labels solely for the experiment.
+fields:
+  region:
+    candidates: [province, regency, city, district]
+  category:
+    candidates: [category, tourism_type]
+  source_type:
+    candidates: [source_type]
+  publisher:
+    candidates: [publisher]
+  temporal:
+    candidates: [published_at, observed_at]
+compound_predicates:
+  - [region, source_type]
+  - [category, temporal]
+  - [region, source_type, temporal]
+minimum_eligible_points_for_recall_at_k: 10

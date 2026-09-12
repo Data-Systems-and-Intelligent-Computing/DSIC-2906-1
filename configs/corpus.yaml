@@ -1,0 +1,25 @@
+# Freeze before the final benchmark.
+sources:
+  - jadesta
+  - wikipedia
+  - wikidata
+  - news
+text_fields:
+  jadesta: [name, description, attraction_text, package_text]
+  wikipedia: [title, text]
+  news: [title, text]
+chunking:
+  enabled: true
+  max_chars: 1800
+  overlap_chars: 200
+deduplication:
+  exact_text_hash: true
+  syndicated_news_policy: mark_not_drop
+required_point_fields:
+  - doc_id
+  - chunk_id
+  - text
+  - source_type
+  - source_id
+  - fetched_at
+  - snapshot_id

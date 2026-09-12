@@ -1,0 +1,58 @@
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.venv/
+venv/
+
+# Local configuration / secrets
+.env
+.env.*
+!.env.example
+
+# OS/editor
+.DS_Store
+.vscode/
+.idea/
+
+# Generated data and vectors
+data/raw/**
+!data/raw/**/.gitkeep
+data/processed/**
+!data/processed/README.md
+!data/processed/.gitkeep
+data/embeddings/**
+!data/embeddings/README.md
+!data/embeddings/.gitkeep
+data/groundtruth/**
+!data/groundtruth/README.md
+!data/groundtruth/.gitkeep
+
+# Generated index
+index/diskann/**
+!index/diskann/.gitkeep
+
+# Benchmark outputs
+results/raw/**
+results/processed/**
+results/figures/**
+results/tables/**
+results/failure_cases/**
+!results/**/.gitkeep
+!results/README.md
+
+# Native/C++ build artifacts (if DiskANN is instrumented locally)
+build/
+cmake-build-*/
+*.o
+*.so
+*.dylib
+*.a
+
+# Logs
+*.log
+logs/
+
+teknis-lab

@@ -1,0 +1,15 @@
+# Freeze query provenance, filters, and empirical match-rate bins before final runs.
+k: 10
+query_sources_priority:
+  - sigerciv_logs
+  - domain_expert_queries
+  - held_out_tourism_text
+required_workloads: [region, category, source]
+optional_workloads: [temporal]
+extension_workloads: [compound]
+prevent_self_match: true
+match_rate_binning:
+  strategy: empirical_quantile_or_domain_bins
+  boundaries: null
+  min_queries_per_bin: 30
+random_seed: 2906

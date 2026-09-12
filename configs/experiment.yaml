@@ -1,0 +1,25 @@
+random_seed: 2906
+warmup_queries: 50
+measured_repetitions: 10
+stability_repetitions: 2
+primary_k: 10
+metrics:
+  - recall_at_10
+  - qps
+  - latency_p50_ms
+  - latency_p95_ms
+  - underfilled_rate
+  - visited_nodes
+  - distance_comparisons
+  - predicate_evaluations
+  - stability_overlap
+statistics:
+  paired: true
+  bootstrap_iterations: 2000
+  confidence_level: 0.95
+freeze_before_heldout:
+  - embedding
+  - diskann
+  - search
+  - workload
+  - resource_profiles

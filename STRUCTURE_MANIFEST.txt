@@ -1,0 +1,7 @@
+DSIC-2906 structure version: metadata-filtered-vector-search-v1
+Scientific core: metadata-filtered ANN search
+Primary method: AdaptiveL
+Baselines: PostFilter, TwoHopSearch
+Primary index: DiskANN
+Primary metrics: filtered Recall@10, QPS, p50/p95, search cost, stability
+Old conflict-aware routing files are intentionally not carried forward.

@@ -1,0 +1,17 @@
+# Fill with actual available limits before the final benchmark and freeze.
+profiles:
+  RC-small:
+    cpu_cores: 1
+    ram_gb: 2
+    threads: 1
+    query_timeout_ms: null
+  RC-medium:
+    cpu_cores: 2
+    ram_gb: 4
+    threads: 2
+    query_timeout_ms: null
+  RC-reference:
+    cpu_cores: null
+    ram_gb: null
+    threads: null
+    query_timeout_ms: null
