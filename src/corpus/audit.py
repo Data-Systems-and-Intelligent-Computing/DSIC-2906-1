@@ -12,9 +12,7 @@ import os
 import pandas as pd
 
 
-# ---------------------------------------------------------------
-# 1. Pembacaan data mentah
-# ---------------------------------------------------------------
+# Pembacaan data mentah
 def load_raw(raw_dir: str) -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame]:
     """Baca atraksi, desa, dan berita (baris mentah + URL unik)."""
     jd = os.path.join(raw_dir, "jadesta")
@@ -52,9 +50,7 @@ def pct(n: float, total: float) -> str:
     return f"{100 * n / total:.4f}%"
 
 
-# ---------------------------------------------------------------
-# 2. Audit
-# ---------------------------------------------------------------
+# Audit
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--raw-dir", default="data/raw")
@@ -63,7 +59,7 @@ def main() -> None:
     atr, desa, news_rows, news = load_raw(args.raw_dir)
     N = len(atr) + len(desa) + len(news)
 
-    # --- Bagian 3: komposisi korpus ---
+    # Bagian 3: komposisi korpus
     print("=== [3] Komposisi korpus ===")
     print(f"Atraksi JADESTA      : {len(atr):>7,}  (id unik {atr['id'].nunique():,}, "
           f"duplikat {len(atr) - atr['id'].nunique()})")
@@ -71,7 +67,7 @@ def main() -> None:
     print(f"Berita (URL unik)    : {len(news):>7,}  (dari {len(news_rows):,} pasangan atraksi-berita)")
     print(f"TOTAL titik          : {N:>7,}   [protokol: 64.354]")
 
-    # --- Bagian 4: kardinalitas metadata ---
+    # Bagian 4: kardinalitas metadata
     kab = pd.concat([atr["kabupaten"], desa["kabupaten"], news["Kabupaten"]]).dropna()
     rc = kab.value_counts()
     print("\n=== [4] Kardinalitas metadata ===")
@@ -80,7 +76,7 @@ def main() -> None:
     print(f"Tingkat kematangan   : {desa['maturity_level'].nunique()}  {sorted(desa['maturity_level'].unique())}")
     print(f"Penerbit (domain)    : {news['Domain sumber'].nunique():,}   [protokol: 3.862]")
 
-    # --- Bagian 5.1: match rate predikat tunggal ---
+    # Bagian 5.1: match rate predikat tunggal
     print("\n=== [5.1] Match rate tipe sumber & kategori ===")
     for name, n in [("news", len(news)), ("jadesta_atraksi", len(atr)), ("jadesta_desa", len(desa))]:
         print(f"  source_type={name:<16} {n:>7,}  {pct(n, N)}")
@@ -105,12 +101,12 @@ def main() -> None:
         n = int((tgl >= t).sum())
         print(f"  sejak {t}: {n:>7,}  {pct(n, N)}")
 
-    # --- Bagian 6: kelayakan top-k ---
+    # Bagian 6: kelayakan top-k
     print("\n=== [6] Kelayakan top-k (wilayah) ===")
     for thr in [10, 50, 100]:
         print(f"  >= {thr:>3} titik: {int((rc >= thr).sum()):>4} dari {len(rc)}")
 
-    # --- Bagian 8 (T-02): kerusakan kolom provinsi ---
+    # Bagian 8 (T-02): kerusakan kolom provinsi
     print("\n=== [8] T-02 kolom provinsi ===")
     pola = r"^\d+ Besar ADWI \d{4}$"
     for f, g in desa.groupby("source_file"):
@@ -120,7 +116,7 @@ def main() -> None:
     print(f"  TOTAL desa                     teks ADWI: {int(m_all.sum()):>4} / {len(desa):,}   [protokol: 1.175]")
     print(f"  provinsi terisi pada atraksi : {int(atr['provinsi'].notna().sum()):,} / {len(atr):,}   [protokol: 0]")
 
-    # --- Bagian 10 (T-04): penerbit ---
+    # Bagian 10 (T-04): penerbit
     print("\n=== [10] T-04 penerbit & sindikasi ===")
     vc = news["Domain sumber"].value_counts()
     print(f"  domain >= 50 artikel : {int((vc >= 50).sum())}   [protokol: 122]")

@@ -41,9 +41,7 @@ CORPUS_COLUMNS = [
 ]
 
 
-# ---------------------------------------------------------------
-# 1. Manifest berkas mentah (bagian 16 langkah 1)
-# ---------------------------------------------------------------
+# Manifest berkas mentah (bagian 16 langkah 1)
 def source_manifest(files: list[str], fetched_at: dict[str, str | None]) -> tuple[pd.DataFrame, str]:
     """Hitung SHA-256 setiap berkas tanpa mengubahnya; snapshot_id = hash gabungan."""
     rows = []
@@ -74,9 +72,7 @@ def news_fetched_at(news_dir: str) -> str | None:
     return None if hit.empty else str(hit.iloc[0, 1]).strip()
 
 
-# ---------------------------------------------------------------
-# 2. Atraksi dan desa wisata (bagian 16 langkah 2, 5, 6)
-# ---------------------------------------------------------------
+# Atraksi dan desa wisata (bagian 16 langkah 2, 5, 6)
 def _join(parts: list[str]) -> str:
     """Gabungkan potongan teks yang tidak kosong menjadi satu dokumen."""
     return " ".join(p.strip() for p in parts if isinstance(p, str) and p.strip())
@@ -134,9 +130,7 @@ def load_villages(jd: str) -> pd.DataFrame:
     return v
 
 
-# ---------------------------------------------------------------
-# 3. Berita: satu URL = satu titik (bagian 16 langkah 6, 17 butir 3)
-# ---------------------------------------------------------------
+# Berita: satu URL = satu titik (bagian 16 langkah 6, 17 butir 3)
 _SUFFIX_SEP = re.compile(r"\s+-\s+")
 
 
@@ -224,9 +218,7 @@ def syndication_review(news: pd.DataFrame) -> pd.DataFrame:
     return pd.DataFrame(rows).sort_values(["min_ratio", "story_lineage_id"]) if rows else pd.DataFrame()
 
 
-# ---------------------------------------------------------------
-# 4. Program utama
-# ---------------------------------------------------------------
+# Program utama
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--raw-dir", default="data/raw")
@@ -241,13 +233,13 @@ def main() -> None:
     os.makedirs(args.out_dir, exist_ok=True)
     os.makedirs(args.manifest_dir, exist_ok=True)
 
-    # --- Langkah 1: manifest + snapshot_id ---
+    # Langkah 1: manifest + snapshot_id
     files = glob.glob(os.path.join(jd, "*.csv")) + glob.glob(os.path.join(nw, "*Berita*.csv"))
     fetched = {"jadesta": args.jadesta_fetched_at, "news": news_fetched_at(nw)}
     man, snapshot_id = source_manifest(files, fetched)
     man.to_csv(os.path.join(args.manifest_dir, "source_manifest.csv"), index=False)
 
-    # --- Langkah 2-6: tiga sumber ---
+    # Langkah 2-6: tiga sumber
     atr, desa = load_attractions(jd), load_villages(jd)
     news, report = load_news(nw)
 
@@ -263,7 +255,7 @@ def main() -> None:
         report.append({"doc_id": doc, "column": "id", "before": str(i), "after": "(tetap, tidak dihapus)",
                        "rule": "id sama dipakai atraksi berbeda; identitas memakai kategori:id:slug"})
 
-    # --- Bagian 17: penerbit + sindikasi ---
+    # Bagian 17: penerbit + sindikasi
     pmap = build_publisher_map(news["publisher_domain"])
     pmap.to_csv(os.path.join(args.out_dir, "publisher_map.csv"), index=False)
     news["publisher_id"] = news["publisher_domain"].map(dict(zip(pmap["domain"], pmap["publisher_id"])))
@@ -272,7 +264,7 @@ def main() -> None:
                                                  max_days=args.syndication_days)
     syndication_review(news).to_csv(os.path.join(args.out_dir, "syndication_review.csv"), index=False)
 
-    # --- Gabungkan menjadi satu korpus ---
+    # Gabungkan menjadi satu korpus
     corpus = pd.concat([atr, desa, news], ignore_index=True)
     is_news = corpus["source_type"] == "news"
     # Kabupaten/provinsi berita = daftar; JADESTA = satu nilai (dibungkus daftar agar seragam)
@@ -292,17 +284,17 @@ def main() -> None:
     assert corpus["doc_id"].is_unique, "doc_id harus unik"
     corpus.to_parquet(os.path.join(args.out_dir, "corpus.parquet"), index=False)
 
-    # --- Laporan normalisasi ---
+    # Laporan normalisasi
     rep = pd.DataFrame(report, columns=["doc_id", "column", "before", "after", "rule"])
     rep.to_csv(os.path.join(args.out_dir, "normalization_report.csv"), index=False)
 
-    # --- Statistik panjang teks per source_type (T-03) ---
+    # Statistik panjang teks per source_type (T-03)
     lens = corpus.assign(chars=corpus["text"].str.len(), words=corpus["text"].str.split().str.len())
     tl = lens.groupby("source_type")[["chars", "words"]].describe(percentiles=[0.5]).round(1)
     tl.columns = ["_".join(c) for c in tl.columns]
     tl.to_csv(os.path.join(args.out_dir, "text_length_by_source.csv"))
 
-    # --- Ringkasan + corpus_manifest ---
+    # Ringkasan + corpus_manifest
     sizes = news.groupby("story_lineage_id").size()
     summary = {
         "snapshot_id": snapshot_id,

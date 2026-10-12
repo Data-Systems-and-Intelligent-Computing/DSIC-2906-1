@@ -14,9 +14,7 @@ from rapidfuzz import fuzz, process
 _EXTRACT = tldextract.TLDExtract(suffix_list_urls=(), include_psl_private_domains=True)
 
 
-# ---------------------------------------------------------------
-# 1. Domain -> publisher_id (bagian 17 butir 1)
-# ---------------------------------------------------------------
+# Domain -> publisher_id (bagian 17 butir 1)
 def publisher_id(domain: str) -> str:
     """Satukan subdomain satu penerbit: travel.detik.com -> detik.com."""
     d = str(domain).strip().lower()
@@ -35,9 +33,7 @@ def build_publisher_map(domains: pd.Series) -> pd.DataFrame:
                          ascending=[False, True, False]).reset_index(drop=True)
 
 
-# ---------------------------------------------------------------
-# 2. Sindikasi: judul mirip + tanggal berdekatan (bagian 17 butir 2)
-# ---------------------------------------------------------------
+# Sindikasi: judul mirip + tanggal berdekatan (bagian 17 butir 2)
 def normalize_title(t: str) -> str:
     """Huruf kecil, buang tanda baca, rapikan spasi."""
     t = re.sub(r"[^\w\s]", " ", str(t).lower())

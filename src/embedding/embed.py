@@ -45,7 +45,7 @@ def main() -> None:
     device = pick_device()
     torch.manual_seed(cfg["random_seed"])
     model = SentenceTransformer(cfg["model_name"], revision=cfg["model_version"], device=device)
-      dim = model.get_embedding_dimension()
+    dim = model.get_embedding_dimension()
     if dim != cfg["embedding_dimension"]:
         raise SystemExit(f"Dimensi model {dim} tidak sama dengan config {cfg['embedding_dimension']}.")
 
