@@ -1,15 +1,40 @@
 # Freeze query provenance, filters, and empirical match-rate bins before final runs.
+# STATUS: SEMENTARA (14 Okt 2026) - menunggu bimbingan: K-01, K-04, syarat kecukupan, berita ambigu.
 k: 10
 query_sources_priority:
   - sigerciv_logs
   - domain_expert_queries
   - held_out_tourism_text
+# Sumber kueri yang dipakai: dokumen korpus yang ditahan sebagai kueri, dengan aturan eksklusi self-match
+query_source_used: held_out_corpus_documents
 required_workloads: [region, category, source]
 optional_workloads: [temporal]
 extension_workloads: [compound]
 prevent_self_match: true
+# Titik yang dikeluarkan dari himpunan eligible untuk setiap kueri
+self_match_exclusion: [query_document, identical_vector, same_story_lineage]
+min_query_words: 4
+# Kueri development (dipakai dev benchmark) tidak boleh dipakai lagi sebagai kueri test
+dev_queries:
+  seed: 2906
+  n: 100
 match_rate_binning:
-  strategy: empirical_quantile_or_domain_bins
-  boundaries: null
+  strategy: domain_bins_protocol_K04
+  boundaries_pct: [0, 0.1, 0.5, 2.5, 10, 100]
+  labels: [B1, B2, B3, B4, B5]
   min_queries_per_bin: 30
+# Set utama: syarat protokol bagian 18 (>= 10 x k). Set ekstensi: predikat yang hanya lolos >= k.
+sufficiency:
+  main_min_eligible_factor: 10
+  extension_min_eligible_factor: 1
+# Berita yang tertaut ke beberapa wilayah/kategori dianggap cocok bila salah satu nilainya cocok
+ambiguous_news_metadata: any_match
+temporal_thresholds: ["2021-09-01", "2024-01-01", "2025-01-01", "2026-01-01", "2026-07-23"]
+predicate_types:
+  single: [kabupaten, provinsi, penerbit, kategori, tipe_sumber, temporal]
+  compound: [kabupaten_kategori, kabupaten_news_2026, provinsi_tipe_sumber, kategori_temporal]
+sampling:
+  predicates_per_cell: 10
+  pairs_per_cell: 60
+  query_in_filter_fraction: 0.5
 random_seed: 2906

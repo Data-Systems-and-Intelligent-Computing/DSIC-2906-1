@@ -7,8 +7,8 @@ methods:
     enabled: true
   adaptivel:
     enabled: true
-    n_sample: 128
-    m_max: 8
+    n_sample: 32           # dev benchmark: harus < jumlah titik dikunjungi (~L); 32 > 64 di semua L
+    m_max: 8               # sesuai paper (produksi WebIQ)
   rc_adaptivel:
     enabled: false
     max_visited_nodes: null

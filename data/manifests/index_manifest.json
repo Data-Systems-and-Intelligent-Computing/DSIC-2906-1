@@ -1,0 +1,27 @@
+{
+  "built_at": "2026-10-12T19:50:49+00:00",
+  "diskannpy_version": "0.7.0",
+  "platform": "Linux x86_64 | Python 3.11.17",
+  "n_vectors": 64354,
+  "dimension": 384,
+  "params": {
+    "metric": "cosine",
+    "R": 64,
+    "L_build": 100,
+    "L_search": 100,
+    "alpha": null,
+    "threads": 1,
+    "build_threads": 1
+  },
+  "build_time_s": 25.89,
+  "index_size_bytes": 206484412,
+  "peak_memory_bytes": 1069989888,
+  "vectors_checksum_sha256": "9000996250c758426772d98ad2e3e634e6b1de9af47da66965e13156f5b9f320",
+  "index_files_sha256": {
+    "tourism": "d36c30282ff5bbaf8672bab43e3ff09e770cfe267a580c8e8125e598e5a30cbe",
+    "tourism.data": "d27b049c5edc30ad14529e99257c0b44c82a18cad9ffc8b57c65bdd434f9f420",
+    "tourism_metadata.bin": "cc66bdeda2c4572015b1f85794af8bbf378e751a3b50389df2644798f134fd47",
+    "tourism_vectors.bin": "28ff60c8dbd83aacf817dbb13a467be8512bbe33ee29f4cf9a4d3288d7314984"
+  },
+  "sanity_unfiltered_recall_at_10": 0.9959
+}

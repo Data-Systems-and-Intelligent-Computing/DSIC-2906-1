@@ -1,1 +1,2 @@
 corpus_id,snapshot_id,n_documents,n_vectors,n_entities,n_regions,n_categories,n_publishers,n_temporal_records,checksum_sha256
+dsic2906-1-corpus-v1,snap-4bdc85481fa2,64354,64354,21461,483,4,2808,42893,6594317393b5c1651810e82ce32b59c26bbc8c9abf9f1fe74d7b73dac2e2a9e5
