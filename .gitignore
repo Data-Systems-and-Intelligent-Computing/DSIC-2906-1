@@ -55,4 +55,4 @@ cmake-build-*/
 *.log
 logs/
 
-teknis-lab
+teknis-labdata/_asli/
