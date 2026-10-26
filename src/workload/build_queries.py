@@ -176,12 +176,12 @@ def main() -> None:
     frozen_at = datetime.now(timezone.utc).isoformat(timespec="seconds")
     bins = wl.groupby("bin")["pair_id"].count().to_dict()
     pd.DataFrame([{
-        "workload_id": "dsic2906-1-workload-v0-sementara",
+        "workload_id": "dsic2906-1-workload-v1",
         "query_file": "data/processed/queries.parquet",
         "filter_file": "data/processed/filters.parquet",
         "n_queries": len(queries), "k": k,
         "match_rate_bins": json.dumps(bins),
-        "frozen_at": frozen_at + " (SEMENTARA)",
+        "frozen_at": frozen_at,
         "checksum_sha256": sha256("data/processed/workload.parquet"),
     }]).to_csv("data/manifests/workload_manifest.csv", index=False)
 

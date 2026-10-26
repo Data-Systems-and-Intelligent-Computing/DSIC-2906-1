@@ -1,5 +1,5 @@
 # Freeze query provenance, filters, and empirical match-rate bins before final runs.
-# STATUS: SEMENTARA (14 Okt 2026) - menunggu bimbingan: K-01, K-04, syarat kecukupan, berita ambigu.
+# STATUS: BEKU (26 Okt 2026) - batas bin dan syarat kecukupan sesuai protokol (K-04, bagian 18); set ekstensi dilaporkan terpisah (DT-1); K-01, DT-3 any_match.
 k: 10
 query_sources_priority:
   - sigerciv_logs
