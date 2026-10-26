@@ -1,1 +1,2 @@
 workload_id,query_file,filter_file,n_queries,k,match_rate_bins,frozen_at,checksum_sha256
+dsic2906-1-workload-v0-sementara,data/processed/queries.parquet,data/processed/filters.parquet,1987,10,"{""B1"": 291, ""B2"": 663, ""B3"": 360, ""B4"": 420, ""B5"": 300}",2026-10-26T09:38:23+00:00 (SEMENTARA),3b230b33b017edced3f6a264b682a6410af0e768e2c472907819bb9b2fce9ceb
