@@ -16,6 +16,7 @@ TBD after experiments; do not pre-fill performance claims.
 
 ## 3. Method
 - Corpus and natural metadata
+  The corpus contains 64,354 documents (15,132 attractions, 6,329 tourism villages, and 42,893 news articles), which is small to medium in size compared with the web-scale WebIQ index of the reference paper.
 - Exact filtered ground truth
 - PostFilter, TwoHopSearch, AdaptiveL
 - Resource profiles
@@ -33,7 +34,7 @@ TBD after experiments; do not pre-fill performance claims.
 TBD from frozen benchmark artifacts.
 
 ## 6. Discussion and Threats to Validity
-### 6.x Threats to Validity
+### 6.1 Threats to Validity
 
 **Skala korpus.** Fakta: 64.354 dokumen vs indeks skala web WebIQ. Tidak ada klaim scalability; klaim difokuskan pada ketepatan dan perilaku terkontrol.
 
