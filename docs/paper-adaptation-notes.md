@@ -35,3 +35,9 @@ Sumber: Liu et al. (2026), *Metadata-Filtered Vector Search in the WebIQ Groundi
 ### Catatan cakupan rezim
 
 Paper menunjukkan TwoHop runtuh pada match rate 0,01–0,1% (YFCC, Gambar 1a). Dengan syarat kecukupan protokol (≥ 10 × k = 100 titik, setara ≥ 0,155%), rezim < 0,155% tidak pernah diuji, sehingga keunggulan AdaptiveL yang dilaporkan paper berada di luar jangkauan workload saat ini.
+
+## Keputusan predikat berita multi-kabupaten & multi-kategori (26 Okt 2026)
+- Kabupaten, provinsi, dan kategori berita disimpan sebagai daftar.
+- Predikat lolos jika salah satu nilai dalam daftar cocok (any_match), sesuai DT-3; dosen memutuskan aturan ini juga berlaku untuk kategori.
+- Implementasi: src/workload/build_filters.py (LIST_COLUMNS, `value in daftar`); sudah dipakai sejak workload v0, sehingga workload/ground truth tidak berubah.
+- Cakupan: 9.804 berita multi-kabupaten, 4.188 berita multi-kategori. Dampak dilaporkan lewat robustness check (dengan vs tanpa berita tersebut).
