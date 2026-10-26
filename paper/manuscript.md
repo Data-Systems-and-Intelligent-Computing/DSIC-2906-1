@@ -36,23 +36,24 @@ TBD from frozen benchmark artifacts.
 ## 6. Discussion and Threats to Validity
 ### 6.1 Threats to Validity
 
-**Skala korpus.** Fakta: 64.354 dokumen vs indeks skala web WebIQ. Tidak ada klaim scalability; klaim difokuskan pada ketepatan dan perilaku terkontrol.
+**Corpus scale.** The corpus contains 64,354 documents, which is small to medium in size compared with the web-scale WebIQ index of the reference paper. We therefore make no claims about scalability and restrict our conclusions to correctness and controlled search behavior.
 
-**Kekhususan domain.** Fakta: distribusi metadata JADESTA/berita berbeda dari YFCC/Caselaw/WebIQ di paper acuan.
+**Domain specificity.** Tourism evidence from JADESTA and online news has metadata distributions and semantic density that differ from the YFCC, Caselaw, and WebIQ collections used by Liu et al. (2026). Results may not transfer directly to other domains.
 
-**Keterwakilan kueri.** Fakta: kueri = 1.987 dokumen korpus yang ditahan (≥4 kata), bukan log pengguna; self-match dicegah.
+**Query representativeness.** Queries are 1,987 held-out corpus documents with at least four words, not real user search logs. Self-matches are prevented by excluding the query document, identical vectors, and documents in the same syndication lineage from each eligible set.
 
-**Distribusi filter.** Fakta: B5 hanya berisi predikat lebar, B1 tanpa predikat provinsi/kategori → perbandingan tunggal vs majemuk dibatasi ke B2–B3.
+**Filter distribution.** Match-rate bins are confounded with predicate type: B5 contains only broad predicates, while B1 contains no province or category predicates. Comparisons between single and compound predicates are therefore restricted to B2–B3, where both types are present.
 
-**Biaya ground truth eksak.** Fakta: kNN eksak layak karena korpus kecil (2.034 pasangan).
+**Exact ground truth cost.** Exact filtered kNN ground truth is feasible only because the corpus is small; it was computed offline for all 2,034 query–filter pairs.
 
-**Bias embedding dan asimetri teks.** Fakta: model dibekukan (MiniLM-L12-v2, 384 dimensi). Median panjang teks berita 74 karakter vs 133–152 JADESTA. Teks JADESTA bertemplat: cosine tetangga terdekat 0,92–0,93 vs 0,82 berita.
+**Embedding bias and text asymmetry.** The embedding model (paraphrase-multilingual-MiniLM-L12-v2, 384 dimensions) is frozen and shared by all methods. However, news texts are about half as long as JADESTA texts (median 74 versus 133–152 characters), and JADESTA texts are generated from a structured template, which raises their similarity to nearest neighbors (median cosine 0.92–0.93 versus 0.82 for news). Differences in recall across source types therefore mix filter selectivity with representation effects and are interpreted with caution.
 
-**Kualitas metadata.** Fakta: 16.340 perbaikan provinsi tercatat; 23% berita multi-kabupaten memakai any_match; robustness check: B4/B5 stabil, B2 bergeser ke rezim B1.
+**Metadata quality.** Province values were corrected before corpus construction, and all 16,340 corrections are recorded in the normalization report. About 23% of news articles are linked to more than one regency and are matched with an any-match rule. A robustness run that excludes these ambiguous articles leaves B4–B5 results stable, but shifts two B2 predicates into the B1 regime, where the method ranking changes.
 
-**Teks duplikat.** Fakta: 768 kelompok sindikasi; eksklusi kueri, vektor identik, dan story lineage yang sama.
+**Duplicate text.** Syndicated news was grouped into 768 story lineages and excluded from each query's eligible set, so that duplicates do not inflate neighborhood quality or stability.
 
-**Emulasi sumber daya.** (diisi setelah benchmark di VM)
+**Resource emulation.** (To be completed after the benchmark on the GCP VM.)
 
-**Ketepatan implementasi.** Fakta: implementasi dicocokkan dengan Algorithm 1–3 paper; 29 unit test lulus; traversal graf di Python (QPS diberi label "implementasi Python").
+**Implementation fidelity.** TwoHopSearch and AdaptiveL were checked line by line against Algorithms 1–3 of the reference paper and are covered by unit tests. Graph traversal is implemented in Python, so QPS and latency are reported as secondary results labeled "Python implementation", and the main cost curves use distance comparisons and predicate evaluations.
+
 ## 7. Conclusion
