@@ -24,18 +24,25 @@ from src.search.postfilter import postfilter_search
 from src.search.twohop import twohop_search
 
 
-# Predikat pengembangan: dua predikat layak (>= 100 titik) per bin B2-B5, dari tipe berbeda
-def dev_predicates(corpus: pd.DataFrame) -> dict[str, np.ndarray]:
+# Predikat pengembangan: dua predikat layak (>= 100 titik) per bin B2-B5, dari tipe berbeda.
+# exclude_ambiguous=True mengeluarkan berita ambigu (robustness check DT-3):
+# predikat wilayah tanpa berita multi-kabupaten, predikat kategori tanpa berita multi-kategori
+def dev_predicates(corpus: pd.DataFrame, exclude_ambiguous: bool = False) -> dict[str, np.ndarray]:
     has = lambda col, v: corpus[col].apply(lambda d: v in d).values
+    news = (corpus["source_type"] == "news").values
+    amb_region = news & corpus["region_ambiguous"].fillna(False).astype(bool).values
+    amb_cat = news & (corpus["category"].map(len) > 1).values
+    ok_region = ~amb_region if exclude_ambiguous else np.ones(len(corpus), bool)
+    ok_cat = ~amb_cat if exclude_ambiguous else np.ones(len(corpus), bool)
     preds = {
-        "B5|kategori=alam": has("category", "alam"),
+        "B5|kategori=alam": has("category", "alam") & ok_cat,
         "B5|temporal>=2026-07-23": (corpus["published_at"] >= "2026-07-23").values,
         "B4|penerbit=detik.com": (corpus["publisher_id"] == "detik.com").values,
-        "B4|provinsi=Bali": has("province", "Bali"),
+        "B4|provinsi=Bali": has("province", "Bali") & ok_region,
         "B3|penerbit=jawapos.com": (corpus["publisher_id"] == "jawapos.com").values,
-        "B3|provinsi=Aceh": has("province", "Aceh"),
-        "B2|kabupaten=Tanggamus": has("kabupaten", "Kabupaten Tanggamus"),
-        "B2|kabupaten=Pangandaran∧alam": has("kabupaten", "Kabupaten Pangandaran") & has("category", "alam"),
+        "B3|provinsi=Aceh": has("province", "Aceh") & ok_region,
+        "B2|kabupaten=Tanggamus": has("kabupaten", "Kabupaten Tanggamus") & ok_region,
+        "B2|kabupaten=Pangandaran∧alam": has("kabupaten", "Kabupaten Pangandaran") & has("category", "alam") & ok_region & ok_cat,
     }
     return preds
 
@@ -66,12 +73,19 @@ def main() -> None:
     ap.add_argument("--k", type=int, default=10)
     ap.add_argument("--seed", type=int, default=2906)
     ap.add_argument("--out", default="results/raw/dev_benchmark.jsonl")
+    ap.add_argument("--exclude-ambiguous", action="store_true",
+                    help="robustness check DT-3: berita ambigu dikeluarkan dari himpunan eligible")
     args = ap.parse_args()
 
     vectors = np.load("data/embeddings/base_vectors.npy")
     start, neighbors = load_vamana_graph("index/diskann/tourism")
     corpus = pd.read_parquet("data/processed/corpus.parquet")
-    preds = dev_predicates(corpus)
+    preds = dev_predicates(corpus, args.exclude_ambiguous)
+    # Pada robustness check, hanya predikat yang berubah karena eksklusi yang dijalankan
+    if args.exclude_ambiguous:
+        base = dev_predicates(corpus, False)
+        preds = {f: m for f, m in preds.items() if not np.array_equal(m, base[f])}
+        print("Predikat terdampak:", list(preds))
     query_idx = np.random.default_rng(args.seed).choice(len(vectors), size=args.n_queries, replace=False)
 
     rows = []
