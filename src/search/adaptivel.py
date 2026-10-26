@@ -81,6 +81,7 @@ def adaptivel_search(query: np.ndarray, vectors: np.ndarray, neighbors: list[np.
         "m_max": m_max,
         "sample_reached": sp_hat is not None,
         "sp_hat": sp_hat,
+        "n_match_sample": None if sp_hat is None else int(round(sp_hat * n_sample)),
         "multiplier": multiplier,
         "L_final": beam.L,
         "visited_nodes": n_visited,

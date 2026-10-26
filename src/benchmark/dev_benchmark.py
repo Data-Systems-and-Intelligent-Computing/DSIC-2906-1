@@ -51,6 +51,8 @@ def dev_predicates(corpus: pd.DataFrame, exclude_ambiguous: bool = False) -> dic
 # P1 dengan n_sample 32/64 (harus lebih kecil dari jumlah titik yang dikunjungi, kira-kira L) dan m_max 1/2/4/8
 def configs() -> list[dict]:
     out = [{"method": "postfilter", "candidate_budget": L} for L in (100, 200, 400)]
+    # Pembanding adil untuk AdaptiveL (DT-4): budget setara kasus terburuk L x m_max
+    out += [{"method": "postfilter", "candidate_budget": L * 8} for L in (100, 200, 400)]
     out += [{"method": "twohop", "L": L} for L in (100, 200, 400)]
     for L in (100, 200, 400):
         out.append({"method": "adaptivel", "L": L, "n_sample": 64, "m_max": 1})

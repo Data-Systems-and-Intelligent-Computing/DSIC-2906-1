@@ -25,6 +25,7 @@ def twohop_search(query: np.ndarray, vectors: np.ndarray, neighbors: list[np.nda
     n = len(vectors)
     seen = np.zeros(n, dtype=bool)
     visited = np.zeros(n, dtype=bool)
+    evaluated = np.zeros(n, dtype=bool)  # penanda titik yang predikatnya sudah pernah dicek (P4)
     seen[start] = True
     beam = Beam(L, n)
     beam.push(float(1.0 - vectors[start] @ query), start)
@@ -40,6 +41,7 @@ def twohop_search(query: np.ndarray, vectors: np.ndarray, neighbors: list[np.nda
         out = neighbors[nxt]
         one = out[~visited[out]]
         n_pred += len(one)
+        evaluated[one] = True
         ok = eligible[one]
         add = [one[ok]]
         U = one[~ok]
@@ -50,6 +52,7 @@ def twohop_search(query: np.ndarray, vectors: np.ndarray, neighbors: list[np.nda
             two = np.unique(np.concatenate([neighbors[u] for u in U]))
             two = two[~visited[two]]
             n_pred += len(two)
+            evaluated[two] = True
             add.append(two[eligible[two]])
 
         # Kandidat baru masuk frontier yang dipangkas ke L (baris 13-14)
@@ -69,6 +72,7 @@ def twohop_search(query: np.ndarray, vectors: np.ndarray, neighbors: list[np.nda
         "visited_nodes": n_visited,
         "distance_comparisons": n_dist,
         "predicate_evaluations": n_pred,
+        "predicate_evaluations_unique": int(evaluated.sum()),
         "twohop_expansions": n_twohop,
         "returned_count": len(result),
         "underfilled": len(result) < k,
