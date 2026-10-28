@@ -50,7 +50,7 @@ TBD from frozen benchmark artifacts.
 
 **Metadata quality.** Province values were corrected before corpus construction, and all 16,340 corrections are recorded in the normalization report. About 23% of news articles are linked to more than one regency and are matched with an any-match rule. A robustness run that excludes these ambiguous articles leaves B4–B5 results stable, but shifts two B2 predicates into the B1 regime, where the method ranking changes.
 
-**Duplicate text.** Syndicated news was grouped into 768 story lineages and excluded from each query's eligible set, so that duplicates do not inflate neighborhood quality or stability.
+**Duplicate text.** Syndicated news was grouped into 768 story lineages and excluded from each query's eligible set, so that duplicates do not inflate neighborhood quality or stability. All 342 lineage groups with non-identical titles (726 articles) were manually reviewed by the author: 10 groups (2.9%) were false positives, typically titles that differ only in a place name, number, or person's name. The threshold was kept fixed because the workload had already been frozen.
 
 **Resource emulation.** (To be completed after the benchmark on the GCP VM.)
 
