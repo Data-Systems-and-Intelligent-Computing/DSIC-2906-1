@@ -4,7 +4,7 @@ Status: workload v1 dan gt-v1 digantikan oleh workload v2 dan gt-v2 (commit 34b1
 
 ## 1. Perapian kolom provinsi pada v1 (provenance)
 
-- Pelaksana: [nama], dibantu alat AI Antigravity.
+- Pelaksana: Feby Angelina, dibantu alat AI Antigravity.
 - Waktu: 13 Oktober 2026, sekitar 01.03 WIB (waktu modifikasi berkas di data/raw/jadesta/), sebelum build_corpus.py v1.
 - Permintaan ke Antigravity: menyesuaikan kabupaten/kota untuk mengisi kolom provinsi.
 - Tabel pemetaan yang dipakai Antigravity tidak dicatat dan tidak berasal dari sumber resmi
@@ -59,7 +59,7 @@ Status: workload v1 dan gt-v1 digantikan oleh workload v2 dan gt-v2 (commit 34b1
 
 ## 5. Usulan entri decision log
 
-DL-[nomor] (29 Okt 2026) - Workload v2.
+DL-(menunggu nomor dari pembimbing) (29 Okt 2026) Workload v2.
 Workload v1 dan gt-v1 tidak dipakai karena provinsi v1 berasal dari perapian berbantuan AI
 tanpa tabel pemetaan berversi. Provinsi diturunkan dari kabupaten lewat tabel Kepmendagri
 300.2.2-2138/2025 (+18 alias yang ditinjau); kabupaten kosong/tidak dikenal ditandai tak
