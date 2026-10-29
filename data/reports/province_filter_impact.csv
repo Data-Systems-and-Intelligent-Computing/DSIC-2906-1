@@ -1,0 +1,149 @@
+filter_id,type,bin,province_value,kode_prov,n_eligible_v1_beku,match_rate_v1_beku,majemuk,n_eligible_v1_hitung_ulang,n_eligible_turunan,match_rate_turunan,berubah,catatan
+"{""province"": ""Jawa Timur""}",provinsi,B5,Jawa Timur,35,8649,0.13439724026478542,False,8649.0,8638.0,0.13422631071883642,True,
+"{""province"": ""Sulawesi Selatan""}",provinsi,B5,Sulawesi Selatan,73,7341,0.11407216334648973,False,7341.0,7233.0,0.11239394598626348,True,
+"{""province"": ""Jawa Tengah""}",provinsi,B5,Jawa Tengah,33,6569,0.1020760170307984,False,6569.0,6569.0,0.1020760170307984,False,
+"{""province"": ""Jawa Barat""}",provinsi,B4,Jawa Barat,32,6420,0.09976069863567144,False,6420.0,6420.0,0.09976069863567144,False,
+"{""province"": ""Sumatera Barat""}",provinsi,B4,Sumatera Barat,13,5875,0.09129191658638158,False,5875.0,5872.0,0.09124529943748641,True,
+"{""province"": ""DI Yogyakarta""}",provinsi,B4,DI Yogyakarta,34,5232,0.0813003076731827,False,5232.0,5185.0,0.08056997234049165,True,
+"{""province"": ""Nusa Tenggara Barat""}",provinsi,B4,Nusa Tenggara Barat,52,4049,0.06291761195885259,False,4049.0,4047.0,0.06288653385958914,True,
+"{""province"": ""Sumatera Utara""}",provinsi,B4,Sumatera Utara,12,3277,0.050921465643161266,False,3277.0,3277.0,0.050921465643161266,False,
+"{""province"": ""Sulawesi Utara""}",provinsi,B4,Sulawesi Utara,71,2412,0.03748018771171955,False,2412.0,2411.0,0.037464648662087825,True,
+"{""province"": ""Nusa Tenggara Timur""}",provinsi,B4,Nusa Tenggara Timur,53,2396,0.03723156291761196,False,2396.0,2396.0,0.03723156291761196,False,
+"{""province"": ""Bali""}",provinsi,B4,Bali,51,2231,0.03466761972837741,False,2231.0,2231.0,0.03466761972837741,False,
+"{""province"": ""Sulawesi Tenggara""}",provinsi,B4,Sulawesi Tenggara,74,2142,0.03328464431115393,False,2142.0,2137.0,0.03320694906299531,True,
+"{""province"": ""Kalimantan Timur""}",provinsi,B4,Kalimantan Timur,64,1881,0.029228952357273828,False,1881.0,1881.0,0.029228952357273828,False,
+"{""province"": ""Sulawesi Tengah""}",provinsi,B4,Sulawesi Tengah,72,1830,0.028436460826055877,False,1830.0,1830.0,0.028436460826055877,False,
+"{""province"": ""Maluku""}",provinsi,B4,Maluku,81,1786,0.02775274264226,False,1786.0,1777.0,0.027612891195574477,True,
+"{""province"": ""Kepulauan Bangka Belitung""}",provinsi,B4,Kepulauan Bangka Belitung,19,1752,0.027224414954781364,False,1752.0,1752.0,0.027224414954781364,False,
+"{""province"": ""Kalimantan Barat""}",provinsi,B4,Kalimantan Barat,61,1702,0.02644746247319514,False,1702.0,1702.0,0.02644746247319514,False,
+"{""province"": ""Lampung""}",provinsi,B4,Lampung,18,1669,0.02593467383534823,False,1669.0,1669.0,0.02593467383534823,False,
+"{""province"": ""DKI Jakarta""}",provinsi,B4,DKI Jakarta,31,1667,0.02590359573608478,False,1667.0,1667.0,0.02590359573608478,False,
+"{""province"": ""Kalimantan Tengah""}",provinsi,B3,Kalimantan Tengah,62,1355,0.02105541225098673,False,1355.0,1355.0,0.02105541225098673,False,
+"{""province"": ""Bengkulu""}",provinsi,B3,Bengkulu,17,1330,0.020666936010193617,False,1330.0,1330.0,0.020666936010193617,False,
+"{""province"": ""Aceh""}",provinsi,B3,Aceh,11,1243,0.019315038692233583,False,1243.0,1243.0,0.019315038692233583,False,
+"{""province"": ""Riau""}",provinsi,B3,Riau,14,1220,0.018957640550703918,False,1220.0,1220.0,0.018957640550703918,False,
+"{""province"": ""Banten""}",provinsi,B3,Banten,36,1217,0.018911023401808745,False,1217.0,1217.0,0.018911023401808745,False,
+"{""province"": ""Sulawesi Barat""}",provinsi,B3,Sulawesi Barat,76,1029,0.015989682071044536,False,1029.0,1017.0,0.015803213475463842,True,
+"{""province"": ""Sumatera Selatan""}",provinsi,B3,Sumatera Selatan,16,997,0.01549243248282935,False,997.0,997.0,0.01549243248282935,False,
+"{""province"": ""Kepulauan Riau""}",provinsi,B3,Kepulauan Riau,21,912,0.014171613264132766,False,912.0,912.0,0.014171613264132766,False,
+"{""province"": ""Jambi""}",provinsi,B3,Jambi,15,756,0.01174752152158374,False,756.0,756.0,0.01174752152158374,False,
+"{""province"": ""Maluku Utara""}",provinsi,B3,Maluku Utara,82,646,0.010038226062094043,False,646.0,646.0,0.010038226062094043,False,
+"{""province"": ""Kalimantan Utara""}",provinsi,B3,Kalimantan Utara,65,617,0.00958759362277403,False,617.0,617.0,0.00958759362277403,False,
+"{""province"": ""Kalimantan Selatan""}",provinsi,B3,Kalimantan Selatan,63,612,0.00950989837461541,False,612.0,612.0,0.00950989837461541,False,
+"{""province"": ""Papua Barat Daya""}",provinsi,B3,Papua Barat Daya,96,562,0.008732945893029182,False,562.0,562.0,0.008732945893029182,False,
+"{""province"": ""Gorontalo""}",provinsi,B3,Gorontalo,75,543,0.008437703950026416,False,543.0,530.0,0.008235696304813998,True,
+"{""province"": ""Papua""}",provinsi,B3,Papua,91,539,0.008375547751499518,False,539.0,539.0,0.008375547751499518,False,
+"{""province"": ""Papua Barat""}",provinsi,B3,Papua Barat,92,403,0.006262237001584983,False,403.0,403.0,0.006262237001584983,False,
+"{""province"": ""Papua Pegunungan""}",provinsi,B2,Papua Pegunungan,95,136,0.002113310749914535,False,136.0,136.0,0.002113310749914535,False,
+"{""province"": ""Papua Selatan""}",provinsi,B1,Papua Selatan,93,1,1.5539049631724523e-05,False,1.0,1.0,1.5539049631724523e-05,False,
+"{""province"": ""Papua Tengah""}",provinsi,B1,Papua Tengah,94,1,1.5539049631724523e-05,False,1.0,1.0,1.5539049631724523e-05,False,
+"{""province"": ""Aceh"", ""source_type"": ""jadesta_atraksi""}",provinsi_tipe_sumber,B2,Aceh,11,186,0.0028902632315007614,True,,,,,predikat majemuk: hitung ulang lewat pipeline filter
+"{""province"": ""Aceh"", ""source_type"": ""jadesta_desa""}",provinsi_tipe_sumber,B2,Aceh,11,139,0.002159927898809709,True,,,,,predikat majemuk: hitung ulang lewat pipeline filter
+"{""province"": ""Aceh"", ""source_type"": ""news""}",provinsi_tipe_sumber,B3,Aceh,11,918,0.014264847561923113,True,,,,,predikat majemuk: hitung ulang lewat pipeline filter
+"{""province"": ""Bali"", ""source_type"": ""jadesta_atraksi""}",provinsi_tipe_sumber,B3,Bali,51,416,0.006464244646797402,True,,,,,predikat majemuk: hitung ulang lewat pipeline filter
+"{""province"": ""Bali"", ""source_type"": ""jadesta_desa""}",provinsi_tipe_sumber,B2,Bali,51,175,0.0027193336855517915,True,,,,,predikat majemuk: hitung ulang lewat pipeline filter
+"{""province"": ""Bali"", ""source_type"": ""news""}",provinsi_tipe_sumber,B4,Bali,51,1640,0.02548404139602822,True,,,,,predikat majemuk: hitung ulang lewat pipeline filter
+"{""province"": ""Banten"", ""source_type"": ""jadesta_atraksi""}",provinsi_tipe_sumber,B2,Banten,36,226,0.0035118252167697424,True,,,,,predikat majemuk: hitung ulang lewat pipeline filter
+"{""province"": ""Banten"", ""source_type"": ""jadesta_desa""}",provinsi_tipe_sumber,B2,Banten,36,87,0.0013518973179600336,True,,,,,predikat majemuk: hitung ulang lewat pipeline filter
+"{""province"": ""Banten"", ""source_type"": ""news""}",provinsi_tipe_sumber,B3,Banten,36,904,0.01404730086707897,True,,,,,predikat majemuk: hitung ulang lewat pipeline filter
+"{""province"": ""Bengkulu"", ""source_type"": ""jadesta_atraksi""}",provinsi_tipe_sumber,B2,Bengkulu,17,230,0.0035739814152966403,True,,,,,predikat majemuk: hitung ulang lewat pipeline filter
+"{""province"": ""Bengkulu"", ""source_type"": ""jadesta_desa""}",provinsi_tipe_sumber,B2,Bengkulu,17,89,0.0013829754172234826,True,,,,,predikat majemuk: hitung ulang lewat pipeline filter
+"{""province"": ""Bengkulu"", ""source_type"": ""news""}",provinsi_tipe_sumber,B3,Bengkulu,17,1011,0.015709979177673493,True,,,,,predikat majemuk: hitung ulang lewat pipeline filter
+"{""province"": ""DI Yogyakarta"", ""source_type"": ""jadesta_atraksi""}",provinsi_tipe_sumber,B3,DI Yogyakarta,34,956,0.014855331447928645,True,,,,,predikat majemuk: hitung ulang lewat pipeline filter
+"{""province"": ""DI Yogyakarta"", ""source_type"": ""jadesta_desa""}",provinsi_tipe_sumber,B2,DI Yogyakarta,34,230,0.0035739814152966403,True,,,,,predikat majemuk: hitung ulang lewat pipeline filter
+"{""province"": ""DI Yogyakarta"", ""source_type"": ""news""}",provinsi_tipe_sumber,B4,DI Yogyakarta,34,4046,0.06287099480995742,True,,,,,predikat majemuk: hitung ulang lewat pipeline filter
+"{""province"": ""DKI Jakarta"", ""source_type"": ""jadesta_atraksi""}",provinsi_tipe_sumber,B2,DKI Jakarta,31,246,0.0038226062094042328,True,,,,,predikat majemuk: hitung ulang lewat pipeline filter
+"{""province"": ""DKI Jakarta"", ""source_type"": ""jadesta_desa""}",provinsi_tipe_sumber,B1,DKI Jakarta,31,36,0.0005594057867420828,True,,,,,predikat majemuk: hitung ulang lewat pipeline filter
+"{""province"": ""DKI Jakarta"", ""source_type"": ""news""}",provinsi_tipe_sumber,B3,DKI Jakarta,31,1385,0.021521583739938465,True,,,,,predikat majemuk: hitung ulang lewat pipeline filter
+"{""province"": ""Gorontalo"", ""source_type"": ""jadesta_atraksi""}",provinsi_tipe_sumber,B1,Gorontalo,75,63,0.000978960126798645,True,,,,,predikat majemuk: hitung ulang lewat pipeline filter
+"{""province"": ""Gorontalo"", ""source_type"": ""jadesta_desa""}",provinsi_tipe_sumber,B1,Gorontalo,75,47,0.0007303353326910526,True,,,,,predikat majemuk: hitung ulang lewat pipeline filter
+"{""province"": ""Gorontalo"", ""source_type"": ""news""}",provinsi_tipe_sumber,B3,Gorontalo,75,433,0.006728408490536719,True,,,,,predikat majemuk: hitung ulang lewat pipeline filter
+"{""province"": ""Jambi"", ""source_type"": ""jadesta_atraksi""}",provinsi_tipe_sumber,B2,Jambi,15,138,0.002144388849177984,True,,,,,predikat majemuk: hitung ulang lewat pipeline filter
+"{""province"": ""Jambi"", ""source_type"": ""jadesta_desa""}",provinsi_tipe_sumber,B2,Jambi,15,84,0.00130528016906486,True,,,,,predikat majemuk: hitung ulang lewat pipeline filter
+"{""province"": ""Jambi"", ""source_type"": ""news""}",provinsi_tipe_sumber,B3,Jambi,15,534,0.008297852503340896,True,,,,,predikat majemuk: hitung ulang lewat pipeline filter
+"{""province"": ""Jawa Barat"", ""source_type"": ""jadesta_atraksi""}",provinsi_tipe_sumber,B3,Jawa Barat,32,1081,0.01679771265189421,True,,,,,predikat majemuk: hitung ulang lewat pipeline filter
+"{""province"": ""Jawa Barat"", ""source_type"": ""jadesta_desa""}",provinsi_tipe_sumber,B3,Jawa Barat,32,451,0.00700811138390776,True,,,,,predikat majemuk: hitung ulang lewat pipeline filter
+"{""province"": ""Jawa Barat"", ""source_type"": ""news""}",provinsi_tipe_sumber,B4,Jawa Barat,32,4888,0.07595487459986947,True,,,,,predikat majemuk: hitung ulang lewat pipeline filter
+"{""province"": ""Jawa Tengah"", ""source_type"": ""jadesta_atraksi""}",provinsi_tipe_sumber,B3,Jawa Tengah,33,1193,0.018538086210647356,True,,,,,predikat majemuk: hitung ulang lewat pipeline filter
+"{""province"": ""Jawa Tengah"", ""source_type"": ""jadesta_desa""}",provinsi_tipe_sumber,B3,Jawa Tengah,33,612,0.00950989837461541,True,,,,,predikat majemuk: hitung ulang lewat pipeline filter
+"{""province"": ""Jawa Tengah"", ""source_type"": ""news""}",provinsi_tipe_sumber,B4,Jawa Tengah,33,4764,0.07402803244553563,True,,,,,predikat majemuk: hitung ulang lewat pipeline filter
+"{""province"": ""Jawa Timur"", ""source_type"": ""jadesta_atraksi""}",provinsi_tipe_sumber,B4,Jawa Timur,35,1683,0.026152220530192373,True,,,,,predikat majemuk: hitung ulang lewat pipeline filter
+"{""province"": ""Jawa Timur"", ""source_type"": ""jadesta_desa""}",provinsi_tipe_sumber,B3,Jawa Timur,35,635,0.009867296516145072,True,,,,,predikat majemuk: hitung ulang lewat pipeline filter
+"{""province"": ""Jawa Timur"", ""source_type"": ""news""}",provinsi_tipe_sumber,B4,Jawa Timur,35,6331,0.09837772321844795,True,,,,,predikat majemuk: hitung ulang lewat pipeline filter
+"{""province"": ""Kalimantan Barat"", ""source_type"": ""jadesta_atraksi""}",provinsi_tipe_sumber,B3,Kalimantan Barat,61,364,0.005656214065947727,True,,,,,predikat majemuk: hitung ulang lewat pipeline filter
+"{""province"": ""Kalimantan Barat"", ""source_type"": ""jadesta_desa""}",provinsi_tipe_sumber,B2,Kalimantan Barat,61,99,0.0015383659135407277,True,,,,,predikat majemuk: hitung ulang lewat pipeline filter
+"{""province"": ""Kalimantan Barat"", ""source_type"": ""news""}",provinsi_tipe_sumber,B3,Kalimantan Barat,61,1239,0.019252882493706686,True,,,,,predikat majemuk: hitung ulang lewat pipeline filter
+"{""province"": ""Kalimantan Selatan"", ""source_type"": ""jadesta_atraksi""}",provinsi_tipe_sumber,B2,Kalimantan Selatan,63,112,0.0017403735587531468,True,,,,,predikat majemuk: hitung ulang lewat pipeline filter
+"{""province"": ""Kalimantan Selatan"", ""source_type"": ""jadesta_desa""}",provinsi_tipe_sumber,B1,Kalimantan Selatan,63,61,0.000947882027535196,True,,,,,predikat majemuk: hitung ulang lewat pipeline filter
+"{""province"": ""Kalimantan Selatan"", ""source_type"": ""news""}",provinsi_tipe_sumber,B3,Kalimantan Selatan,63,439,0.006821642788327066,True,,,,,predikat majemuk: hitung ulang lewat pipeline filter
+"{""province"": ""Kalimantan Tengah"", ""source_type"": ""jadesta_atraksi""}",provinsi_tipe_sumber,B2,Kalimantan Tengah,62,215,0.0033408956708207726,True,,,,,predikat majemuk: hitung ulang lewat pipeline filter
+"{""province"": ""Kalimantan Tengah"", ""source_type"": ""jadesta_desa""}",provinsi_tipe_sumber,B2,Kalimantan Tengah,62,75,0.0011654287223793393,True,,,,,predikat majemuk: hitung ulang lewat pipeline filter
+"{""province"": ""Kalimantan Tengah"", ""source_type"": ""news""}",provinsi_tipe_sumber,B3,Kalimantan Tengah,62,1065,0.016549087857786617,True,,,,,predikat majemuk: hitung ulang lewat pipeline filter
+"{""province"": ""Kalimantan Timur"", ""source_type"": ""jadesta_atraksi""}",provinsi_tipe_sumber,B2,Kalimantan Timur,64,305,0.0047394101376759794,True,,,,,predikat majemuk: hitung ulang lewat pipeline filter
+"{""province"": ""Kalimantan Timur"", ""source_type"": ""jadesta_desa""}",provinsi_tipe_sumber,B2,Kalimantan Timur,64,138,0.002144388849177984,True,,,,,predikat majemuk: hitung ulang lewat pipeline filter
+"{""province"": ""Kalimantan Timur"", ""source_type"": ""news""}",provinsi_tipe_sumber,B3,Kalimantan Timur,64,1438,0.022345153370419864,True,,,,,predikat majemuk: hitung ulang lewat pipeline filter
+"{""province"": ""Kalimantan Utara"", ""source_type"": ""jadesta_atraksi""}",provinsi_tipe_sumber,B2,Kalimantan Utara,65,144,0.0022376231469683314,True,,,,,predikat majemuk: hitung ulang lewat pipeline filter
+"{""province"": ""Kalimantan Utara"", ""source_type"": ""jadesta_desa""}",provinsi_tipe_sumber,B1,Kalimantan Utara,65,41,0.0006371010349007054,True,,,,,predikat majemuk: hitung ulang lewat pipeline filter
+"{""province"": ""Kalimantan Utara"", ""source_type"": ""news""}",provinsi_tipe_sumber,B3,Kalimantan Utara,65,432,0.006712869440904995,True,,,,,predikat majemuk: hitung ulang lewat pipeline filter
+"{""province"": ""Kepulauan Bangka Belitung"", ""source_type"": ""jadesta_atraksi""}",provinsi_tipe_sumber,B3,Kepulauan Bangka Belitung,19,373,0.005796065512633247,True,,,,,predikat majemuk: hitung ulang lewat pipeline filter
+"{""province"": ""Kepulauan Bangka Belitung"", ""source_type"": ""jadesta_desa""}",provinsi_tipe_sumber,B2,Kepulauan Bangka Belitung,19,99,0.0015383659135407277,True,,,,,predikat majemuk: hitung ulang lewat pipeline filter
+"{""province"": ""Kepulauan Bangka Belitung"", ""source_type"": ""news""}",provinsi_tipe_sumber,B3,Kepulauan Bangka Belitung,19,1280,0.01988998352860739,True,,,,,predikat majemuk: hitung ulang lewat pipeline filter
+"{""province"": ""Kepulauan Riau"", ""source_type"": ""jadesta_atraksi""}",provinsi_tipe_sumber,B2,Kepulauan Riau,21,107,0.001662678310594524,True,,,,,predikat majemuk: hitung ulang lewat pipeline filter
+"{""province"": ""Kepulauan Riau"", ""source_type"": ""jadesta_desa""}",provinsi_tipe_sumber,B1,Kepulauan Riau,21,46,0.0007147962830593281,True,,,,,predikat majemuk: hitung ulang lewat pipeline filter
+"{""province"": ""Kepulauan Riau"", ""source_type"": ""news""}",provinsi_tipe_sumber,B3,Kepulauan Riau,21,759,0.011794138670478913,True,,,,,predikat majemuk: hitung ulang lewat pipeline filter
+"{""province"": ""Lampung"", ""source_type"": ""jadesta_atraksi""}",provinsi_tipe_sumber,B2,Lampung,18,254,0.003946918606458029,True,,,,,predikat majemuk: hitung ulang lewat pipeline filter
+"{""province"": ""Lampung"", ""source_type"": ""jadesta_desa""}",provinsi_tipe_sumber,B2,Lampung,18,141,0.0021910059980731578,True,,,,,predikat majemuk: hitung ulang lewat pipeline filter
+"{""province"": ""Lampung"", ""source_type"": ""news""}",provinsi_tipe_sumber,B3,Lampung,18,1274,0.019796749230817045,True,,,,,predikat majemuk: hitung ulang lewat pipeline filter
+"{""province"": ""Maluku"", ""source_type"": ""jadesta_atraksi""}",provinsi_tipe_sumber,B3,Maluku,81,381,0.005920377909687044,True,,,,,predikat majemuk: hitung ulang lewat pipeline filter
+"{""province"": ""Maluku"", ""source_type"": ""jadesta_desa""}",provinsi_tipe_sumber,B2,Maluku,81,138,0.002144388849177984,True,,,,,predikat majemuk: hitung ulang lewat pipeline filter
+"{""province"": ""Maluku"", ""source_type"": ""news""}",provinsi_tipe_sumber,B3,Maluku,81,1267,0.01968797588339497,True,,,,,predikat majemuk: hitung ulang lewat pipeline filter
+"{""province"": ""Maluku Utara"", ""source_type"": ""jadesta_atraksi""}",provinsi_tipe_sumber,B2,Maluku Utara,82,79,0.0012275849209062374,True,,,,,predikat majemuk: hitung ulang lewat pipeline filter
+"{""province"": ""Maluku Utara"", ""source_type"": ""jadesta_desa""}",provinsi_tipe_sumber,B1,Maluku Utara,82,45,0.0006992572334276035,True,,,,,predikat majemuk: hitung ulang lewat pipeline filter
+"{""province"": ""Maluku Utara"", ""source_type"": ""news""}",provinsi_tipe_sumber,B3,Maluku Utara,82,522,0.008111383907760202,True,,,,,predikat majemuk: hitung ulang lewat pipeline filter
+"{""province"": ""Nusa Tenggara Barat"", ""source_type"": ""jadesta_atraksi""}",provinsi_tipe_sumber,B3,Nusa Tenggara Barat,52,635,0.009867296516145072,True,,,,,predikat majemuk: hitung ulang lewat pipeline filter
+"{""province"": ""Nusa Tenggara Barat"", ""source_type"": ""jadesta_desa""}",provinsi_tipe_sumber,B2,Nusa Tenggara Barat,52,277,0.004304316747987693,True,,,,,predikat majemuk: hitung ulang lewat pipeline filter
+"{""province"": ""Nusa Tenggara Barat"", ""source_type"": ""news""}",provinsi_tipe_sumber,B4,Nusa Tenggara Barat,52,3137,0.04874599869471983,True,,,,,predikat majemuk: hitung ulang lewat pipeline filter
+"{""province"": ""Nusa Tenggara Timur"", ""source_type"": ""jadesta_atraksi""}",provinsi_tipe_sumber,B3,Nusa Tenggara Timur,53,402,0.006246697951953258,True,,,,,predikat majemuk: hitung ulang lewat pipeline filter
+"{""province"": ""Nusa Tenggara Timur"", ""source_type"": ""jadesta_desa""}",provinsi_tipe_sumber,B2,Nusa Tenggara Timur,53,174,0.0027037946359200673,True,,,,,predikat majemuk: hitung ulang lewat pipeline filter
+"{""province"": ""Nusa Tenggara Timur"", ""source_type"": ""news""}",provinsi_tipe_sumber,B4,Nusa Tenggara Timur,53,1820,0.028281070329738634,True,,,,,predikat majemuk: hitung ulang lewat pipeline filter
+"{""province"": ""Papua"", ""source_type"": ""jadesta_atraksi""}",provinsi_tipe_sumber,B2,Papua,91,131,0.0020356155017559126,True,,,,,predikat majemuk: hitung ulang lewat pipeline filter
+"{""province"": ""Papua"", ""source_type"": ""jadesta_desa""}",provinsi_tipe_sumber,B2,Papua,91,81,0.0012586630201696864,True,,,,,predikat majemuk: hitung ulang lewat pipeline filter
+"{""province"": ""Papua"", ""source_type"": ""news""}",provinsi_tipe_sumber,B3,Papua,91,327,0.005081269229573919,True,,,,,predikat majemuk: hitung ulang lewat pipeline filter
+"{""province"": ""Papua Barat"", ""source_type"": ""jadesta_atraksi""}",provinsi_tipe_sumber,B1,Papua Barat,92,41,0.0006371010349007054,True,,,,,predikat majemuk: hitung ulang lewat pipeline filter
+"{""province"": ""Papua Barat"", ""source_type"": ""jadesta_desa""}",provinsi_tipe_sumber,B1,Papua Barat,92,34,0.0005283276874786338,True,,,,,predikat majemuk: hitung ulang lewat pipeline filter
+"{""province"": ""Papua Barat"", ""source_type"": ""news""}",provinsi_tipe_sumber,B3,Papua Barat,92,328,0.005096808279205643,True,,,,,predikat majemuk: hitung ulang lewat pipeline filter
+"{""province"": ""Papua Barat Daya"", ""source_type"": ""jadesta_atraksi""}",provinsi_tipe_sumber,B2,Papua Barat Daya,96,103,0.0016005221120676259,True,,,,,predikat majemuk: hitung ulang lewat pipeline filter
+"{""province"": ""Papua Barat Daya"", ""source_type"": ""jadesta_desa""}",provinsi_tipe_sumber,B1,Papua Barat Daya,96,40,0.000621561985268981,True,,,,,predikat majemuk: hitung ulang lewat pipeline filter
+"{""province"": ""Papua Barat Daya"", ""source_type"": ""news""}",provinsi_tipe_sumber,B3,Papua Barat Daya,96,419,0.006510861795692576,True,,,,,predikat majemuk: hitung ulang lewat pipeline filter
+"{""province"": ""Papua Pegunungan"", ""source_type"": ""jadesta_atraksi""}",provinsi_tipe_sumber,B1,Papua Pegunungan,95,12,0.0001864685955806943,True,,,,,predikat majemuk: hitung ulang lewat pipeline filter
+"{""province"": ""Papua Pegunungan"", ""source_type"": ""jadesta_desa""}",provinsi_tipe_sumber,B1,Papua Pegunungan,95,13,0.00020200764521241882,True,,,,,predikat majemuk: hitung ulang lewat pipeline filter
+"{""province"": ""Papua Pegunungan"", ""source_type"": ""news""}",provinsi_tipe_sumber,B2,Papua Pegunungan,95,111,0.001724834509121422,True,,,,,predikat majemuk: hitung ulang lewat pipeline filter
+"{""province"": ""Papua Selatan"", ""source_type"": ""jadesta_desa""}",provinsi_tipe_sumber,B1,Papua Selatan,93,1,1.5539049631724523e-05,True,,,,,predikat majemuk: hitung ulang lewat pipeline filter
+"{""province"": ""Papua Tengah"", ""source_type"": ""jadesta_desa""}",provinsi_tipe_sumber,B1,Papua Tengah,94,1,1.5539049631724523e-05,True,,,,,predikat majemuk: hitung ulang lewat pipeline filter
+"{""province"": ""Riau"", ""source_type"": ""jadesta_atraksi""}",provinsi_tipe_sumber,B2,Riau,14,225,0.0034962861671380178,True,,,,,predikat majemuk: hitung ulang lewat pipeline filter
+"{""province"": ""Riau"", ""source_type"": ""jadesta_desa""}",provinsi_tipe_sumber,B2,Riau,14,121,0.0018802250054386674,True,,,,,predikat majemuk: hitung ulang lewat pipeline filter
+"{""province"": ""Riau"", ""source_type"": ""news""}",provinsi_tipe_sumber,B3,Riau,14,874,0.013581129378127233,True,,,,,predikat majemuk: hitung ulang lewat pipeline filter
+"{""province"": ""Sulawesi Barat"", ""source_type"": ""jadesta_atraksi""}",provinsi_tipe_sumber,B2,Sulawesi Barat,76,210,0.00326320042266215,True,,,,,predikat majemuk: hitung ulang lewat pipeline filter
+"{""province"": ""Sulawesi Barat"", ""source_type"": ""jadesta_desa""}",provinsi_tipe_sumber,B2,Sulawesi Barat,76,85,0.0013208192186965845,True,,,,,predikat majemuk: hitung ulang lewat pipeline filter
+"{""province"": ""Sulawesi Barat"", ""source_type"": ""news""}",provinsi_tipe_sumber,B3,Sulawesi Barat,76,734,0.011405662429685801,True,,,,,predikat majemuk: hitung ulang lewat pipeline filter
+"{""province"": ""Sulawesi Selatan"", ""source_type"": ""jadesta_atraksi""}",provinsi_tipe_sumber,B3,Sulawesi Selatan,73,1396,0.021692513285887435,True,,,,,predikat majemuk: hitung ulang lewat pipeline filter
+"{""province"": ""Sulawesi Selatan"", ""source_type"": ""jadesta_desa""}",provinsi_tipe_sumber,B3,Sulawesi Selatan,73,538,0.008360008701867793,True,,,,,predikat majemuk: hitung ulang lewat pipeline filter
+"{""province"": ""Sulawesi Selatan"", ""source_type"": ""news""}",provinsi_tipe_sumber,B4,Sulawesi Selatan,73,5407,0.0840196413587345,True,,,,,predikat majemuk: hitung ulang lewat pipeline filter
+"{""province"": ""Sulawesi Tengah"", ""source_type"": ""jadesta_atraksi""}",provinsi_tipe_sumber,B2,Sulawesi Tengah,72,290,0.004506324393200112,True,,,,,predikat majemuk: hitung ulang lewat pipeline filter
+"{""province"": ""Sulawesi Tengah"", ""source_type"": ""jadesta_desa""}",provinsi_tipe_sumber,B2,Sulawesi Tengah,72,138,0.002144388849177984,True,,,,,predikat majemuk: hitung ulang lewat pipeline filter
+"{""province"": ""Sulawesi Tengah"", ""source_type"": ""news""}",provinsi_tipe_sumber,B3,Sulawesi Tengah,72,1402,0.02178574758367778,True,,,,,predikat majemuk: hitung ulang lewat pipeline filter
+"{""province"": ""Sulawesi Tenggara"", ""source_type"": ""jadesta_atraksi""}",provinsi_tipe_sumber,B3,Sulawesi Tenggara,74,385,0.005982534108213942,True,,,,,predikat majemuk: hitung ulang lewat pipeline filter
+"{""province"": ""Sulawesi Tenggara"", ""source_type"": ""jadesta_desa""}",provinsi_tipe_sumber,B2,Sulawesi Tenggara,74,237,0.0036827547627187123,True,,,,,predikat majemuk: hitung ulang lewat pipeline filter
+"{""province"": ""Sulawesi Tenggara"", ""source_type"": ""news""}",provinsi_tipe_sumber,B3,Sulawesi Tenggara,74,1520,0.023619355440221278,True,,,,,predikat majemuk: hitung ulang lewat pipeline filter
+"{""province"": ""Sulawesi Utara"", ""source_type"": ""jadesta_atraksi""}",provinsi_tipe_sumber,B3,Sulawesi Utara,71,377,0.005858221711160146,True,,,,,predikat majemuk: hitung ulang lewat pipeline filter
+"{""province"": ""Sulawesi Utara"", ""source_type"": ""jadesta_desa""}",provinsi_tipe_sumber,B2,Sulawesi Utara,71,127,0.0019734593032290147,True,,,,,predikat majemuk: hitung ulang lewat pipeline filter
+"{""province"": ""Sulawesi Utara"", ""source_type"": ""news""}",provinsi_tipe_sumber,B4,Sulawesi Utara,71,1908,0.029648506697330393,True,,,,,predikat majemuk: hitung ulang lewat pipeline filter
+"{""province"": ""Sumatera Barat"", ""source_type"": ""jadesta_atraksi""}",provinsi_tipe_sumber,B3,Sumatera Barat,13,1367,0.021241880846567425,True,,,,,predikat majemuk: hitung ulang lewat pipeline filter
+"{""province"": ""Sumatera Barat"", ""source_type"": ""jadesta_desa""}",provinsi_tipe_sumber,B3,Sumatera Barat,13,569,0.008841719240451254,True,,,,,predikat majemuk: hitung ulang lewat pipeline filter
+"{""province"": ""Sumatera Barat"", ""source_type"": ""news""}",provinsi_tipe_sumber,B4,Sumatera Barat,13,3939,0.0612083164993629,True,,,,,predikat majemuk: hitung ulang lewat pipeline filter
+"{""province"": ""Sumatera Selatan"", ""source_type"": ""jadesta_atraksi""}",provinsi_tipe_sumber,B2,Sumatera Selatan,16,167,0.0025950212884979953,True,,,,,predikat majemuk: hitung ulang lewat pipeline filter
+"{""province"": ""Sumatera Selatan"", ""source_type"": ""jadesta_desa""}",provinsi_tipe_sumber,B2,Sumatera Selatan,16,122,0.001895764055070392,True,,,,,predikat majemuk: hitung ulang lewat pipeline filter
+"{""province"": ""Sumatera Selatan"", ""source_type"": ""news""}",provinsi_tipe_sumber,B3,Sumatera Selatan,16,708,0.011001647139260962,True,,,,,predikat majemuk: hitung ulang lewat pipeline filter
+"{""province"": ""Sumatera Utara"", ""source_type"": ""jadesta_atraksi""}",provinsi_tipe_sumber,B3,Sumatera Utara,12,639,0.009929452714671971,True,,,,,predikat majemuk: hitung ulang lewat pipeline filter
+"{""province"": ""Sumatera Utara"", ""source_type"": ""jadesta_desa""}",provinsi_tipe_sumber,B2,Sumatera Utara,12,303,0.004708332038412531,True,,,,,predikat majemuk: hitung ulang lewat pipeline filter
+"{""province"": ""Sumatera Utara"", ""source_type"": ""news""}",provinsi_tipe_sumber,B4,Sumatera Utara,12,2335,0.03628368089007676,True,,,,,predikat majemuk: hitung ulang lewat pipeline filter
