@@ -3,7 +3,7 @@ ringkasan_bimbingan.py
 Menampilkan angka-angka utama progres DSIC-2906-1 langsung dari artefak di repo,
 untuk ditunjukkan saat bimbingan. Hanya membaca, tidak mengubah berkas apa pun.
 
-Jalankan dari root repo:  python scripts/ringkasan_bimbingan.py [bagian] [--csv DIR]
+Jalankan dari root repo:  python scripts/ringkasan_bimbingan.py [bagian] [--csv DIR] [--dev-log JSONL]
 bagian (opsional): workload | dt4 | p3 | p11 | p4 | robust | templat | sindikasi
 
 Dengan --csv DIR, setiap tabel ringkasan juga ditulis sebagai CSV kecil ke DIR
@@ -27,6 +27,11 @@ CATATAN_RUN = ""
 if "--csv" in _args:
     i = _args.index("--csv")
     CSV_DIR = Path(_args[i + 1])
+    del _args[i:i + 2]
+DEV_LOG = "results/raw/dev_benchmark.jsonl"
+if "--dev-log" in _args:
+    i = _args.index("--dev-log")
+    DEV_LOG = _args[i + 1]
     del _args[i:i + 2]
 if "--catatan-run" in _args:
     i = _args.index("--catatan-run")
@@ -99,7 +104,7 @@ if bagian in ("semua", "workload"):
 
 d = None
 if bagian in ("semua", "dt4", "p3", "p11", "p4"):
-    d = baca("results/raw/dev_benchmark.jsonl")
+    d = baca(DEV_LOG)
 
 # DT-4: AdaptiveL vs PostFilter dengan budget setara L x m_max
 if bagian in ("semua", "dt4"):
@@ -136,7 +141,7 @@ if bagian in ("semua", "p4"):
 # Robustness DT-3: dengan vs tanpa berita ambigu
 if bagian in ("semua", "robust"):
     judul("6. ROBUSTNESS DT-3: RECALL any_match -> tanpa berita ambigu")
-    a = baca("results/raw/dev_benchmark.jsonl")
+    a = baca(DEV_LOG)
     b = baca("results/raw/dev_benchmark_robust.jsonl")
     a = a[a.filter_id.isin(b.filter_id.unique())]
     kolom = ["PF400", "TH400", "AL400"]
@@ -169,7 +174,7 @@ if CSV_DIR is not None and _ditulis:
         except Exception:
             return None
     sumber = {}
-    for p in ("results/raw/dev_benchmark.jsonl", "results/raw/dev_benchmark_robust.jsonl"):
+    for p in (DEV_LOG, "results/raw/dev_benchmark_robust.jsonl"):
         if Path(p).is_file() and p in _cache:
             sumber[p] = {"sha256": sha256(p), "n_baris": int(len(_cache[p])),
                          "diubah_utc": datetime.fromtimestamp(Path(p).stat().st_mtime, timezone.utc)

@@ -72,7 +72,8 @@ def run_one(c: dict, q, vectors, neighbors, start, eligible, k: int, timeout_ms)
 
 # Inti benchmark tanpa I/O berkas, agar bisa diuji dengan data sintetis
 def run_pairs(corpus: pd.DataFrame, vectors: np.ndarray, neighbors, start: int, workload: pd.DataFrame,
-              gt: pd.DataFrame, configs: list[dict], k: int, timeout_ms, meta: dict, sink=None) -> list[dict]:
+              gt: pd.DataFrame, configs: list[dict], k: int, timeout_ms, meta: dict, sink=None,
+              repeats: int = 1) -> list[dict]:
     gt_rows = dict(zip(gt["pair_id"], gt["gt_rows"]))
     masks: dict[str, np.ndarray] = {}
     out = []
@@ -86,7 +87,8 @@ def run_pairs(corpus: pd.DataFrame, vectors: np.ndarray, neighbors, start: int, 
         q = vectors[pr.query_row]
 
         batch = []
-        for c in configs:
+        # Ulangan kueri identik untuk stabilitas (README bagian 26); repeats=1 untuk benchmark biasa
+        for c, rep_i in itertools.product(configs, range(repeats)):
             t0 = time.perf_counter()
             result, stats = run_one(c, q, vectors, neighbors, start, eligible, k, timeout_ms)
             latency_ms = (time.perf_counter() - t0) * 1000
@@ -100,7 +102,8 @@ def run_pairs(corpus: pd.DataFrame, vectors: np.ndarray, neighbors, start: int, 
                 "match_rate": float(pr.match_rate), "n_eligible": int(pr.n_eligible), "k": k,
                 "config": " ".join(f"{a}={b}" for a, b in c.items()),
                 "recall_at_10": len(truth & set(result)) / len(truth) if truth else None,
-                "latency_ms": latency_ms, "timeout_ms": timeout_ms,
+                "latency_ms": latency_ms, "timeout_ms": timeout_ms, "repeat": rep_i,
+                "result_rows": [int(i) for i in result],
                 "timeout": bool(stats.get("timeout", False)),
                 **meta,
             })
@@ -131,6 +134,7 @@ def main() -> None:
     ap.add_argument("--set", dest="set_name", choices=["utama", "ekstensi", "all"], default="all")
     ap.add_argument("--resource-profile", required=True, help="mis. lightsail-t3.xlarge")
     ap.add_argument("--out", required=True)
+    ap.add_argument("--repeats", type=int, default=1, help="ulangan kueri identik untuk stabilitas (E6)")
     args = ap.parse_args()
 
     cfg = yaml.safe_load(Path(args.config).read_text(encoding="utf-8"))
@@ -165,9 +169,9 @@ def main() -> None:
         "run_started_utc": datetime.now(timezone.utc).isoformat(timespec="seconds"),
     }
     configs = method_configs(cfg)
-    print(f"{len(sel)} pasangan x {len(configs)} konfigurasi -> {args.out}")
+    print(f"{len(sel)} pasangan x {len(configs)} konfigurasi x {args.repeats} ulangan -> {args.out}")
     run_pairs(corpus, vectors, neighbors, start, sel, gt, configs, k, timeout_ms, meta,
-              sink=lambda r: append_jsonl(args.out, r))
+              sink=lambda r: append_jsonl(args.out, r), repeats=args.repeats)
     print("selesai")
 
 
