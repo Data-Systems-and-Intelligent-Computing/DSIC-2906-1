@@ -42,7 +42,7 @@ TBD from frozen benchmark artifacts.
 
 **Query representativeness.** Queries are 2,008 corpus documents with at least four words, not real user search logs. Query documents remain in the index; to prevent self-matches, each query's own document, documents with identical vectors, and documents in the same syndication lineage are removed from that query's eligible set only.
 
-**Filter distribution.** Match-rate bins are confounded with predicate type: B5 contains only broad predicates, while B1 contains no province or category predicates. Comparisons between single and compound predicates are therefore restricted to B2–B3, where both types are present.
+**Filter distribution.** Match-rate bins are confounded with predicate type: B5 contains only broad predicates, while B1 contains no single province or category predicates (province appears in B1 only in compound province ∧ source-type predicates). Comparisons between single and compound predicates are therefore restricted to B2–B3, where both types are present.
 
 **Exact ground truth cost.** Exact filtered kNN ground truth is feasible only because the corpus is small; it was computed offline for all 2,040 query–filter pairs.
 
