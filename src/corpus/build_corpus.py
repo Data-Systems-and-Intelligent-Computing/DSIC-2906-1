@@ -28,6 +28,7 @@ from datetime import datetime, timezone
 
 import pandas as pd
 
+from src.corpus.province_map import ProvinceMapper
 from src.corpus.publishers import build_publisher_map, group_syndication
 from src.utils.hashing import sha256
 
@@ -53,7 +54,7 @@ def source_manifest(files: list[str], fetched_at: dict[str, str | None]) -> tupl
             "path_or_uri": f,
             "fetched_at": fetched_at.get(st),
             "checksum_sha256": sha256(f),
-            "notes": "berkas sudah dirapikan pengumpul data (kolom provinsi, T-02)" if st == "jadesta" else "",
+            "notes": "berkas asli tanpa modifikasi; provinsi diturunkan dari kabupaten saat build (K-01)" if st == "jadesta" else "",
         })
     man = pd.DataFrame(rows)
     combined = hashlib.sha256("".join(man["checksum_sha256"]).encode()).hexdigest()
@@ -243,8 +244,9 @@ def main() -> None:
     atr, desa = load_attractions(jd), load_villages(jd)
     news, report = load_news(nw)
 
+    # Kolom provinsi mentah tidak dipakai (K-01); provinsi diturunkan setelah korpus digabung
     for df in (atr, desa):
-        df["province"] = df["provinsi"]
+        df["province"] = None
         df["n_linked_attractions"] = None
     for doc, slug, row in zip(atr["doc_id"], atr["slug"], atr["row_index"]):
         if pd.isna(slug):
@@ -272,7 +274,9 @@ def main() -> None:
         corpus[col] = [v if isinstance(v, list) else ([] if pd.isna(v) else [v]) for v in corpus[col]]
     corpus["n_kabupaten"] = corpus["kabupaten"].str.len()
     corpus["region_ambiguous"] = corpus["n_kabupaten"] > 1
-    corpus["province_source"] = "kolom_provinsi_dirapikan (menunggu keputusan K-01)"
+    # K-01 / DL-10: provinsi diturunkan dari kabupaten lewat tabel Kepmendagri 300.2.2-2138/2025
+    # (+ alias yang ditinjau); kabupaten kosong/tidak dikenal tidak diberi provinsi
+    corpus["province"], corpus["province_source"] = ProvinceMapper().derive_column(corpus["kabupaten"])
     corpus["chunk_id"] = corpus["doc_id"] + "#0"  # tanpa chunking (bagian 16 langkah 7)
     corpus["snapshot_id"] = snapshot_id
     corpus["fetched_at"] = corpus["source_type"].map(

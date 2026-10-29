@@ -33,6 +33,9 @@ from src.utils.hashing import sha256
 from src.workload.build_filters import filter_mask, spec_id
 from src.workload.stratify_match_rate import assign_bin
 
+# v2: dibekukan ulang setelah provinsi diturunkan dari kabupaten (K-01); seed, bin, dan ambang tidak berubah
+WORKLOAD_ID = "dsic2906-1-workload-v2"
+
 QUERY_COLUMNS = ["query_id", "query_text", "provenance", "created_by", "self_match_exclusion"]
 
 
@@ -176,7 +179,7 @@ def main() -> None:
     frozen_at = datetime.now(timezone.utc).isoformat(timespec="seconds")
     bins = wl.groupby("bin")["pair_id"].count().to_dict()
     pd.DataFrame([{
-        "workload_id": "dsic2906-1-workload-v1",
+        "workload_id": WORKLOAD_ID,
         "query_file": "data/processed/queries.parquet",
         "filter_file": "data/processed/filters.parquet",
         "n_queries": len(queries), "k": k,
