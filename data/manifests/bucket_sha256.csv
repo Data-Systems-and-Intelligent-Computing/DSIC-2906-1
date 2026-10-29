@@ -6,10 +6,10 @@ data/raw/jadesta/desa_wisata_rintisan.csv,1874778,663933997454a999020d54c50d08da
 data/raw/jadesta/wisata_alam.csv,1901925,fa2d0b81ca62da26074f054c16d38828b4e9266d2e6f0206213a57397053648c,JADESTA asli (identik data/_asli)
 data/raw/jadesta/wisata_buatan.csv,919055,9bbd33be9d536a0b40f7aec5e8e589b2d28a12b050afe3ae85aa861b98533436,JADESTA asli (identik data/_asli)
 data/raw/jadesta/wisata_budaya.csv,1596968,de9164d8dc9846cbc7545edcbcc3e7222c6e3d51517746bac86868cffced2acf,JADESTA asli (identik data/_asli)
-data/raw/news/hasil_scraping_pertama_jadesta.xlsx - Berita Alam.csv,23328559,c2748a901c2cef7c4ac7d41f10704e5d7b967e12fbbcffdb9df72c54f706b3cf,berita mentah
-data/raw/news/hasil_scraping_pertama_jadesta.xlsx - Berita Buatan.csv,10519924,463da329c53756ed8ec622943c10e4ce4a87ab0005bda62b44d0bc5c6c234c21,berita mentah
-data/raw/news/hasil_scraping_pertama_jadesta.xlsx - Berita Budaya.csv,17237748,76a614345a149e0e2e48b146bd920a7eecbcf2042b0df941bee3ae9996411b9a,berita mentah
-data/raw/news/hasil_scraping_pertama_jadesta.xlsx - Metadata.csv,3109,648ab8a4d06752ff6d149d1a4f8f66be110d8c556af498119bfda38fec848995,berita mentah
+data/raw/news/hasil_scraping_pertama_jadesta.xlsx - Berita Alam.csv,22907886,5d703b6350f305be5ba9e9ae9fa5e1eaf16913b6e7a6fefebf9c06564850c86d,berita asli (kolom Provinsi kosong)
+data/raw/news/hasil_scraping_pertama_jadesta.xlsx - Berita Buatan.csv,10328319,1c181742926d3a5c602b9653bf9ed3e73515ed1a3d5d211f4a0a498c300285b2,berita asli (kolom Provinsi kosong)
+data/raw/news/hasil_scraping_pertama_jadesta.xlsx - Berita Budaya.csv,16936519,badbb9ec1143da5f3e50098fef8744043d4cf6a49691b1f9f7721927ca469d08,berita asli (kolom Provinsi kosong)
+data/raw/news/hasil_scraping_pertama_jadesta.xlsx - Metadata.csv,3109,648ab8a4d06752ff6d149d1a4f8f66be110d8c556af498119bfda38fec848995,berita asli (kolom Provinsi kosong)
 data/_v1_antigravity/jadesta/desa_wisata_berkembang.csv,436774,133a9458dd3544eae69b612becaad83bc0c5368f614bd7266ae21cab34841204,JADESTA versi Antigravity (dipakai v1)
 data/_v1_antigravity/jadesta/desa_wisata_maju.csv,156834,ce9a20fd1d521546aa066f7e5d23c1d8fb2c9c0dfe4543ca50658298c9a8f656,JADESTA versi Antigravity (dipakai v1)
 data/_v1_antigravity/jadesta/desa_wisata_mandiri.csv,22493,ce78e9295d2154a3cc8caa441657be424b4512f48572b7f0ee763c5ddba0fe0d,JADESTA versi Antigravity (dipakai v1)
@@ -17,6 +17,10 @@ data/_v1_antigravity/jadesta/desa_wisata_rintisan.csv,1871203,b46452302758734bec
 data/_v1_antigravity/jadesta/wisata_alam.csv,1987465,6a0ce2a08228ad765133c7dcb9be6ac9c5467dc072e58eb4cc7d5fc1fd6427e0,JADESTA versi Antigravity (dipakai v1)
 data/_v1_antigravity/jadesta/wisata_buatan.csv,958197,2e214c55eebcf49b9d3e7e1d9de66de0094f71e632f24922db1e7b603b059aee,JADESTA versi Antigravity (dipakai v1)
 data/_v1_antigravity/jadesta/wisata_budaya.csv,1665312,c7fb0394ca3069868b31a372af0ff71c9f5ff07294f252dbe30d483f58939325,JADESTA versi Antigravity (dipakai v1)
+data/_v1_antigravity/news/hasil_scraping_pertama_jadesta.xlsx - Berita Alam.csv,23328559,c2748a901c2cef7c4ac7d41f10704e5d7b967e12fbbcffdb9df72c54f706b3cf,berita versi Antigravity (dipakai v1)
+data/_v1_antigravity/news/hasil_scraping_pertama_jadesta.xlsx - Berita Buatan.csv,10519924,463da329c53756ed8ec622943c10e4ce4a87ab0005bda62b44d0bc5c6c234c21,berita versi Antigravity (dipakai v1)
+data/_v1_antigravity/news/hasil_scraping_pertama_jadesta.xlsx - Berita Budaya.csv,17237748,76a614345a149e0e2e48b146bd920a7eecbcf2042b0df941bee3ae9996411b9a,berita versi Antigravity (dipakai v1)
+data/_v1_antigravity/news/hasil_scraping_pertama_jadesta.xlsx - Metadata.csv,3109,648ab8a4d06752ff6d149d1a4f8f66be110d8c556af498119bfda38fec848995,berita versi Antigravity (dipakai v1)
 data/_v1_antigravity/artefak_v1/SHA256SUMS,1031,e8b5af814cda88a0b2e0fcb2b65962c4cd32ea43d8266302723605c9beab186b,artefak workload v1 / gt-v1
 data/_v1_antigravity/artefak_v1/corpus.parquet,21544321,6594317393b5c1651810e82ce32b59c26bbc8c9abf9f1fe74d7b73dac2e2a9e5,artefak workload v1 / gt-v1
 data/_v1_antigravity/artefak_v1/corpus_manifest.csv,265,6c43effd2753ac8b00784b3b6c760102124130ac96c616cbb450f43a088b08b8,artefak workload v1 / gt-v1
@@ -32,7 +36,7 @@ data/_v1_antigravity/artefak_v1/workload.parquet,95893,3b230b33b017edced3f6a264b
 data/_v1_antigravity/artefak_v1/workload_manifest.csv,341,c4f5c736c57980969bac0dcaeaba474f3b5f1961628e53f93f56a0b172ef83ee,artefak workload v1 / gt-v1
 results/raw/dev_benchmark.jsonl,13764517,3133c0fe7dc241496af70f8d3fe005bca1070f312fc2c281c8e95fdfca57cb95,hasil mentah dev benchmark 26 Okt
 results/raw/dev_benchmark_robust.jsonl,7228808,bdfc93b5af425edc2ac9650b1b9690341e60df76facf669bac8ddad7de8ac41b,hasil mentah dev benchmark 26 Okt
-data/processed/corpus.parquet,21545494,3dcfe8aa55d31703d4ff98eb54e3bf582fed82524102c3e09ecbd076b7d9f70b,artefak v2 (corpus; workload; gt; embedding)
+data/processed/corpus.parquet,21545494,b10eb69bf04f7ceee745a62d9e9a610a361121197748d857d4c587ea5defaea4,artefak v2 (corpus; workload; gt; embedding)
 data/processed/filters.parquet,157826,8b75f0b1eeac066f0fa31b6678a74cb5e9993880beb6fedb2e19bb4d14f18f78,artefak v2 (corpus; workload; gt; embedding)
 data/processed/queries.parquet,180777,c38ca5e31bef634cb3954dcbae8a7510baa88992c8cca09bd71334e1775b90c4,artefak v2 (corpus; workload; gt; embedding)
 data/processed/workload.parquet,96387,b5d7d6f8c48155db84a26927ef717d521e0e44fef98c5307f0cadb50ca67c520,artefak v2 (corpus; workload; gt; embedding)
@@ -40,7 +44,7 @@ data/processed/normalization_report.csv,11813835,e849aad4434e31a8fd0264b551308ac
 data/processed/publisher_map.csv,146750,9ae01faf82c6eb9c739e54f8cf2518f24ea8d1a19cf08e111b7a482dddb568ff,artefak v2 (corpus; workload; gt; embedding)
 data/processed/syndication_review.csv,113786,e265ddf3d8a5dd7333fd8f6a2e6ae4fda2bd0840b721310efdaab0cdc74dcef3,artefak v2 (corpus; workload; gt; embedding)
 data/processed/text_length_by_source.csv,368,2dec5bdc775e0acceca4a584795d353889fcabb149aeca7816da5c8eef86bad5,artefak v2 (corpus; workload; gt; embedding)
-data/processed/corpus_summary.json,726,531fc3c0d83db29ac581f0caa8453a081cf7574b527353f953da6aa6f66f284e,artefak v2 (corpus; workload; gt; embedding)
+data/processed/corpus_summary.json,726,a926f923c61562859efaab3add3760aefb92b3e857cbb394317eed9c9e88a21c,artefak v2 (corpus; workload; gt; embedding)
 data/groundtruth/filtered_knn_k10.parquet,504212,2e116d0002229a4f07b9e462126951aa82fd34a575afb54d28dc08b1d935ec58,artefak v2 (corpus; workload; gt; embedding)
 data/embeddings/base_ids.parquet,1162852,045383e8f12dacd5de131a3a5ad3a0248cf8f942dee0ca313837d6d42c5ab706,artefak v2 (corpus; workload; gt; embedding)
 data/embeddings/base_vectors.npy,98847872,9000996250c758426772d98ad2e3e634e6b1de9af47da66965e13156f5b9f320,artefak v2 (corpus; workload; gt; embedding)

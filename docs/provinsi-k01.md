@@ -5,8 +5,12 @@ Status: workload v1 dan gt-v1 digantikan oleh workload v2 dan gt-v2 (commit 34b1
 ## 1. Perapian kolom provinsi pada v1 (provenance)
 
 - Pelaksana: Feby Angelina, dibantu alat AI Antigravity.
-- Waktu: 13 Oktober 2026, sekitar 01.03 WIB (waktu modifikasi berkas di data/raw/jadesta/), sebelum build_corpus.py v1.
+- Waktu: skrip Antigravity dijalankan 9 Oktober 2026 sekitar 22.48-22.59 WIB pada salinan data di luar repo;
+  berkas hasilnya disalin ke data/raw/ repo pada 13 Oktober 2026 sekitar 01.03 WIB, sebelum build_corpus.py v1.
 - Permintaan ke Antigravity: menyesuaikan kabupaten/kota untuk mengisi kolom provinsi.
+- Skrip yang dipakai Antigravity (add_prov.py untuk JADESTA, add_prov2.py untuk berita) dan peta
+  kabupaten -> provinsi yang diunduhnya (scratch_map.json) diarsipkan di archive/v1_antigravity/.
+  Sumber dan versi scratch_map.json tidak tercatat.
 - Tabel pemetaan yang dipakai Antigravity tidak dicatat dan tidak berasal dari sumber resmi
   berversi. Hasilnya ditulis langsung menimpa berkas di data/raw/jadesta/, sehingga berkas
   "raw" pada v1 bukan berkas asli (bertentangan dengan Protokol bagian 16 langkah 1).
@@ -17,7 +21,18 @@ Status: workload v1 dan gt-v1 digantikan oleh workload v2 dan gt-v2 (commit 34b1
 - Temuan: 52 baris JADESTA yang kabupatennya kosong atau berisi teks lain akibat kolom bergeser
   saat scraping (contoh: "Saribattang", "Sendangmulyo", "berwawasan") tetap diberi provinsi.
   Contoh: wisata_alam.csv:5519, kabupaten kosong, provinsi diisi "Sulawesi Utara".
-  Pengisian ini tidak dapat diturunkan dari kabupaten, sehingga melanggar K-01.
+  Nilai-nilai ini ditetapkan manual di daftar EXTRA pada add_prov.py ("inferred from desa/alamat"),
+  sehingga merupakan tebakan dan melanggar K-01.
+- Berkas berita juga diubah: add_prov2.py mengisi kolom Provinsi pada ketiga berkas Berita
+  (71.579 sel; kolom lain identik). Berkas berita asli (kolom Provinsi kosong) ditemukan di
+  ~/Downloads (9 Okt 2026, 22.55 WIB), dan data/raw/news/ telah dikembalikan ke berkas asli itu.
+  Versi Antigravity diarsipkan di data/_v1_antigravity/news/.
+- Label "ejaan provinsi dibakukan: DK Jakarta -> DKI Jakarta" pada 22 baris
+  data/reports/province_normalization.csv tidak dihasilkan oleh src/corpus/province_diff.py.
+  Skrip itu menulis "provinsi dibakukan/diganti sesuai pemetaan kabupaten->provinsi"; label
+  tersebut diganti langsung di CSV dengan perintah python -c sekali pakai pada 28 Okt 2026, saat
+  pendokumentasian perapian dibantu asisten AI (Claude). Perubahan DK -> DKI sendiri berasal dari
+  title() di add_prov.py. Berkas province_normalization.csv kini hanya arsip v1.
 - Label di manifest v1 ("pengumpul data", lalu "peneliti (dibantu Antigravity)") diganti
   dengan catatan ini.
 
@@ -30,6 +45,11 @@ Status: workload v1 dan gt-v1 digantikan oleh workload v2 dan gt-v2 (commit 34b1
   (data/reference/kabupaten_alias.csv), contoh "Kota B A T A M" -> Kota Batam.
 - Nama yang bukan kabupaten (10 nilai) dan kabupaten kosong tidak diberi provinsi.
 - Aturan dipakai bersama oleh build corpus dan laporan (src/corpus/province_map.py).
+- Nama Jakarta: UU 2/2024 menamai provinsi ini "Daerah Khusus Jakarta", tetapi tabel kode resmi
+  terbaru (Kepmendagri 300.2.2-2138/2025 dan perubahannya 300.2.2-2430/2025, lampiran hlm. 6)
+  masih memakai "Daerah Khusus Ibukota Jakarta" karena status ibu kota baru berubah setelah
+  Keppres pemindahan. Korpus v2 memakai nama dari tabel kode resmi (kode 31); predikat dan
+  pencocokan memakai kode, sehingga pilihan nama tidak memengaruhi himpunan eligible.
 - Berkas data/raw/jadesta/ dikembalikan ke berkas asli (SHA-256 identik dengan data/_asli/);
   versi Antigravity diarsipkan di data/_v1_antigravity/ (di-ignore, diunggah ke bucket).
   Hash ketiga versi: data/manifests/jadesta_sha256.csv.
