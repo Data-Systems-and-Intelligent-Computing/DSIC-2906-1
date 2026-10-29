@@ -17,13 +17,14 @@ def postfilter(candidate_ids, predicate, metadata_by_id, k: int = 10):
 
 
 def postfilter_search(query: np.ndarray, vectors: np.ndarray, neighbors: list[np.ndarray], start: int,
-                      eligible: np.ndarray, k: int = 10, candidate_budget: int = 100) -> tuple[list[int], dict]:
+                      eligible: np.ndarray, k: int = 10, candidate_budget: int = 100,
+                      timeout_ms: float | None = None) -> tuple[list[int], dict]:
     """Penelusuran tanpa filter dengan L = candidate_budget, lalu predikat diterapkan pada kandidat.
 
     `eligible` adalah mask boolean untuk seluruh titik (True = memenuhi predikat), sama dengan
     yang dipakai ground truth eksak. Bila kandidat yang lolos predikat < k, hasilnya under-filled.
     """
-    pool, stats = greedy_search(query, vectors, neighbors, start, L=max(candidate_budget, k))
+    pool, stats = greedy_search(query, vectors, neighbors, start, L=max(candidate_budget, k), timeout_ms=timeout_ms)
     candidate_ids = [i for _, i in pool]
     result = [i for i in candidate_ids if eligible[i]][:k]
 

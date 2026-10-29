@@ -16,7 +16,7 @@ import math
 
 import numpy as np
 
-from src.search.graph_index import Beam
+from src.search.graph_index import Beam, deadline_from, expired
 
 
 def compute_adaptive_multiplier(sp_hat: float, m_max: float) -> float:
@@ -36,8 +36,9 @@ def compute_adaptive_multiplier(sp_hat: float, m_max: float) -> float:
 
 def adaptivel_search(query: np.ndarray, vectors: np.ndarray, neighbors: list[np.ndarray], start: int,
                      eligible: np.ndarray, k: int = 10, L: int = 100, n_sample: int = 64,
-                     m_max: float = 8) -> tuple[list[int], dict]:
+                     m_max: float = 8, timeout_ms: float | None = None) -> tuple[list[int], dict]:
     """Penelusuran greedy dengan ukuran frontier yang menyesuaikan estimasi match rate (Algorithm 2)."""
+    deadline = deadline_from(timeout_ms)
     seen = np.zeros(len(vectors), dtype=bool)
     seen[start] = True
     beam = Beam(L, len(vectors))
@@ -46,7 +47,8 @@ def adaptivel_search(query: np.ndarray, vectors: np.ndarray, neighbors: list[np.
     n_visited, n_match, n_dist = 0, 0, 1
     sp_hat, multiplier = None, 1.0
 
-    while (top := beam.pop_unvisited()) is not None:
+    # Batas waktu dicek sebelum setiap kunjungan; bila habis, penelusuran berhenti dengan hasil parsial
+    while not (timed_out := expired(deadline)) and (top := beam.pop_unvisited()) is not None:
         # Titik terdekat di frontier yang belum dikunjungi (baris 5-6)
         nxt_d, nxt = top
         n_visited += 1
@@ -89,4 +91,5 @@ def adaptivel_search(query: np.ndarray, vectors: np.ndarray, neighbors: list[np.
         "predicate_evaluations": n_visited,
         "returned_count": len(result),
         "underfilled": len(result) < k,
+        "timeout": timed_out,
     }

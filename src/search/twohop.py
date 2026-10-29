@@ -12,16 +12,18 @@ from __future__ import annotations
 
 import numpy as np
 
-from src.search.graph_index import Beam
+from src.search.graph_index import Beam, deadline_from, expired
 
 
 def twohop_search(query: np.ndarray, vectors: np.ndarray, neighbors: list[np.ndarray], start: int,
-                  eligible: np.ndarray, k: int = 10, L: int = 100) -> tuple[list[int], dict]:
+                  eligible: np.ndarray, k: int = 10, L: int = 100,
+                  timeout_ms: float | None = None) -> tuple[list[int], dict]:
     """Penelusuran berfilter dengan perluasan dua-hop (Algorithm 1).
 
     `eligible` adalah mask boolean seluruh titik (True = memenuhi predikat). Titik awal graf
     dipakai sebagai pintu masuk walaupun tidak memenuhi predikat, tetapi tidak masuk ke hasil.
     """
+    deadline = deadline_from(timeout_ms)
     n = len(vectors)
     seen = np.zeros(n, dtype=bool)
     visited = np.zeros(n, dtype=bool)
@@ -31,7 +33,8 @@ def twohop_search(query: np.ndarray, vectors: np.ndarray, neighbors: list[np.nda
     beam.push(float(1.0 - vectors[start] @ query), start)
     n_visited, n_dist, n_pred, n_twohop = 0, 1, 0, 0
 
-    while (top := beam.pop_unvisited()) is not None:
+    # Batas waktu dicek sebelum setiap kunjungan; bila habis, penelusuran berhenti dengan hasil parsial
+    while not (timed_out := expired(deadline)) and (top := beam.pop_unvisited()) is not None:
         # Titik terdekat di frontier yang belum dikunjungi (baris 3-4)
         _, nxt = top
         visited[nxt] = True
@@ -76,4 +79,5 @@ def twohop_search(query: np.ndarray, vectors: np.ndarray, neighbors: list[np.nda
         "twohop_expansions": n_twohop,
         "returned_count": len(result),
         "underfilled": len(result) < k,
+        "timeout": timed_out,
     }

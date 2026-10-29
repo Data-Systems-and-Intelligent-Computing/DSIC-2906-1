@@ -10,6 +10,7 @@ from __future__ import annotations
 import heapq
 import os
 import struct
+import time
 
 import numpy as np
 
@@ -77,22 +78,40 @@ class Beam:
         return sorted((-d, -i) for d, i in self.best)
 
 
+# Batas waktu per kueri (timeout, DL-19): None = tanpa batas
+def deadline_from(timeout_ms: float | None) -> float | None:
+    """Ubah timeout dalam milidetik menjadi tenggat time.perf_counter()."""
+    if timeout_ms is None:
+        return None
+    if timeout_ms < 0:
+        raise ValueError("timeout_ms tidak boleh negatif")
+    return time.perf_counter() + timeout_ms / 1000.0
+
+
+def expired(deadline: float | None) -> bool:
+    """True bila tenggat sudah lewat; selalu False tanpa tenggat."""
+    return deadline is not None and time.perf_counter() >= deadline
+
+
 # Penelusuran greedy (beam search) dengan pencatatan biaya pencarian
 def greedy_search(query: np.ndarray, vectors: np.ndarray, neighbors: list[np.ndarray], start: int,
-                  L: int) -> tuple[list[tuple[float, int]], dict]:
+                  L: int, timeout_ms: float | None = None) -> tuple[list[tuple[float, int]], dict]:
     """Penelusuran greedy Vamana dengan frontier berukuran L.
 
     Jarak = 1 - cosine (vektor sudah dinormalisasi, sehingga cosine = perkalian titik).
     Kembalikan isi frontier terurut [(jarak, id), ...] dan statistik biaya
     (visited_nodes, distance_comparisons) untuk README bagian 25.
+    Dengan timeout_ms, penelusuran berhenti saat tenggat lewat dan stats['timeout'] = True.
     """
+    deadline = deadline_from(timeout_ms)
     seen = np.zeros(len(vectors), dtype=bool)
     seen[start] = True
     beam = Beam(L, len(vectors))
     beam.push(float(1.0 - vectors[start] @ query), start)
     n_visited, n_dist = 0, 1
 
-    while (top := beam.pop_unvisited()) is not None:
+    # Batas waktu dicek sebelum setiap kunjungan; bila habis, penelusuran berhenti dengan hasil parsial
+    while not (timed_out := expired(deadline)) and (top := beam.pop_unvisited()) is not None:
         _, nxt = top
         n_visited += 1
 
@@ -106,4 +125,4 @@ def greedy_search(query: np.ndarray, vectors: np.ndarray, neighbors: list[np.nda
             for dist, i in zip(d.tolist(), new.tolist()):
                 beam.push(dist, i)
 
-    return beam.items(), {"visited_nodes": n_visited, "distance_comparisons": n_dist}
+    return beam.items(), {"visited_nodes": n_visited, "distance_comparisons": n_dist, "timeout": timed_out}
