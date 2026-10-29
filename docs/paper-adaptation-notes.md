@@ -14,6 +14,15 @@ Implementation fidelity checklist:
 
 Sumber: Liu et al. (2026), *Metadata-Filtered Vector Search in the WebIQ Grounding Index* (PDF 6 halaman, Algorithm 1–3). Implementasi B1 dan P1 sudah dicocokkan dengan pseudocode tersebut.
 
+Provenance PDF paper (PDF tidak di-commit):
+
+| Atribut | Nilai |
+|---|---|
+| Berkas lokal | 32_Metadata_Filtered_Vector_Se.pdf |
+| SHA-256 | 78d94e5abf1d85aaad5373817eacc65213c44b1e7a427e4134fd906c00c596e8 |
+| Sumber | OpenReview, https://openreview.net/pdf?id=hIklmU8rKe |
+| Tanggal unduh | 13 Oktober 2026, 03.25 WIB (2026-10-12T20:25Z; metadata berkas macOS kMDItemWhereFroms/kMDItemDateAdded) |
+
 ### Kesesuaian dengan paper
 
 | Komponen | Paper | Implementasi DSIC-2906-1 | Status |
