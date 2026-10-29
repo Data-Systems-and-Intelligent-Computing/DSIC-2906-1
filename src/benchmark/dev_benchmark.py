@@ -1,8 +1,12 @@
 """Development benchmark B0/B1/P1 untuk memilih parameter sebelum dibekukan (README bagian 21, 28 E5).
 
-Kueri pengembangan = dokumen korpus acak (seed tetap), dengan dokumen kueri dikeluarkan
-dari himpunan eligible agar tidak terjadi self-match. Ini BUKAN workload final: workload
-final disusun dan dibekukan di Tahap 5, dan hasil dev tidak boleh dipakai sebagai hasil utama.
+Kueri pengembangan = dokumen korpus acak (seed tetap; sama dengan dev_queries di
+configs/workload.yaml sehingga tidak dipakai lagi sebagai kueri test). Aturan self-match
+sama dengan workload beku (src.workload.build_queries.excluded_rows): dokumen kueri,
+dokumen bervektor identik, dan dokumen satu story_lineage dikeluarkan dari himpunan
+eligible. Kueri tetap ada di indeks; hanya himpunan eligible yang berubah.
+Ini BUKAN workload final, dan hasil dev tidak boleh dipakai sebagai hasil utama.
+Timeout (DL-19) diambil dari run dengan --resource-profile lightsail, bukan dari laptop.
 
 Jalankan dari root repo:  python -m src.benchmark.dev_benchmark
 Output:  results/raw/dev_benchmark.jsonl  (satu baris per kueri x predikat x konfigurasi)
@@ -12,6 +16,7 @@ from __future__ import annotations
 import argparse
 import itertools
 import os
+import subprocess
 import time
 
 import numpy as np
@@ -22,6 +27,7 @@ from src.search.adaptivel import adaptivel_search
 from src.search.graph_index import load_vamana_graph
 from src.search.postfilter import postfilter_search
 from src.search.twohop import twohop_search
+from src.workload.build_queries import excluded_rows, exclusion_groups
 
 
 # Predikat pengembangan: dua predikat layak (>= 100 titik) per bin B2-B5, dari tipe berbeda.
@@ -61,6 +67,26 @@ def configs() -> list[dict]:
     return out
 
 
+# Himpunan eligible untuk satu kueri dengan aturan self-match yang sama dengan workload beku
+def eligible_for_query(mask: np.ndarray, qi: int, dup_group: np.ndarray, lineage: np.ndarray) -> tuple[np.ndarray, int]:
+    eligible = mask.copy()
+    ex = excluded_rows(int(qi), dup_group, lineage)
+    eligible[ex] = False
+    return eligible, len(ex)
+
+
+# Commit repo saat run, beserta penanda working tree belum di-commit
+def git_commit() -> str:
+    try:
+        sha = subprocess.run(["git", "rev-parse", "--short", "HEAD"], capture_output=True, text=True,
+                             check=True).stdout.strip()
+        dirty = subprocess.run(["git", "status", "--porcelain", "--untracked-files=no"], capture_output=True,
+                               text=True, check=True).stdout.strip()
+        return sha + ("-dirty" if dirty else "")
+    except Exception:
+        return "unknown"
+
+
 def run_one(cfg: dict, q, vectors, neighbors, start, eligible, k):
     if cfg["method"] == "postfilter":
         return postfilter_search(q, vectors, neighbors, start, eligible, k, cfg["candidate_budget"])
@@ -77,11 +103,15 @@ def main() -> None:
     ap.add_argument("--out", default="results/raw/dev_benchmark.jsonl")
     ap.add_argument("--exclude-ambiguous", action="store_true",
                     help="robustness check DT-3: berita ambigu dikeluarkan dari himpunan eligible")
+    ap.add_argument("--resource-profile", default="dev-local",
+                    help="profil mesin yang dicatat di log, mis. dev-local atau lightsail-t3.xlarge")
     args = ap.parse_args()
+    commit = git_commit()
 
     vectors = np.load("data/embeddings/base_vectors.npy")
     start, neighbors = load_vamana_graph("index/diskann/tourism")
     corpus = pd.read_parquet("data/processed/corpus.parquet")
+    dup_group, lineage = exclusion_groups(corpus, vectors)
     preds = dev_predicates(corpus, args.exclude_ambiguous)
     # Pada robustness check, hanya predikat yang berubah karena eksklusi yang dijalankan
     if args.exclude_ambiguous:
@@ -94,9 +124,8 @@ def main() -> None:
     for filter_id, mask in preds.items():
         match_rate = float(mask.mean())
         for qi in query_idx:
-            # Himpunan eligible tanpa dokumen kueri, dan ground truth eksaknya
-            eligible = mask.copy()
-            eligible[qi] = False
+            # Himpunan eligible dengan aturan self-match workload, dan ground truth eksaknya
+            eligible, n_excluded = eligible_for_query(mask, qi, dup_group, lineage)
             if eligible.sum() < args.k:
                 continue
             gt = set(exact_filtered_knn(vectors, vectors[qi], eligible, k=args.k).tolist())
@@ -109,7 +138,10 @@ def main() -> None:
                     raise AssertionError(f"Hasil melanggar predikat: {cfg} {filter_id} kueri {qi}")
                 rows.append({
                     "query_id": int(qi), "filter_id": filter_id, "bin": filter_id.split("|")[0],
-                    "match_rate": match_rate, "k": args.k, "resource_profile": "dev-local",
+                    "match_rate": match_rate, "k": args.k, "resource_profile": args.resource_profile,
+                    "commit": commit, "seed": args.seed,
+                    "self_match_exclusion": "query_document,identical_vector,same_story_lineage",
+                    "n_excluded": n_excluded, "n_eligible": int(eligible.sum()),
                     "config": " ".join(f"{a}={b}" for a, b in cfg.items()),
                     "recall_at_10": len(gt & set(result)) / args.k,
                     "latency_ms": latency_ms, "timeout": False, **stats,
