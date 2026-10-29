@@ -1,1 +1,2 @@
 artifact,model_name,model_version,dimension,dtype,normalized,metric,n_vectors,checksum_sha256
+data/embeddings/base_vectors.npy,sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2,e8f8c211226b894fcb81acc59f3b34ba3efd5f42,384,float32,True,cosine,64354,9000996250c758426772d98ad2e3e634e6b1de9af47da66965e13156f5b9f320

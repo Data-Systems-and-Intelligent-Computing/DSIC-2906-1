@@ -1,0 +1,16 @@
+filter_id,c,mr_any,rec_any,mr_tanpa,rec_tanpa
+B2|kabupaten=Pangandaran∧alam,AL400,0.247,0.418,0.084,0.232
+B2|kabupaten=Pangandaran∧alam,PF400,0.247,0.063,0.084,0.032
+B2|kabupaten=Pangandaran∧alam,TH400,0.247,0.984,0.084,0.0
+B2|kabupaten=Tanggamus,AL400,0.171,0.49,0.073,0.345
+B2|kabupaten=Tanggamus,PF400,0.171,0.08,0.073,0.039
+B2|kabupaten=Tanggamus,TH400,0.171,0.827,0.073,0.707
+B3|provinsi=Aceh,AL400,1.932,0.952,1.257,0.936
+B3|provinsi=Aceh,PF400,1.932,0.614,1.257,0.445
+B3|provinsi=Aceh,TH400,1.932,0.999,1.257,0.999
+B4|provinsi=Bali,AL400,3.467,0.982,2.516,0.973
+B4|provinsi=Bali,PF400,3.467,0.809,2.516,0.707
+B4|provinsi=Bali,TH400,3.467,1.0,2.516,0.997
+B5|kategori=alam,AL400,40.771,0.973,35.025,0.973
+B5|kategori=alam,PF400,40.771,0.92,35.025,0.92
+B5|kategori=alam,TH400,40.771,1.0,35.025,1.0

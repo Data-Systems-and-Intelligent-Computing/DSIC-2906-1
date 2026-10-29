@@ -1,0 +1,35 @@
+{
+  "referensi": "data/reference/kab_prov_kepmendagri_2025.csv",
+  "alias_dipakai": true,
+  "n_dokumen": 64354,
+  "n_baris_jadesta": 21461,
+  "jenis_selisih_jadesta": {
+    "sama": 21409,
+    "v1_terisi_turunan_kosong": 52
+  },
+  "status_kabupaten_semua_dokumen": {
+    "terpetakan": 85833,
+    "terpetakan_alias": 2701,
+    "tak_terpetakan_nama_tidak_dikenal": 267,
+    "tak_terpetakan_kabupaten_kosong": 1
+  },
+  "n_nama_kabupaten_tak_terpetakan": 10,
+  "filter_provinsi_total": 148,
+  "filter_provinsi_tunggal_berubah": 10,
+  "filter_provinsi_majemuk": 110,
+  "tipe_filter_di_v1": {
+    "kabupaten": 483,
+    "provinsi": 38,
+    "penerbit": 2808,
+    "kategori": 4,
+    "tipe_sumber": 3,
+    "temporal": 5,
+    "kabupaten_kategori": 1640,
+    "kabupaten_news_2026": 342,
+    "provinsi_tipe_sumber": 110,
+    "kategori_temporal": 15
+  },
+  "raw_vs_asli_kolom_berbeda": {
+    "provinsi": 16340
+  }
+}

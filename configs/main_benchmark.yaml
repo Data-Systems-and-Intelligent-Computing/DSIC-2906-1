@@ -1,0 +1,18 @@
+# Parameter benchmark utama Minggu 3 (scripts 09-11).
+# STATUS: BELUM BEKU. Nilai diisi dari dev benchmark di Lightsail (DL-19), lalu frozen diubah ke true
+# beserta frozen_at dan source_dev_run. Runner menolak berjalan pada workload test selama frozen: false.
+frozen: false
+frozen_at: null
+source_dev_run: null        # mis. results/raw/dev_benchmark_lightsail_2026-10-29.jsonl + SHA-256
+k: 10
+timeout_ms: null            # DL-19: diturunkan dari latensi dev benchmark Lightsail
+threads: null               # mis. 1 bila OMP_NUM_THREADS dibatasi; dicatat di setiap baris log
+methods:
+  postfilter:
+    candidate_budget: [null]
+  twohop:
+    L: [null]
+  adaptivel:
+    L: [null]
+    n_sample: null
+    m_max: null

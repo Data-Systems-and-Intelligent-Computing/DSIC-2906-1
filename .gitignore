@@ -56,3 +56,8 @@ cmake-build-*/
 logs/
 
 teknis-lab
+data/_asli/
+*.bak
+
+# Arsip data JADESTA versi Antigravity yang dipakai workload v1 (disimpan di bucket)
+data/_v1_antigravity/

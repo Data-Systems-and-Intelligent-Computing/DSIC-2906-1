@@ -1,0 +1,38 @@
+{
+  "commit": "138596926abc38245f170ef2f2d1380971dcb2b2",
+  "waktu_utc": "2026-10-26T09:15:05.815668+00:00",
+  "berkas_vektor": "data/embeddings/base_vectors.npy",
+  "total_vektor_identik": 1421,
+  "per_source_type": [
+    {
+      "source_type": "jadesta_atraksi",
+      "n_dokumen": 15132,
+      "n_vektor_identik": 303,
+      "nn_cos_median": 0.9211000204086304,
+      "nn_cos_p90": 0.9769999980926514,
+      "nn_cos_ge_0_95": 0.2639000117778778,
+      "nn_sesumber_median": 0.9210000038146973,
+      "pct_vektor_identik": 0.02
+    },
+    {
+      "source_type": "jadesta_desa",
+      "n_dokumen": 6329,
+      "n_vektor_identik": 110,
+      "nn_cos_median": 0.9294999837875366,
+      "nn_cos_p90": 0.9609000086784363,
+      "nn_cos_ge_0_95": 0.21649999916553497,
+      "nn_sesumber_median": 0.9291999936103821,
+      "pct_vektor_identik": 0.0174
+    },
+    {
+      "source_type": "news",
+      "n_dokumen": 42893,
+      "n_vektor_identik": 1008,
+      "nn_cos_median": 0.8155999779701233,
+      "nn_cos_p90": 0.9182000160217285,
+      "nn_cos_ge_0_95": 0.052000001072883606,
+      "nn_sesumber_median": 0.8152999877929688,
+      "pct_vektor_identik": 0.0235
+    }
+  ]
+}
