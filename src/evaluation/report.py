@@ -21,6 +21,7 @@ from pathlib import Path
 import pandas as pd
 
 from src.evaluation.bootstrap import mean_ci
+from src.evaluation.failure_analysis import failure_taxonomy, label_failures
 from src.evaluation.latency import summarize_latency_ms
 
 # Kolom pengelompokan tabel utama
@@ -71,7 +72,8 @@ def build_report(log: pd.DataFrame, stability_per_pair: pd.DataFrame | None = No
     return {
         "main_table": utama,
         "per_query_in_filter": main_table(log, extra_groups=["query_in_filter"]),
-        "per_sumber_kueri": main_table(log, extra_groups=["query_source_type"]),
+        "per_sumber_kueri": main_table(log, extra_groups=["query_source_type"]), 
+        "failure_taxonomy": failure_taxonomy(label_failures(log)),
     }
 
 

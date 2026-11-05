@@ -53,6 +53,5 @@ def test_build_report_dengan_stabilitas():
     log = _log(repeats=3)
     per_pair, _ = stability_table(log)
     t = build_report(log, per_pair)
-    assert set(t) == {"main_table", "per_query_in_filter", "per_sumber_kueri"}
-    # Penelusuran tanpa timeout deterministik, jadi overlap 1.0
+    assert set(t) == {"main_table", "per_query_in_filter", "per_sumber_kueri", "failure_taxonomy"}    # Penelusuran tanpa timeout deterministik, jadi overlap 1.0
     assert (t["main_table"]["stability_overlap"] == 1.0).all()
