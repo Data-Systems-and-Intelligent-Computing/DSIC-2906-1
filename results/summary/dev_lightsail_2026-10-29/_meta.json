@@ -1,0 +1,38 @@
+{
+  "dibuat_utc": "2026-10-29T14:03:45+00:00",
+  "dibuat_oleh": "scripts/ringkasan_bimbingan.py semua --dev-log results/raw/dev_benchmark_lightsail_2026-10-29.jsonl --csv results/summary/dev_lightsail_2026-10-29 --catatan-run Dev benchmark Lightsail t3.xlarge, 29 Okt 2026 12:54:13-13:04:27 UTC, commit 5d2d91c (bersih), seed 2906, 100 kueri dev, self-match sama dengan workload (excluded_rows). JSONL SHA-256 a35048e27a5f81f027ae21e47388f84f878a9c884bff3695241635804474ee8c. Thread numpy tidak dibatasi (CPU ~145%).",
+  "commit_repo_saat_ringkasan": "1414e2c",
+  "working_tree_bersih": false,
+  "workload_manifest": {
+    "workload_id": "dsic2906-1-workload-v2",
+    "query_file": "data/processed/queries.parquet",
+    "filter_file": "data/processed/filters.parquet",
+    "n_queries": 2008,
+    "k": 10,
+    "match_rate_bins": "{\"B1\": 297, \"B2\": 663, \"B3\": 360, \"B4\": 420, \"B5\": 300}",
+    "frozen_at": "2026-10-29T11:47:39+00:00",
+    "checksum_sha256": "b5d7d6f8c48155db84a26927ef717d521e0e44fef98c5307f0cadb50ca67c520"
+  },
+  "sumber_jsonl": {
+    "results/raw/dev_benchmark_lightsail_2026-10-29.jsonl": {
+      "sha256": "a35048e27a5f81f027ae21e47388f84f878a9c884bff3695241635804474ee8c",
+      "n_baris": 24000,
+      "diubah_utc": "2026-10-29T13:42:18+00:00"
+    },
+    "results/raw/dev_benchmark_robust.jsonl": {
+      "sha256": "bdfc93b5af425edc2ac9650b1b9690341e60df76facf669bac8ddad7de8ac41b",
+      "n_baris": 13500,
+      "diubah_utc": "2026-10-26T09:45:40+00:00"
+    }
+  },
+  "catatan_run": "Dev benchmark Lightsail t3.xlarge, 29 Okt 2026 12:54:13-13:04:27 UTC, commit 5d2d91c (bersih), seed 2906, 100 kueri dev, self-match sama dengan workload (excluded_rows). JSONL SHA-256 a35048e27a5f81f027ae21e47388f84f878a9c884bff3695241635804474ee8c. Thread numpy tidak dibatasi (CPU ~145%).",
+  "berkas_csv": [
+    "dt4_distance_comparisons_median.csv",
+    "dt4_recall_at_10_mean.csv",
+    "p11_visited_over_L_median.csv",
+    "p3_sp_hat_multiplier_per_bin.csv",
+    "p4_twohop_predicate_evaluations_median.csv",
+    "robust_dt3_any_vs_tanpa_ambigu.csv",
+    "workload_per_set_bin.csv"
+  ]
+}

@@ -18,6 +18,6 @@ def exact_filtered_knn(base: np.ndarray, query: np.ndarray, eligible_mask: np.nd
         dist = np.sum((x - q) ** 2, axis=1)
     else:
         raise ValueError(f"Unsupported metric: {metric}")
-    order = np.argpartition(dist, k - 1)[:k]
-    order = order[np.argsort(dist[order])]
+    # Urutan deterministik: jarak terkecil lebih dulu, seri dipecah dengan nomor baris terkecil
+    order = np.lexsort((ids, dist))[:k]
     return ids[order]

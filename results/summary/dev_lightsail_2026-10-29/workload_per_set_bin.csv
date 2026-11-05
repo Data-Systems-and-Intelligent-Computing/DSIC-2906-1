@@ -1,0 +1,7 @@
+set,bin,pasangan,mr_median_pct,mr_min_pct,mr_max_pct,eligible_min
+ekstensi,B1,297,0.048,0.016,0.099,10
+ekstensi,B2,303,0.129,0.101,0.154,63
+utama,B2,360,0.258,0.157,0.474,100
+utama,B3,360,0.799,0.502,2.179,322
+utama,B4,420,4.505,2.548,9.976,1639
+utama,B5,300,23.514,10.208,66.652,6568

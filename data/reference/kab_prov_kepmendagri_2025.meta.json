@@ -1,0 +1,16 @@
+{
+  "sumber": "Lampiran Kepmendagri No. 300.2.2-2138 Tahun 2025 (sebagaimana diubah Kepmendagri No. 300.2.2-2430 Tahun 2025; perubahan hanya menyangkut data pulau)",
+  "pdf_nama": "Lampiran-Kepmen 300.2.2-2138 Tahun 2025.pdf",
+  "pdf_sha256": "ac13b5a57358fcec0503429bb06b2d6b4e5572f65fd0162979b87a79863b1de6",
+  "pdftotext": "pdftotext version 25.11.0",
+  "dibuat_utc": "2026-10-29T09:57:51+00:00",
+  "jumlah_provinsi": 38,
+  "jumlah_kabupaten": 416,
+  "jumlah_kota": 98,
+  "nama_dibakukan": [
+    "Kab Timor Tengah Selatan -> Kabupaten Timor Tengah Selatan",
+    "Kab Pegunungan Bintang -> Kabupaten Pegunungan Bintang"
+  ],
+  "validasi_lulus": true,
+  "validasi_galat": []
+}
