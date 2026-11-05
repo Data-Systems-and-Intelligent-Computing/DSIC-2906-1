@@ -96,6 +96,6 @@ The corpus also contains only three source types (JADESTA attractions, JADESTA v
 
 **Resource emulation.** (To be completed after the benchmark on an AWS Lightsail instance: t3.xlarge, burstable CPU, shared host.)
 
-**Implementation fidelity.** TwoHopSearch and AdaptiveL were checked line by line against Algorithms 1–3 of the reference paper and are covered by unit tests (32 tests passing at commit 125c981; log in results/summary/pytest_2026-10-29.txt). Graph traversal is implemented in Python, so QPS and latency are reported as secondary results labeled "Python implementation", and the main cost curves use distance comparisons and predicate evaluations.
+**Implementation fidelity.** TwoHopSearch and AdaptiveL were checked line by line against Algorithms 1–3 of the reference paper and are covered by unit tests (58 tests passing at commit f17d5af; log in results/summary/pytest_2026-11-05.txt). Graph traversal is implemented in Python, so QPS and latency are reported as secondary results labeled "Python implementation", and the main cost curves use distance comparisons and predicate evaluations.
 
 ## 7. Conclusion
