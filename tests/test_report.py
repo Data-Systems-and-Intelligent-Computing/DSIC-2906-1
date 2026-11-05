@@ -45,3 +45,14 @@ def test_pemecahan_per_query_in_filter():
     t = main_table(log, extra_groups=["query_in_filter"])
     assert len(t) == 3 * 2
     assert (t["n_pasangan"] == 1).all()
+
+
+def test_build_report_dengan_stabilitas():
+    from src.benchmark.stability import stability_table
+    from src.evaluation.report import build_report
+    log = _log(repeats=3)
+    per_pair, _ = stability_table(log)
+    t = build_report(log, per_pair)
+    assert set(t) == {"main_table", "per_query_in_filter", "per_sumber_kueri"}
+    # Penelusuran tanpa timeout deterministik, jadi overlap 1.0
+    assert (t["main_table"]["stability_overlap"] == 1.0).all()
