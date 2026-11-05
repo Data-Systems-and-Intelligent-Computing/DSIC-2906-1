@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import re
+import argparse
 from pathlib import Path
 
 import matplotlib
@@ -136,3 +137,30 @@ def stability_plot(table: pd.DataFrame, config_per_method: dict[str, str], out: 
     fig.savefig(path, dpi=200, bbox_inches="tight")
     plt.close(fig)
     return path
+
+def main() -> None:
+    import yaml
+
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--report-dir", required=True, help="folder keluaran src.evaluation.report")
+    ap.add_argument("--out-dir", required=True)
+    args = ap.parse_args()
+
+    # Tabel utama yang sama dengan yang dilaporkan, agar angka grafik = angka tabel
+    table = pd.read_csv(Path(args.report_dir) / "main_table.csv")
+    # Daftar tipe predikat majemuk diambil dari konfigurasi workload beku
+    tipe = yaml.safe_load(Path("configs/workload.yaml").read_text(encoding="utf-8"))["predicate_types"]
+    # Grafik tunggal/majemuk dan stabilitas memakai budget/L terbesar tiap metode
+    t = table.assign(budget=table["config"].map(_budget))
+    cpm = {m: g.sort_values("budget")["config"].iloc[-1] for m, g in t.groupby("method")}
+
+    out = Path(args.out_dir)
+    paths = [recall_qps_curve(table, b, out) for b in sorted(table["bin"].unique())]
+    paths += [single_vs_compound(table, set(tipe["compound"]), cpm, out), stability_plot(table, cpm, out)]
+    for p in paths:
+        if p is not None:
+            print(p)
+
+
+if __name__ == "__main__":
+    main()

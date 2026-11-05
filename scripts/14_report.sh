@@ -14,3 +14,6 @@ if [ -f "$STAB" ]; then
 else
   python -m src.evaluation.report --log "${LOGS[@]}" --out-dir "$OUT"
 fi
+
+# Grafik wajib naskah (README bagian 40) dari tabel yang baru dibuat
+python -m src.evaluation.plots --report-dir "$OUT" --out-dir "results/figures/main_${PROFILE}_${TANGGAL}"
