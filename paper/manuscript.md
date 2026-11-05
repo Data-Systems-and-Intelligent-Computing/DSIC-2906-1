@@ -46,12 +46,29 @@ For each cell of set, bin, and predicate type, up to 10 predicates and about 60 
 Accuracy is measured as filtered recall@10 against the exact ground truth, with 95% confidence intervals from a 2,000-iteration bootstrap over query–filter pairs. Throughput is reported as queries per second and latency as p50 and p95. Search cost is measured by visited nodes, distance comparisons, and predicate evaluations (total and unique). We also report the under-filled rate (results with fewer than k items) and stability as the overlap@10 between repeated runs of identical queries. All benchmarks run on an AWS Lightsail t3.xlarge instance (burstable CPU, shared host) with a single thread. Because traversal is implemented in Python, QPS and latency are secondary results; the main cost comparisons use distance comparisons and predicate evaluations.
 
 ## 4. Experiments
-- Recall@10–QPS
-- p50/p95 latency
-- search cost
-- compound filters
-- stability
-- ablation
+
+All experiments use the frozen corpus, index, workload (v2), and ground truth described in Section 3, the same graph for every method, and the same machine and thread setting. Parameters were selected only on the development set and frozen before any test run.
+
+### 4.1 Index sanity (E1)
+Before filtered experiments, unfiltered greedy search on the shared graph is compared against exact search to confirm index quality (recall@10 = 0.9959).
+
+### 4.2 Single-predicate benchmark (E2, RQ1)
+PostFilter, TwoHopSearch, and AdaptiveL are run on all single-predicate pairs (region, province, publisher, category, source type, and publication date) at every frozen parameter value. For each match-rate bin we report recall@10 with 95% confidence intervals, QPS, p50 and p95 latency, the under-filled rate, and search cost. Recall–QPS curves are drawn per bin by varying L or the candidate budget.
+
+### 4.3 Compound-predicate benchmark (E3, RQ2)
+The same procedure is applied to compound pairs (regency ∧ category, regency ∧ news published in 2026, province ∧ source type, and category ∧ publication date). Because bins and predicate types are confounded (Section 6.1), single and compound predicates are compared only within bins that contain both, namely B2 and B3.
+
+### 4.4 Resource-constrained benchmark (E4, RQ3)
+The main benchmark is repeated under fixed resource profiles to measure how recall, latency, throughput, and search cost change when CPU and memory are limited. [TBD: profiles and limiting mechanism, pending decision DT-6.]
+
+### 4.5 Parameter sensitivity (E5, RQ5)
+On the development set only, AdaptiveL is evaluated over L ∈ {100, 200, 400}, n_sample ∈ {32, 64}, and m_max ∈ {1, 2, 4, 8}, and PostFilter over candidate budgets from 100 to 3,200, including the budget L × m_max as a cost-matched comparison. These results determine the frozen configuration and are reported separately from the test results.
+
+### 4.6 Stability and failure analysis (E6, RQ4)
+Every test pair is run five times with identical inputs, and stability is measured as the mean overlap@10 between repetitions. Failure cases are labeled per pair as under-filled, low recall, or timeout, and inspected for the causes listed in the protocol, including highly selective predicates and duplicate or syndicated content.
+
+### 4.7 Breakdowns and robustness
+Besides match-rate bin and predicate type, all results are broken down by whether the query document satisfies the predicate (query_in_filter) and by the query's source type, because the development benchmark showed that recall can depend strongly on whether the query's neighborhood contains eligible points. As a robustness check for the any-match rule, the main benchmark is repeated with news articles linked to more than one regency or category removed from the affected predicates.
 
 ## 5. Results
 TBD from frozen benchmark artifacts.
