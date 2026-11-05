@@ -33,12 +33,12 @@ Hasil: data/processed/corpus.parquet. Cocokkan snapshot_id dengan data/manifests
 dan ringkasan dengan data/processed/corpus_summary.json (64.354 dokumen).
 
 ## 4. Embedding
-[Cek perintah di scripts/02_embed.sh]
+`python -m src.embedding.embed` (atau `scripts/02_embed.sh`)
 Model paraphrase-multilingual-MiniLM-L12-v2, 384 dimensi. Hash vektor dasar:
 9000996250c758426772d98ad2e3e634e6b1de9af47da66965e13156f5b9f320 (data/manifests/vector_manifest.csv).
 
 ## 5. Indeks DiskANN
-[Cek perintah di scripts/06_build_index.sh; indeks dibangun lewat Docker]
+`python -m src.index.build_diskann` (atau `scripts/06_build_index.sh`), dijalankan di lingkungan Docker berisi diskannpy 0.7.0 (Linux x86_64)
 Parameter dan hash berkas indeks: data/manifests/index_manifest.json (R = 64, L_build = 100).
 Sanity: recall@10 tanpa filter 0,9959.
 
