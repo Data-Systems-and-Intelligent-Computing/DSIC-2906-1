@@ -64,3 +64,43 @@ def recall_qps_curve(table: pd.DataFrame, bin_name: str, out: Path) -> Path:
     fig.savefig(path, dpi=200, bbox_inches="tight")
     plt.close(fig)
     return path
+
+# Item 9 README: recall predikat tunggal vs majemuk, satu konfigurasi per metode
+def single_vs_compound(table: pd.DataFrame, compound_types: set[str], config_per_method: dict[str, str],
+                       out: Path) -> Path | None:
+    # Hanya konfigurasi yang dipilih untuk tiap metode
+    t = table[table["config"].isin(config_per_method.values())].copy()
+    # Label jenis predikat berdasarkan tipe
+    t["jenis"] = t["type"].map(lambda x: "majemuk" if x in compound_types else "tunggal")
+    t = t.groupby(["bin", "method", "jenis"], as_index=False)["recall_mean"].mean()
+    # Hanya bin yang memuat kedua jenis predikat (perbandingan sah, lihat Threats to Validity)
+    bins = sorted(b for b, g in t.groupby("bin") if g["jenis"].nunique() == 2)
+    if not bins:
+        return None
+
+    fig, axes = plt.subplots(1, len(bins), figsize=(3.2 * len(bins), 3.2), sharey=True, squeeze=False)
+    for ax, b in zip(axes[0], bins):
+        gb = t[t["bin"] == b]
+        for i, m in enumerate(METHOD_ORDER):
+            for j, jenis in enumerate(["tunggal", "majemuk"]):
+                r = gb[(gb["method"] == m) & (gb["jenis"] == jenis)]
+                if r.empty:
+                    continue
+                # Penanda penuh = tunggal, berongga = majemuk, berdampingan per metode
+                ax.plot([i + (j - 0.5) * 0.36], r["recall_mean"], marker=METHOD_MARKER[m], markersize=8,
+                        linestyle="none", color=METHOD_COLOR[m], markeredgewidth=2,
+                        markerfacecolor=METHOD_COLOR[m] if jenis == "tunggal" else "white")
+        ax.set_xticks(range(len(METHOD_ORDER)), [METHOD_LABEL[m] for m in METHOD_ORDER])
+        ax.set_title(f"Rezim {b}", loc="left")
+        ax.set_ylim(0, 1.05)
+        ax.grid(True, linewidth=0.5, alpha=0.5)
+        ax.spines["top"].set_visible(False)
+        ax.spines["right"].set_visible(False)
+    axes[0][0].set_ylabel("Recall@10")
+    fig.text(0.01, -0.04, "Penanda penuh = predikat tunggal; berongga = majemuk", fontsize=8)
+
+    out.mkdir(parents=True, exist_ok=True)
+    path = out / "tunggal_vs_majemuk.png"
+    fig.savefig(path, dpi=200, bbox_inches="tight")
+    plt.close(fig)
+    return path
