@@ -104,3 +104,35 @@ def single_vs_compound(table: pd.DataFrame, compound_types: set[str], config_per
     fig.savefig(path, dpi=200, bbox_inches="tight")
     plt.close(fig)
     return path
+
+# Item 11 README: stabilitas overlap@k per bin dan metode, satu konfigurasi per metode
+def stability_plot(table: pd.DataFrame, config_per_method: dict[str, str], out: Path) -> Path | None:
+    # Grafik dilewati bila hasil stabilitas belum digabung ke tabel
+    if "stability_overlap" not in table or table["stability_overlap"].isna().all():
+        return None
+    t = table[table["config"].isin(config_per_method.values())].dropna(subset=["stability_overlap"])
+    t = t.groupby(["bin", "method"], as_index=False)["stability_overlap"].mean()
+    bins = sorted(t["bin"].unique())
+
+    fig, ax = plt.subplots(figsize=(4.6, 3.2))
+    for i, m in enumerate(METHOD_ORDER):
+        g = t[t["method"] == m].set_index("bin").reindex(bins)
+        # Tiap metode digeser sedikit ke kiri/kanan agar penanda tidak bertumpuk
+        xs = [k + (i - 1) * 0.22 for k in range(len(bins))]
+        ax.plot(xs, g["stability_overlap"], marker=METHOD_MARKER[m], markersize=7, linestyle="none",
+                color=METHOD_COLOR[m], label=METHOD_LABEL[m])
+    ax.set_xticks(range(len(bins)), bins)
+    ax.set_ylim(0, 1.05)
+    ax.set_xlabel("Rezim match rate")
+    ax.set_ylabel("Overlap@10 antar-ulangan")
+    ax.set_title("Stabilitas kueri berulang", loc="left")
+    ax.grid(True, linewidth=0.5, alpha=0.5)
+    ax.legend(frameon=False, loc="lower left")
+    ax.spines["top"].set_visible(False)
+    ax.spines["right"].set_visible(False)
+
+    out.mkdir(parents=True, exist_ok=True)
+    path = out / "stabilitas.png"
+    fig.savefig(path, dpi=200, bbox_inches="tight")
+    plt.close(fig)
+    return path
