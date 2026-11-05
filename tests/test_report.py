@@ -36,4 +36,12 @@ def test_ulangan_tidak_menggandakan_pasangan():
 def test_mean_ci_dengan_variasi():
     m, (lo, hi) = mean_ci([0.0, 0.5, 1.0, 1.0])
     assert m == 0.625
-    assert lo < m < hi
+    assert lo < m < hi 
+
+def test_pemecahan_per_query_in_filter():
+    log = _log()
+    # Satu pasangan di dalam filter, satu di luar
+    log["query_in_filter"] = log["pair_id"].map({"P0": True, "P1": False})
+    t = main_table(log, extra_groups=["query_in_filter"])
+    assert len(t) == 3 * 2
+    assert (t["n_pasangan"] == 1).all()

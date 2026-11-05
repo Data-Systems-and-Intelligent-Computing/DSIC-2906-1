@@ -16,20 +16,19 @@ from src.evaluation.bootstrap import mean_ci
 GROUP_COLUMNS = ["bin", "type", "method", "config"]
 
 
-def main_table(log: pd.DataFrame) -> pd.DataFrame:
+def main_table(log: pd.DataFrame, extra_groups=()) -> pd.DataFrame:
+    # Kolom pengelompokan: bin x tipe x metode x konfigurasi, ditambah pemecahan opsional
+    cols = GROUP_COLUMNS + list(extra_groups)
     rows = []
-    # Satu kelompok = satu kombinasi bin x tipe predikat x metode x konfigurasi
-    for (b, t, m, c), g in log.groupby(GROUP_COLUMNS):
+    # dropna=False agar nilai kosong (mis. sumber kueri tak diketahui) tetap jadi kelompok sendiri
+    for key, g in log.groupby(cols, dropna=False):
+        row = dict(zip(cols, key))
         # Latensi persentil 50 dan 95 dari fungsi yang sudah ada
         lat = summarize_latency_ms(g["latency_ms"])
         # Interval kepercayaan 95% recall, dirata-ratakan per pasangan dulu agar ulangan tidak dihitung ganda
         per_pair = g.groupby("pair_id")["recall_at_10"].mean()
         _, (ci_low, ci_high) = mean_ci(per_pair)
-        rows.append({
-            "bin": b,
-            "type": t,
-            "method": m,
-            "config": c,
+        row.update({
             # Banyaknya pasangan kueri-filter di kelompok ini
             "n_pasangan": int(g["pair_id"].nunique()),
             # Akurasi: rata-rata recall@10 terhadap ground truth eksak
@@ -46,4 +45,5 @@ def main_table(log: pd.DataFrame) -> pd.DataFrame:
             "visited_median": float(g["visited_nodes"].median()),
             "pred_eval_median": float(g["predicate_evaluations"].median()),
         })
+        rows.append(row)
     return pd.DataFrame(rows)

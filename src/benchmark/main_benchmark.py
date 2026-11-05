@@ -85,6 +85,8 @@ def run_pairs(corpus: pd.DataFrame, vectors: np.ndarray, neighbors, start: int, 
             raise AssertionError(f"Jumlah eligible {pr.pair_id} tidak sama dengan workload")
         truth = set(int(i) for i in gt_rows[pr.pair_id][:k])
         q = vectors[pr.query_row]
+        # Sumber dokumen kueri, untuk memecah hasil per berita/atraksi/desa
+        q_source = corpus["source_type"].iat[pr.query_row] if "source_type" in corpus else None
 
         batch = []
         # Ulangan kueri identik untuk stabilitas (README bagian 26); repeats=1 untuk benchmark biasa
@@ -100,6 +102,8 @@ def run_pairs(corpus: pd.DataFrame, vectors: np.ndarray, neighbors, start: int, 
                 "pair_id": pr.pair_id, "query_id": f"Q{pr.query_row:05d}", "query_row": int(pr.query_row),
                 "filter_id": pr.filter_id, "set": pr.set, "bin": pr.bin, "type": pr.type,
                 "match_rate": float(pr.match_rate), "n_eligible": int(pr.n_eligible), "k": k,
+                "query_in_filter": getattr(pr, "query_in_filter", None),
+                "query_source_type": q_source,
                 "config": " ".join(f"{a}={b}" for a, b in c.items()),
                 "recall_at_10": len(truth & set(result)) / len(truth) if truth else None,
                 "latency_ms": latency_ms, "timeout_ms": timeout_ms, "repeat": rep_i,
