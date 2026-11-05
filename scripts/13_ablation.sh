@@ -8,5 +8,4 @@ PROFILE="${RESOURCE_PROFILE:-lightsail-t3.xlarge}"
 TANGGAL="$(date -u +%Y-%m-%d)"
 LOG="results/raw/dev_benchmark_${PROFILE}_${TANGGAL}.jsonl"
 python -m src.benchmark.dev_benchmark --resource-profile "$PROFILE" --out "$LOG"
-python scripts/ringkasan_bimbingan.py dt4 --dev-log "$LOG" --csv "results/summary/ablation_${PROFILE}_${TANGGAL}" \
-  --catatan-run "Ablasi E5 pada workload development, profil ${PROFILE}"
+python -m src.evaluation.ablation --dev-log "$LOG" --out "results/summary/ablation_${PROFILE}_${TANGGAL}.csv"
