@@ -15,12 +15,35 @@ TBD after experiments; do not pre-fill performance claims.
 - Multi-index approaches (SIEVE, CAPS)
 
 ## 3. Method
-- Corpus and natural metadata
-  The corpus contains 64,354 documents (15,132 attractions, 6,329 tourism villages, and 42,893 news articles), which is small to medium in size compared with the web-scale WebIQ index of the reference paper.
-- Exact filtered ground truth
-- PostFilter, TwoHopSearch, AdaptiveL
-- Resource profiles
-- Workload and match-rate stratification
+## 3. Method
+
+### 3.1 Corpus
+The corpus contains 64,354 documents: 15,132 tourism attractions and 6,329 tourism villages from JADESTA, and 42,893 online news articles. The news articles are the unique URLs among 71,579 attraction–news pairs collected for the attractions. This corpus is small to medium in size compared with the web-scale WebIQ index of the reference paper.
+
+Each document becomes exactly one vector; no chunking is applied. Attraction text concatenates the attraction name, its category, its address, and its listed facilities. Village text concatenates the village name, its village type, its address, and its facilities. News text is the article title, with the source suffix appended by Google News removed. As a result, JADESTA texts are longer than news texts (median 133–152 versus 74 characters) and follow a fixed template; this asymmetry is discussed in Section 6.1.
+
+### 3.2 Natural metadata
+Every document carries the metadata that occurs naturally in its source. Regency (kabupaten/kota) has 483 distinct values. News articles inherit the regencies of all attractions they are linked to; 9,804 articles are linked to more than one regency, and a predicate on such an article is satisfied when any of its values matches (any-match rule). Category has four values (alam, budaya, buatan, desa), tourism villages additionally carry a maturity level, and source type has three values (attraction, village, news).
+
+The raw province column is not used. Province is derived from the regency through the official regional code table of the Ministry of Home Affairs (Kepmendagri 300.2.2-2138/2025, as amended by 300.2.2-2430/2025), extended with 18 manually reviewed spelling aliases. Documents whose regency field is empty or does not contain a regency name (174 documents) receive no province.
+
+Publisher domains of news articles are normalized by merging subdomains of the same publisher, which reduces 3,862 domains to 2,808 publishers. Syndicated news, i.e., near-identical titles published within two days, is grouped with a fuzzy-match threshold of 90 into 768 story lineages covering 1,606 articles; a manual review of all 342 groups with non-identical titles found 10 false positives (2.9%).
+
+### 3.3 Embedding and shared index
+All documents and queries are embedded with the frozen model paraphrase-multilingual-MiniLM-L12-v2 (384 dimensions) and compared by cosine distance on normalized vectors. A single Vamana proximity graph is built once with DiskANN [TBD: R, L_build, alpha from index_manifest.json] and shared by all methods, so that differences between methods are not caused by different indexes. Unfiltered search on this graph reaches a recall@10 of 0.9959. Because the DiskANN Python bindings do not expose graph traversal, the greedy search and all three filtered methods are reimplemented in Python on top of the same graph file.
+
+### 3.4 Search methods
+PostFilter runs unfiltered greedy search with a frontier of size equal to its candidate budget and then applies the predicate to the returned candidates; when fewer than k candidates pass, the result is under-filled. TwoHopSearch follows Algorithm 1 of the reference paper: only points that satisfy the predicate enter the frontier, and when more than half of a visited point's neighbors fail the predicate, the neighbors of those failing points are also evaluated. AdaptiveL follows Algorithms 2 and 3: after n_sample visits it estimates the predicate specificity ŝp from the fraction of visited points that match, and rescales the frontier size once by a multiplier of at most m_max.
+
+The frozen parameters are a candidate budget of [TBD] for PostFilter, L ∈ [TBD] for TwoHopSearch, and L ∈ [TBD] with n_sample = [TBD] and m_max = [TBD] for AdaptiveL. All methods share a per-query timeout of [TBD] ms, derived from the development benchmark as three times the maximum observed latency. Parameters were chosen on a separate development set of 100 queries and frozen before the test workload was run.
+
+### 3.5 Workload and exact ground truth
+Predicates are drawn from the metadata that actually occurs in the corpus. Single predicates cover regency, province, publisher, category, source type, and publication date; compound predicates are regency ∧ category, regency ∧ news published in 2026, province ∧ source type, and category ∧ publication date. Each predicate is assigned to a match-rate bin with boundaries at 0.1%, 0.5%, 2.5%, and 10% (B1–B5). A predicate enters the main set when at least 10k points satisfy it and the extension set when at least k but fewer than 10k do; the two sets are reported separately.
+
+For each cell of set, bin, and predicate type, up to 10 predicates and about 60 query–filter pairs are sampled with a fixed seed (2906), half of them with the query document inside the filter. Queries are corpus documents with at least four words, excluding the development queries. Query documents remain in the index; for each query, its own document, documents with an identical vector, and documents in the same story lineage are removed from that query's eligible set only. The frozen workload contains 2,040 query–filter pairs over 2,008 distinct queries. Ground truth is the exact filtered k-nearest-neighbor set (k = 10) under cosine distance, with ties broken by row index.
+
+### 3.6 Metrics
+Accuracy is measured as filtered recall@10 against the exact ground truth, with 95% confidence intervals from a 2,000-iteration bootstrap over query–filter pairs. Throughput is reported as queries per second and latency as p50 and p95. Search cost is measured by visited nodes, distance comparisons, and predicate evaluations (total and unique). We also report the under-filled rate (results with fewer than k items) and stability as the overlap@10 between repeated runs of identical queries. All benchmarks run on an AWS Lightsail t3.xlarge instance (burstable CPU, shared host) with a single thread. Because traversal is implemented in Python, QPS and latency are secondary results; the main cost comparisons use distance comparisons and predicate evaluations.
 
 ## 4. Experiments
 - Recall@10–QPS
