@@ -40,6 +40,8 @@ TBD from frozen benchmark artifacts.
 
 **Domain specificity.** Tourism evidence from JADESTA and online news has metadata distributions and semantic density that differ from the YFCC, Caselaw, and WebIQ collections used by Liu et al. (2026). Results may not transfer directly to other domains.
 
+The corpus also contains only three source types (JADESTA attractions, JADESTA villages, and news); Wikipedia and Wikidata were not acquired, so source-type predicates have limited variety and encyclopedic text is not represented.
+
 **Query representativeness.** Queries are 2,008 corpus documents with at least four words, not real user search logs. Query documents remain in the index; to prevent self-matches, each query's own document, documents with identical vectors, and documents in the same syndication lineage are removed from that query's eligible set only.
 
 **Filter distribution.** Match-rate bins are confounded with predicate type: B5 contains only broad predicates, while B1 contains no single province or category predicates (province appears in B1 only in compound province ∧ source-type predicates). Comparisons between single and compound predicates are therefore restricted to B2–B3, where both types are present.
