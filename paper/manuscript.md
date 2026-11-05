@@ -59,7 +59,7 @@ PostFilter, TwoHopSearch, and AdaptiveL are run on all single-predicate pairs (r
 The same procedure is applied to compound pairs (regency ∧ category, regency ∧ news published in 2026, province ∧ source type, and category ∧ publication date). Because bins and predicate types are confounded (Section 6.1), single and compound predicates are compared only within bins that contain both, namely B2 and B3.
 
 ### 4.4 Resource-constrained benchmark (E4, RQ3)
-The main benchmark is repeated under fixed resource profiles to measure how recall, latency, throughput, and search cost change when CPU and memory are limited. [TBD: profiles and limiting mechanism, pending decision DT-6.]
+The main benchmark is repeated under fixed resource profiles to measure how recall, latency, throughput, and search cost change when CPU and memory are limited. CPU is limited by pinning the process to a fixed number of cores with taskset and setting the numerical-library thread count to match; memory cannot be capped on the shared host without cgroup access, so peak resident memory is measured and reported instead. [Proposed profiles, pending decision DT-6: one, two, and four cores.]
 
 ### 4.5 Parameter sensitivity (E5, RQ5)
 On the development set only, AdaptiveL is evaluated over L ∈ {100, 200, 400}, n_sample ∈ {32, 64}, and m_max ∈ {1, 2, 4, 8}, and PostFilter over candidate budgets from 100 to 3,200, including the budget L × m_max as a cost-matched comparison. These results determine the frozen configuration and are reported separately from the test results.
