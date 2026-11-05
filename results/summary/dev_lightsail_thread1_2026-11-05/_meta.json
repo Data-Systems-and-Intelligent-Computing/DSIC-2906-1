@@ -1,0 +1,28 @@
+{
+  "dibuat_utc": "2026-11-05T03:13:31+00:00",
+  "dibuat_oleh": "scripts/ringkasan_bimbingan.py dt4 --dev-log results/raw/dev_benchmark_lightsail_thread1_2026-11-05.jsonl --csv results/summary/dev_lightsail_thread1_2026-11-05 --catatan-run Dev benchmark Lightsail t3.xlarge 1 thread (OMP/OPENBLAS/MKL_NUM_THREADS=1), 5 Nov 2026 [mulai]-[selesai] UTC, commit d20b04a (bersih), seed 2906, 100 kueri dev. JSONL SHA-256 [hash]. Recall identik dengan run multi-thread 29 Okt; latensi maks 205,5 ms (TwoHop L=400) -> usulan timeout 700 ms.",
+  "commit_repo_saat_ringkasan": "dba925b",
+  "working_tree_bersih": false,
+  "workload_manifest": {
+    "workload_id": "dsic2906-1-workload-v2",
+    "query_file": "data/processed/queries.parquet",
+    "filter_file": "data/processed/filters.parquet",
+    "n_queries": 2008,
+    "k": 10,
+    "match_rate_bins": "{\"B1\": 297, \"B2\": 663, \"B3\": 360, \"B4\": 420, \"B5\": 300}",
+    "frozen_at": "2026-10-29T11:47:39+00:00",
+    "checksum_sha256": "b5d7d6f8c48155db84a26927ef717d521e0e44fef98c5307f0cadb50ca67c520"
+  },
+  "sumber_jsonl": {
+    "results/raw/dev_benchmark_lightsail_thread1_2026-11-05.jsonl": {
+      "sha256": "9f63eeb88fa4623a69e21ee6dabcbb50ef2187195ea604e43ae61c4d77e248a8",
+      "n_baris": 24000,
+      "diubah_utc": "2026-11-05T03:09:14+00:00"
+    }
+  },
+  "catatan_run": "Dev benchmark Lightsail t3.xlarge 1 thread (OMP/OPENBLAS/MKL_NUM_THREADS=1), 5 Nov 2026 [mulai]-[selesai] UTC, commit d20b04a (bersih), seed 2906, 100 kueri dev. JSONL SHA-256 [hash]. Recall identik dengan run multi-thread 29 Okt; latensi maks 205,5 ms (TwoHop L=400) -> usulan timeout 700 ms.",
+  "berkas_csv": [
+    "dt4_distance_comparisons_median.csv",
+    "dt4_recall_at_10_mean.csv"
+  ]
+}
