@@ -1,18 +1,27 @@
 # Parameter benchmark utama Minggu 3 (scripts 09-11).
-# STATUS: BELUM BEKU. Nilai diisi dari dev benchmark di Lightsail (DL-19), lalu frozen diubah ke true
-# beserta frozen_at dan source_dev_run. Runner menolak berjalan pada workload test selama frozen: false.
+# STATUS: USULAN, BELUM BEKU. Menunggu persetujuan Supervisor 1 (bimbingan 6 Nov 2026).
+# Setelah disetujui: ubah frozen ke true, isi frozen_at, dan catat nomor DL.
+# Runner menolak berjalan pada workload test selama frozen: false.
 frozen: false
 frozen_at: null
-source_dev_run: null        # mis. results/raw/dev_benchmark_lightsail_2026-10-29.jsonl + SHA-256
+decision_log: null          # nomor DL dari pembimbing
+# Dasar usulan: dev benchmark Lightsail 29 Okt (multi-thread) dan 5 Nov (1 thread),
+# ringkasan di results/summary/dev_lightsail_2026-10-29/ dan dev_lightsail_thread1_2026-11-05/
+source_dev_run: results/raw/dev_benchmark_lightsail_thread1_2026-11-05.jsonl
 k: 10
-timeout_ms: null            # DL-19: diturunkan dari latensi dev benchmark Lightsail
-threads: null               # mis. 1 bila OMP_NUM_THREADS dibatasi; dicatat di setiap baris log
+# DL-19: 3 x latensi maksimum dev 1 thread (205,5 ms, TwoHop L=400), dibulatkan ke atas ke kelipatan 100 ms
+timeout_ms: 700
+# Benchmark resmi dijalankan dengan OMP_NUM_THREADS=OPENBLAS_NUM_THREADS=MKL_NUM_THREADS=1;
+# di dev, 1 thread memberi recall identik dan latensi lebih rendah serta stabil dibanding multi-thread
+threads: 1
 methods:
   postfilter:
-    candidate_budget: [null]
+    # Termasuk pembanding adil L x m_max (DT-4): 400 x 8 = 3200
+    candidate_budget: [100, 200, 400, 800, 1600, 3200]
   twohop:
-    L: [null]
+    L: [100, 200, 400]
   adaptivel:
-    L: [null]
-    n_sample: null
-    m_max: null
+    L: [100, 200, 400]
+    # n_sample 32 konsisten lebih baik dari 64 pada m_max yang sama; m_max 8 sesuai paper
+    n_sample: 32
+    m_max: 8
