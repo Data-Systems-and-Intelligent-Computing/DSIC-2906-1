@@ -147,7 +147,7 @@ if bagian in ("semua", "robust"):
     kolom = ["PF400", "TH400", "AL400"]
     ra = a[a.c.isin(kolom)].groupby(["filter_id", "c"]).agg(mr=("match_rate", "first"), rec=("recall_at_10", "mean"))
     rb = b[b.c.isin(kolom)].groupby(["filter_id", "c"]).agg(mr=("match_rate", "first"), rec=("recall_at_10", "mean"))
-    g = ra.join(rb, lsuffix="_any", rsuffix="_tanpa")
+    g = ra.merge(rb, left_index=True, right_index=True, suffixes=("_any", "_tanpa"))
     g[["mr_any", "mr_tanpa"]] *= 100
     tampil("robust_dt3_any_vs_tanpa_ambigu", g.round(3))
 
