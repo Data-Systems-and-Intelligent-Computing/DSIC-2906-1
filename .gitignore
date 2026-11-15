@@ -61,3 +61,6 @@ data/_asli/
 
 # Arsip data JADESTA versi Antigravity yang dipakai workload v1 (disimpan di bucket)
 data/_v1_antigravity/
+
+# Salinan lokal PDF paper acuan (tidak di-commit; asal dan hash di docs/paper-adaptation-notes.md)
+docs/referensi/*.pdf
