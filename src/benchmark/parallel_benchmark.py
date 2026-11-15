@@ -134,7 +134,9 @@ def main() -> None:
     cfg = yaml.safe_load(Path("configs/main_benchmark.yaml").read_text(encoding="utf-8"))
     pcfg = yaml.safe_load(Path("configs/parallel_benchmark.yaml").read_text(encoding="utf-8"))
     check_frozen(cfg)
-    check_frozen(pcfg)
+    # Config paralel tidak berisi grid metode, jadi cukup diperiksa penanda bekunya
+    if pcfg.get("frozen") is not True:
+        raise SystemExit("configs/parallel_benchmark.yaml belum frozen: true; benchmark paralel tidak dijalankan")
     from src.search.graph_index import load_vamana_graph
     corpus = pd.read_parquet("data/processed/corpus.parquet")
     vectors = np.load("data/embeddings/base_vectors.npy")
