@@ -138,6 +138,93 @@ def stability_plot(table: pd.DataFrame, config_per_method: dict[str, str], out: 
     plt.close(fig)
     return path
 
+# Gaya sumbu yang sama untuk semua grafik
+def _rapikan(ax):
+    ax.grid(True, linewidth=0.5, alpha=0.5)
+    ax.spines["top"].set_visible(False)
+    ax.spines["right"].set_visible(False)
+
+
+# Simpan gambar lalu tutup agar memori tidak menumpuk
+def _simpan(fig, out: Path, nama: str) -> Path:
+    out.mkdir(parents=True, exist_ok=True)
+    path = out / nama
+    fig.savefig(path, dpi=200, bbox_inches="tight")
+    plt.close(fig)
+    return path
+
+
+# Kurva per bin: sumbu x dan y dipilih dari kolom tabel utama, satu garis per metode (urut budget/L)
+def _kurva_per_bin(table: pd.DataFrame, x: str, y: str, xlabel: str, ylabel: str, judul: str,
+                   nama: str, out: Path, xlog: bool = False, ylog: bool = False) -> Path:
+    t = table.assign(budget=table["config"].map(_budget))
+    # Satu titik per bin x metode x konfigurasi: rata-rata lintas tipe predikat
+    t = t.groupby(["bin", "method", "config", "budget"], as_index=False)[[x, y]].mean()
+    bins = sorted(t["bin"].unique())
+    fig, axes = plt.subplots(1, len(bins), figsize=(3.0 * len(bins), 3.1), sharey=True, squeeze=False)
+    for ax, b in zip(axes[0], bins):
+        for m in METHOD_ORDER:
+            g = t[(t["bin"] == b) & (t["method"] == m)].sort_values("budget")
+            if g.empty:
+                continue
+            ax.plot(g[x], g[y], color=METHOD_COLOR[m], marker=METHOD_MARKER[m], linewidth=1.8,
+                    markersize=5, label=METHOD_LABEL[m])
+        if xlog:
+            ax.set_xscale("log")
+        if ylog:
+            ax.set_yscale("log")
+        ax.set_title(f"Rezim {b}", loc="left")
+        ax.set_xlabel(xlabel)
+        _rapikan(ax)
+    axes[0][0].set_ylabel(ylabel)
+    axes[0][0].legend(frameon=False, loc="best", fontsize=8)
+    # Judul gambar dinaikkan agar tidak menimpa judul panel pertama
+    fig.suptitle(judul, x=0.01, y=1.06, ha="left")
+    return _simpan(fig, out, nama)
+
+
+# Item 5 README: recall@10 vs latensi p95
+def recall_latency_curve(table: pd.DataFrame, out: Path) -> Path:
+    return _kurva_per_bin(table, "recall_mean", "p95_ms", "Recall@10", "Latensi p95 (ms, implementasi Python)",
+                          "Recall–latensi p95", "recall_p95.png", out)
+
+
+# Biaya bebas implementasi (Bab 2 subbab 2.10): recall vs median perhitungan jarak (D) dan evaluasi predikat (E)
+def recall_cost_curves(table: pd.DataFrame, out: Path) -> list[Path]:
+    paths = [_kurva_per_bin(table, "dist_comp_median", "recall_mean", "Median perhitungan jarak (D, log)",
+                            "Recall@10", "Recall terhadap perhitungan jarak", "recall_biaya_D.png", out, xlog=True)]
+    paths.append(_kurva_per_bin(table, "pred_eval_median", "recall_mean", "Median evaluasi predikat (E, log)",
+                                "Recall@10", "Recall terhadap evaluasi predikat", "recall_biaya_E.png", out,
+                                xlog=True))
+    return paths
+
+
+# Item 6 dan 7 README: recall dan titik dikunjungi menurut match rate aktual (budget/L terbesar tiap metode)
+def match_rate_plots(per_mr: pd.DataFrame, config_per_method: dict[str, str], out: Path) -> list[Path]:
+    t = per_mr[per_mr["config"].isin(config_per_method.values())]
+    paths = []
+    for kolom, label, nama, ylog in [("recall_mean", "Recall@10", "match_rate_recall.png", False),
+                                     ("visited_median", "Median titik dikunjungi (log)",
+                                      "match_rate_visited.png", True)]:
+        fig, ax = plt.subplots(figsize=(4.6, 3.3))
+        for m in METHOD_ORDER:
+            g = t[t["method"] == m].sort_values("match_rate_median")
+            if g.empty:
+                continue
+            ax.plot(g["match_rate_median"] * 100, g[kolom], color=METHOD_COLOR[m], marker=METHOD_MARKER[m],
+                    linewidth=1.8, markersize=5, label=METHOD_LABEL[m])
+        ax.set_xscale("log")
+        if ylog:
+            ax.set_yscale("log")
+        ax.set_xlabel("Match rate (% , log; median kelompok kuantil)")
+        ax.set_ylabel(label)
+        ax.set_title(f"{label.split(' (')[0]} menurut match rate", loc="left")
+        ax.legend(frameon=False, loc="best", fontsize=8)
+        _rapikan(ax)
+        paths.append(_simpan(fig, out, nama))
+    return paths
+
+
 def main() -> None:
     import yaml
 
@@ -157,6 +244,13 @@ def main() -> None:
     out = Path(args.out_dir)
     paths = [recall_qps_curve(table, b, out) for b in sorted(table["bin"].unique())]
     paths += [single_vs_compound(table, set(tipe["compound"]), cpm, out), stability_plot(table, cpm, out)]
+    paths.append(recall_latency_curve(table, out))
+    # Grafik biaya D/E hanya bila kolom D tersedia (laporan lama tidak memilikinya)
+    if "dist_comp_median" in table:
+        paths += recall_cost_curves(table, out)
+    per_mr_path = Path(args.report_dir) / "per_match_rate.csv"
+    if per_mr_path.exists():
+        paths += match_rate_plots(pd.read_csv(per_mr_path), cpm, out)
     for p in paths:
         if p is not None:
             print(p)

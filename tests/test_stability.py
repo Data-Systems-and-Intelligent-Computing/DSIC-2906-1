@@ -31,3 +31,13 @@ def test_runner_berulang_deterministik():
     assert (per_pair["n_repeat"] == 3).all()
     # Penelusuran tanpa timeout bersifat deterministik: overlap harus 1.0 (tetap dilaporkan apa adanya)
     assert (per_pair["overlap_at_k"] == 1.0).all()
+
+
+def test_identik_terpisah_dari_under_fill():
+    # Dua ulangan dengan 3 hasil yang sama: overlap@10 = 0,3 tetapi tetap identik
+    log = pd.DataFrame([{"pair_id": "P1", "config": "c", "method": "postfilter", "bin": "B2", "type": "kabupaten",
+                         "repeat": r, "k": 10, "result_rows": [1, 2, 3], "timeout": False} for r in range(2)])
+    per_pair, ringkas = stability_table(log)
+    assert per_pair["overlap_at_k"].iloc[0] == pytest.approx(0.3)
+    assert bool(per_pair["identik"].iloc[0]) is True
+    assert ringkas["pct_identik"].iloc[0] == 1.0

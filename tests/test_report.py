@@ -3,7 +3,7 @@ import pandas as pd
 
 from src.benchmark.main_benchmark import method_configs, run_pairs
 from src.evaluation.bootstrap import mean_ci
-from src.evaluation.report import main_table
+from src.evaluation.report import main_table, per_match_rate
 from tests.test_main_benchmark import _cfg, _data
 
 
@@ -53,5 +53,16 @@ def test_build_report_dengan_stabilitas():
     log = _log(repeats=3)
     per_pair, _ = stability_table(log)
     t = build_report(log, per_pair)
-    assert set(t) == {"main_table", "per_query_in_filter", "per_sumber_kueri", "failure_taxonomy"}    # Penelusuran tanpa timeout deterministik, jadi overlap 1.0
+    assert set(t) == {"main_table", "per_query_in_filter", "per_sumber_kueri", "failure_taxonomy",
+                      "per_match_rate"}
+    # Penelusuran tanpa timeout deterministik, jadi overlap 1.0
     assert (t["main_table"]["stability_overlap"] == 1.0).all()
+    assert (t["main_table"]["stability_identical"] == 1.0).all()
+
+
+def test_kolom_biaya_jarak_dan_match_rate():
+    log = _log()
+    assert "dist_comp_median" in main_table(log)
+    t = per_match_rate(log)
+    assert set(t["method"]) == {"postfilter", "twohop", "adaptivel"}
+    assert (t["n_pasangan"] >= 1).all()

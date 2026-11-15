@@ -48,12 +48,15 @@ def stability_table(log: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame]:
             "pair_id": pair_id, "config": config, "method": g["method"].iloc[0], "bin": g["bin"].iloc[0],
             "type": g["type"].iloc[0], "n_repeat": len(g),
             "overlap_at_k": pair_stability(g["result_rows"].tolist(), int(g["k"].iloc[0])),
+            # True bila seluruh ulangan mengembalikan daftar hasil yang persis sama (tidak dipengaruhi under-fill)
+            "identik": len({tuple(r) for r in g["result_rows"]}) == 1,
             "pct_timeout": float(g["timeout"].mean()),
         })
     per_pair = pd.DataFrame(rows)
     summary = (per_pair.groupby(["bin", "method", "config"])
                .agg(n_pasangan=("pair_id", "size"), overlap_mean=("overlap_at_k", "mean"),
                     overlap_min=("overlap_at_k", "min"), pct_overlap_lt_1=("overlap_at_k", lambda s: (s < 1).mean()),
+                    pct_identik=("identik", "mean"),
                     pct_timeout=("pct_timeout", "mean"))
                .reset_index())
     return per_pair, summary

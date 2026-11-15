@@ -56,9 +56,33 @@ def main_table(log: pd.DataFrame, extra_groups=()) -> pd.DataFrame:
             # Biaya pencarian: median titik dikunjungi dan evaluasi predikat
             "visited_median": float(g["visited_nodes"].median()),
             "pred_eval_median": float(g["predicate_evaluations"].median()),
+            # Biaya pencarian bebas bahasa pemrograman: median perhitungan jarak (D, Bab 2 subbab 2.10)
+            "dist_comp_median": float(g["distance_comparisons"].median()),
         })
         rows.append(row)
     return pd.DataFrame(rows)
+
+
+# Grafik item 6-7 README: recall dan biaya menurut match rate aktual, bukan menurut bin.
+# Pasangan dikelompokkan ke n_groups kuantil match rate (dihitung per pasangan, bukan per baris log).
+def per_match_rate(log: pd.DataFrame, n_groups: int = 8) -> pd.DataFrame:
+    pasangan = log.drop_duplicates("pair_id")[["pair_id", "match_rate"]]
+    # Jumlah kelompok tidak melebihi jumlah nilai match rate yang berbeda; satu nilai saja -> satu kelompok
+    k = min(n_groups, pasangan["match_rate"].nunique())
+    if k <= 1:
+        kelompok = pd.Series(0, index=pasangan.index)
+    else:
+        kelompok = pd.qcut(pasangan["match_rate"], q=k, labels=False, duplicates="drop")
+    peta = dict(zip(pasangan["pair_id"], kelompok))
+    g = log.assign(mr_group=log["pair_id"].map(peta))
+    out = (g.groupby(["mr_group", "method", "config"])
+           .agg(n_pasangan=("pair_id", "nunique"), match_rate_median=("match_rate", "median"),
+                recall_mean=("recall_at_10", "mean"), underfilled_pct=("underfilled", "mean"),
+                visited_median=("visited_nodes", "median"), dist_comp_median=("distance_comparisons", "median"),
+                pred_eval_median=("predicate_evaluations", "median"))
+           .reset_index())
+    out["underfilled_pct"] *= 100
+    return out
 
 
 # Gabungan semua tabel laporan; stabilitas digabung ke tabel utama bila tersedia
@@ -69,11 +93,17 @@ def build_report(log: pd.DataFrame, stability_per_pair: pd.DataFrame | None = No
         stab = (stability_per_pair.groupby(GROUP_COLUMNS)["overlap_at_k"].mean()
                 .rename("stability_overlap").reset_index())
         utama = utama.merge(stab, on=GROUP_COLUMNS, how="left")
+        # Proporsi pasangan dengan hasil identik di semua ulangan (bila kolomnya ada)
+        if "identik" in stability_per_pair:
+            iden = (stability_per_pair.groupby(GROUP_COLUMNS)["identik"].mean()
+                    .rename("stability_identical").reset_index())
+            utama = utama.merge(iden, on=GROUP_COLUMNS, how="left")
     return {
         "main_table": utama,
         "per_query_in_filter": main_table(log, extra_groups=["query_in_filter"]),
         "per_sumber_kueri": main_table(log, extra_groups=["query_source_type"]), 
         "failure_taxonomy": failure_taxonomy(label_failures(log)),
+        "per_match_rate": per_match_rate(log),
     }
 
 
