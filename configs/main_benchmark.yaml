@@ -1,10 +1,9 @@
 # Parameter benchmark utama Minggu 3 (scripts 09-11).
-# STATUS: USULAN, BELUM BEKU. Menunggu persetujuan Supervisor 1 (bimbingan 6 Nov 2026).
-# Setelah disetujui: ubah frozen ke true, isi frozen_at, dan catat nomor DL.
+# STATUS: BEKU. Disetujui Supervisor 1; dibekukan sebelum benchmark utama dijalankan.
 # Runner menolak berjalan pada workload test selama frozen: false.
-frozen: false
-frozen_at: null
-decision_log: null          # nomor DL dari pembimbing
+frozen: true
+frozen_at: "2026-11-16"
+decision_log: "DL-xx"       # nomor DL / bukti persetujuan Supervisor 1
 # Dasar usulan: dev benchmark Lightsail 29 Okt (multi-thread) dan 5 Nov (1 thread),
 # ringkasan di results/summary/dev_lightsail_2026-10-29/ dan dev_lightsail_thread1_2026-11-05/
 source_dev_run: results/raw/dev_benchmark_lightsail_thread1_2026-11-05.jsonl
