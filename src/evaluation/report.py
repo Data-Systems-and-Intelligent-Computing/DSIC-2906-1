@@ -100,11 +100,18 @@ def main() -> None:
     ap.add_argument("--log", nargs="+", required=True, help="satu atau lebih JSONL benchmark utama")
     ap.add_argument("--stability", default=None, help="CSV per pasangan dari src.benchmark.stability")
     ap.add_argument("--out-dir", required=True)
+    # DT-1: set utama dan set ekstensi dilaporkan terpisah
+    ap.add_argument("--set", dest="set_name", choices=["utama", "ekstensi", "all"], default="all")
     args = ap.parse_args()
 
     # Log mentah dibaca tanpa diubah; beberapa berkas digabung
     log = pd.concat([pd.read_json(p, lines=True) for p in args.log], ignore_index=True)
     stab = pd.read_csv(args.stability) if args.stability else None
+    # Penyaringan per set (DT-1); stabilitas ikut disaring lewat pair_id
+    if args.set_name != "all":
+        log = log[log["set"] == args.set_name].reset_index(drop=True)
+        if stab is not None and "pair_id" in stab:
+            stab = stab[stab["pair_id"].isin(log["pair_id"])].reset_index(drop=True)
     tabel = build_report(log, stab)
 
     # Penulisan CSV dan metadata
@@ -117,6 +124,7 @@ def main() -> None:
         "commit_repo": _commit(),
         "sumber_log": {p: _sha256(p) for p in args.log},
         "sumber_stabilitas": {args.stability: _sha256(args.stability)} if args.stability else None,
+        "set": args.set_name,
         "n_baris_log": int(len(log)),
         "berkas_csv": sorted(f"{n}.csv" for n in tabel),
     }
