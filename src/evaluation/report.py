@@ -56,6 +56,10 @@ def main_table(log: pd.DataFrame, extra_groups=()) -> pd.DataFrame:
             # Biaya pencarian: median titik dikunjungi dan evaluasi predikat
             "visited_median": float(g["visited_nodes"].median()),
             "pred_eval_median": float(g["predicate_evaluations"].median()),
+            # P4: TwoHop dapat memeriksa titik yang sama berulang kali; versi unik dilaporkan berdampingan
+            "pred_eval_unique_median": (float(g["predicate_evaluations_unique"].median())
+                                        if "predicate_evaluations_unique" in g and g["predicate_evaluations_unique"].notna().any()
+                                        else None),
             # Biaya pencarian bebas bahasa pemrograman: median perhitungan jarak (D, Bab 2 subbab 2.10)
             "dist_comp_median": float(g["distance_comparisons"].median()),
             # README bagian 25: biaya dilaporkan sebagai median dan p95
@@ -116,6 +120,52 @@ def paired_comparisons(log: pd.DataFrame, L_values=(100, 200, 400), n_sample: in
     return pd.DataFrame(rows)
 
 
+# Nilai L / budget dari teks config (untuk rasio titik dikunjungi terhadap L)
+def _L_dari_config(config: pd.Series) -> pd.Series:
+    return config.str.extract(r"(?:candidate_budget|L)=(\d+)")[0].astype(float)
+
+
+# P11: rasio titik dikunjungi terhadap L per metode, L, dan bin; sample_reached untuk AdaptiveL
+def visited_per_L(log: pd.DataFrame) -> pd.DataFrame:
+    g = log.assign(L=_L_dari_config(log["config"]))
+    g = g.assign(rasio=g["visited_nodes"] / g["L"])
+    out = (g.groupby(["bin", "method", "L"])
+           .agg(n_baris=("rasio", "size"), rasio_median=("rasio", "median"),
+                rasio_p95=("rasio", lambda x: x.quantile(0.95)))
+           .reset_index())
+    if "sample_reached" in g:
+        sr = (g[g["method"] == "adaptivel"].groupby(["bin", "L"])["sample_reached"].mean() * 100
+              ).rename("sample_reached_pct").reset_index().assign(method="adaptivel")
+        out = out.merge(sr, on=["bin", "method", "L"], how="left")
+    return out
+
+
+# P3 / DT-5: distribusi taksiran ŝp dan pengali AdaptiveL per bin dan per hubungan kueri-filter
+def adaptivel_multiplier(log: pd.DataFrame, m_max: float = 8) -> pd.DataFrame:
+    a = log[log["method"] == "adaptivel"].copy()
+    if a.empty:
+        return pd.DataFrame()
+    m = a["multiplier"].astype(float)
+    a = a.assign(peng_1=m.eq(1), peng_2=m.gt(1) & m.le(2), peng_antara=m.gt(2) & m.lt(m_max), peng_max=m.ge(m_max),
+                 sp_nol=a["sp_hat"].astype(float).eq(0))
+    kelompok = ["bin", "query_in_filter"] if "query_in_filter" in a else ["bin"]
+    out = (a.groupby(kelompok, dropna=False)
+           .agg(n_baris=("pair_id", "size"), sp_hat_nol_pct=("sp_nol", "mean"), pengali_1_pct=("peng_1", "mean"),
+                pengali_sampai_2_pct=("peng_2", "mean"), pengali_2_sampai_max_pct=("peng_antara", "mean"),
+                pengali_max_pct=("peng_max", "mean"), pengali_median=("multiplier", "median"))
+           .reset_index())
+    for c in [c for c in out if c.endswith("_pct")]:
+        out[c] *= 100
+    return out
+
+
+# Bahan grafik P3: taksiran ŝp per pasangan dibandingkan dengan match rate aktual
+def adaptivel_sp_hat(log: pd.DataFrame) -> pd.DataFrame:
+    a = log[log["method"] == "adaptivel"]
+    kol = [c for c in ["pair_id", "bin", "type", "config", "match_rate", "query_in_filter", "sp_hat", "multiplier"] if c in a]
+    return a[kol].drop_duplicates(["pair_id", "config"]).reset_index(drop=True)
+
+
 # Gabungan semua tabel laporan; stabilitas digabung ke tabel utama bila tersedia
 def build_report(log: pd.DataFrame, stability_per_pair: pd.DataFrame | None = None) -> dict[str, pd.DataFrame]:
     utama = main_table(log)
@@ -136,6 +186,9 @@ def build_report(log: pd.DataFrame, stability_per_pair: pd.DataFrame | None = No
         "failure_taxonomy": failure_taxonomy(label_failures(log)),
         "per_match_rate": per_match_rate(log),
         "paired_comparisons": paired_comparisons(log),
+        "visited_per_L": visited_per_L(log),
+        "adaptivel_multiplier": adaptivel_multiplier(log),
+        "adaptivel_sp_hat": adaptivel_sp_hat(log),
     }
 
 

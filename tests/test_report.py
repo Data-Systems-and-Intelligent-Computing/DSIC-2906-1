@@ -3,7 +3,8 @@ import pandas as pd
 
 from src.benchmark.main_benchmark import method_configs, run_pairs
 from src.evaluation.bootstrap import mean_ci
-from src.evaluation.report import main_table, paired_comparisons, per_match_rate
+from src.evaluation.report import (adaptivel_multiplier, adaptivel_sp_hat, main_table, paired_comparisons,
+                                   per_match_rate, visited_per_L)
 from tests.test_main_benchmark import _cfg, _data
 
 
@@ -54,7 +55,8 @@ def test_build_report_dengan_stabilitas():
     per_pair, _ = stability_table(log)
     t = build_report(log, per_pair)
     assert set(t) == {"main_table", "per_query_in_filter", "per_sumber_kueri", "failure_taxonomy",
-                      "per_match_rate", "paired_comparisons"}
+                      "per_match_rate", "paired_comparisons", "visited_per_L", "adaptivel_multiplier",
+                      "adaptivel_sp_hat"}
     # Penelusuran tanpa timeout deterministik, jadi overlap 1.0
     assert (t["main_table"]["stability_overlap"] == 1.0).all()
     assert (t["main_table"]["stability_identical"] == 1.0).all()
@@ -88,3 +90,23 @@ def test_selisih_berpasangan():
     pf = t[t["pembanding"].str.contains("PostFilter")].iloc[0]
     assert abs(th["selisih_recall"] - 0.2) < 1e-9 and th["arah"] == "a > b"
     assert pf["selisih_recall"] == 0 and pf["arah"] == "tidak berbeda"
+
+
+
+def test_diagnostik_adaptivel_dan_rasio_L():
+    log = _log()
+    v = visited_per_L(log)
+    assert set(v["method"]) == {"postfilter", "twohop", "adaptivel"}
+    assert (v["rasio_median"] > 0).all()
+    m = adaptivel_multiplier(log)
+    kolom = ["pengali_1_pct", "pengali_sampai_2_pct", "pengali_2_sampai_max_pct", "pengali_max_pct"]
+    # Keempat kelompok pengali saling lepas dan lengkap
+    assert ((m[kolom].sum(axis=1) - 100).abs() < 1e-9).all()
+    assert len(adaptivel_sp_hat(log)) == log[log["method"] == "adaptivel"]["pair_id"].nunique()
+
+
+def test_evaluasi_unik_twohop():
+    t = main_table(_log())
+    tw = t[t["method"] == "twohop"]["pred_eval_unique_median"]
+    assert tw.notna().all()
+    assert (tw <= t[t["method"] == "twohop"]["pred_eval_median"]).all()

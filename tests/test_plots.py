@@ -1,7 +1,7 @@
 """Grafik wajib dibuat dari tabel laporan sintetis tanpa galat."""
 import pandas as pd
 
-from src.evaluation.plots import (match_rate_plots, recall_cost_curves, recall_latency_curve,
+from src.evaluation.plots import (match_rate_plots, sp_hat_vs_match_rate, recall_cost_curves, recall_latency_curve,
                                   recall_qps_curve, single_vs_compound, stability_plot)
 
 
@@ -39,3 +39,11 @@ def test_grafik_tambahan_tertulis(tmp_path):
     paths = [recall_latency_curve(table, tmp_path), *recall_cost_curves(table, tmp_path),
              *match_rate_plots(per_mr, cpm, tmp_path)]
     assert len(paths) == 5 and all(p.stat().st_size > 0 for p in paths)
+
+
+
+def test_grafik_sp_hat(tmp_path):
+    sp = pd.DataFrame({"config": ["a"] * 4, "match_rate": [0.001, 0.01, 0.1, 0.5], "sp_hat": [0.0, 0.03125, 0.1, 0.6],
+                       "query_in_filter": [True, False, True, False]})
+    p = sp_hat_vs_match_rate(sp, "a", 32, tmp_path)
+    assert p is not None and p.stat().st_size > 0

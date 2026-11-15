@@ -225,6 +225,33 @@ def match_rate_plots(per_mr: pd.DataFrame, config_per_method: dict[str, str], ou
     return paths
 
 
+# P3: taksiran ŝp AdaptiveL terhadap match rate aktual (konfigurasi L terbesar); ŝp = 0 digambar di pita bawah
+def sp_hat_vs_match_rate(sp: pd.DataFrame, config: str, n_sample: int, out: Path) -> Path | None:
+    t = sp[sp["config"] == config].dropna(subset=["sp_hat"])
+    if t.empty:
+        return None
+    lantai = 1 / (2 * n_sample)
+    fig, ax = plt.subplots(figsize=(4.8, 3.6))
+    for dalam, mk, lab in [(True, "o", "kueri di dalam filter"), (False, "x", "kueri di luar filter")]:
+        g = t[t["query_in_filter"] == dalam] if "query_in_filter" in t else t
+        y = g["sp_hat"].where(g["sp_hat"] > 0, lantai)
+        ax.scatter(g["match_rate"], y, s=9, marker=mk, alpha=0.45, color=METHOD_COLOR["adaptivel"] if dalam else "#555555",
+                   label=lab, linewidths=0.8)
+    lo = min(t["match_rate"].min(), lantai)
+    ax.plot([lo, 1], [lo, 1], color="#999999", linewidth=1, linestyle="--", label="ŝp = match rate")
+    ax.axhline(1 / n_sample, color="#bbbbbb", linewidth=0.8, linestyle=":")
+    ax.text(lo, 1 / n_sample * 1.15, f"resolusi 1/{n_sample}", fontsize=7, color="#777777")
+    ax.text(lo, lantai * 1.15, "ŝp = 0", fontsize=7, color="#777777")
+    ax.set_xscale("log")
+    ax.set_yscale("log")
+    ax.set_xlabel("Match rate aktual (log)")
+    ax.set_ylabel("Taksiran ŝp (log)")
+    ax.set_title("Taksiran match rate AdaptiveL", loc="left")
+    ax.legend(frameon=False, fontsize=7, loc="lower right")
+    _rapikan(ax)
+    return _simpan(fig, out, "sp_hat_vs_match_rate.png")
+
+
 def main() -> None:
     import yaml
 
@@ -251,6 +278,10 @@ def main() -> None:
     per_mr_path = Path(args.report_dir) / "per_match_rate.csv"
     if per_mr_path.exists():
         paths += match_rate_plots(pd.read_csv(per_mr_path), cpm, out)
+    sp_path = Path(args.report_dir) / "adaptivel_sp_hat.csv"
+    if sp_path.exists() and "adaptivel" in cpm:
+        n_sample = int(re.search(r"n_sample=(\d+)", cpm["adaptivel"]).group(1))
+        paths.append(sp_hat_vs_match_rate(pd.read_csv(sp_path), cpm["adaptivel"], n_sample, out))
     for p in paths:
         if p is not None:
             print(p)
