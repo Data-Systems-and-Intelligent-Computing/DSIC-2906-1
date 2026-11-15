@@ -31,7 +31,7 @@ stability:
 ablation:
 	bash scripts/13_ablation.sh
 report:
-	bash scripts/14_report.sh
+	bash scripts/14_report.sh $(TANGGAL)
 
 test:
 	$(PYTHON) -m pytest

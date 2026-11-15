@@ -1,5 +1,9 @@
+# Dokumentasi metode pencarian. Grid parameter yang dibekukan untuk benchmark utama ada di
+# configs/main_benchmark.yaml (frozen: true); nilai di sini mengikuti berkas itu.
 k: 10
-candidate_budget: 100
+candidate_budget: [100, 200, 400, 800, 1600, 3200]   # PostFilter, termasuk L x m_max (DT-4)
+L_search: [100, 200, 400]                            # TwoHop dan AdaptiveL
+timeout_ms: 700                                      # DL-19
 methods:
   postfilter:
     enabled: true
