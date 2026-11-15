@@ -22,6 +22,8 @@ Semua perintah dijalankan dari root repo dengan virtualenv aktif. `make <target>
 | 12 | E6 stabilitas | `12_stability.sh` / `make stability` | `main_benchmark.py --repeats`, `src/benchmark/stability.py` | `results/raw/stability_*.jsonl`, `results/summary/stability_*.csv` | `test_stability.py` |
 | 13 | E5 ablasi AdaptiveL (dev) | `13_ablation.sh` / `make ablation` | `dev_benchmark.py`, `src/evaluation/ablation.py` | `results/summary/ablation_*.csv` | `test_ablation.py` |
 | 14 | Tabel dan grafik (README 40, 43) | `14_report.sh <tanggal>` / `make report TANGGAL=<tanggal>` | `src/evaluation/report.py`, `plots.py`, `failure_analysis.py`, `bootstrap.py`, `latency.py` | `results/summary/main_*_{utama,ekstensi}/`, `results/figures/main_*_{utama,ekstensi}/` | `test_report.py`, `test_plots.py`, `test_failure_analysis.py` |
+| 15 | Draf P5: QPS kueri paralel per profil core | `15_parallel_throughput.sh` / `make parallel` | `src/benchmark/parallel_benchmark.py` | `results/raw/parallel_RC-*.jsonl` + `_ringkas.csv` | `test_parallel_benchmark.py` |
+| 16 | DT-7: stabilitas konkuren + timeout (700 / 45 ms) | `16_concurrent_stability.sh` / `make concurrent` | `src/benchmark/parallel_benchmark.py` | `results/raw/concurrent_stability_t*.jsonl` + `_ringkas.csv` | `test_parallel_benchmark.py` |
 
 Tabel statistik korpus (README 40 item 1): `python -m src.evaluation.corpus_table --out-dir results/summary/corpus_<tanggal>`.
 
