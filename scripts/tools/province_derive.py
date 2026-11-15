@@ -27,7 +27,7 @@ Aturan:
 - Perbandingan memakai kode provinsi, sehingga perbedaan ejaan nama bukan selisih.
 
 Pemakaian (dari root repo):
-    python scripts/province_derive.py
+    python scripts/tools/province_derive.py
 """
 
 import argparse
@@ -39,7 +39,7 @@ from pathlib import Path
 import pandas as pd
 
 # Root repo dimasukkan ke sys.path agar modul src bisa diimpor saat skrip dijalankan langsung
-sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 from src.corpus.province_map import (  # noqa: E402
     ST_AMBIGU, ST_TIDAK_DIKENAL, ProvinceMapper, as_list,
 )

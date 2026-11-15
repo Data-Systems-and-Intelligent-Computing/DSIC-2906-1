@@ -28,7 +28,7 @@ Status: workload v1 dan gt-v1 digantikan oleh workload v2 dan gt-v2 (commit 34b1
   ~/Downloads (9 Okt 2026, 22.55 WIB), dan data/raw/news/ telah dikembalikan ke berkas asli itu.
   Versi Antigravity diarsipkan di data/_v1_antigravity/news/.
 - Label "ejaan provinsi dibakukan: DK Jakarta -> DKI Jakarta" pada 22 baris
-  data/reports/province_normalization.csv tidak dihasilkan oleh src/corpus/province_diff.py.
+  data/reports/province_normalization.csv tidak dihasilkan oleh src/tools/province_diff.py.
   Skrip itu menulis "provinsi dibakukan/diganti sesuai pemetaan kabupaten->provinsi"; label
   tersebut diganti langsung di CSV dengan perintah python -c sekali pakai pada 28 Okt 2026, saat
   pendokumentasian perapian dibantu asisten AI (Claude). Perubahan DK -> DKI sendiri berasal dari

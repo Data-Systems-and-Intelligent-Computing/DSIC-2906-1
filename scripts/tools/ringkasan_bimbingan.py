@@ -3,7 +3,7 @@ ringkasan_bimbingan.py
 Menampilkan angka-angka utama progres DSIC-2906-1 langsung dari artefak di repo,
 untuk ditunjukkan saat bimbingan. Hanya membaca, tidak mengubah berkas apa pun.
 
-Jalankan dari root repo:  python scripts/ringkasan_bimbingan.py [bagian] [--csv DIR] [--dev-log JSONL]
+Jalankan dari root repo:  python scripts/tools/ringkasan_bimbingan.py [bagian] [--csv DIR] [--dev-log JSONL]
 bagian (opsional): workload | dt4 | p3 | p11 | p4 | robust | templat | sindikasi
 
 Dengan --csv DIR, setiap tabel ringkasan juga ditulis sebagai CSV kecil ke DIR
@@ -181,7 +181,7 @@ if CSV_DIR is not None and _ditulis:
                          .isoformat(timespec="seconds")}
     meta = {
         "dibuat_utc": datetime.now(timezone.utc).isoformat(timespec="seconds"),
-        "dibuat_oleh": "scripts/ringkasan_bimbingan.py " + " ".join(sys.argv[1:]),
+        "dibuat_oleh": "scripts/tools/ringkasan_bimbingan.py " + " ".join(sys.argv[1:]),
         "commit_repo_saat_ringkasan": _git("rev-parse", "--short", "HEAD"),
         "working_tree_bersih": _git("status", "--porcelain") == "",
         "workload_manifest": pd.read_csv("data/manifests/workload_manifest.csv").iloc[0].to_dict()

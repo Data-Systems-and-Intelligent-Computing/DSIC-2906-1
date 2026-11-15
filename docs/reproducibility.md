@@ -20,7 +20,7 @@ Semua perintah dijalankan dari root repo dengan virtualenv aktif.
 
 ## 2. Tabel referensi kabupaten -> provinsi
 ```
-python scripts/build_reference_kabprov.py --pdf "<Lampiran Kepmendagri 300.2.2-2138 Tahun 2025>.pdf" --out-dir data/reference
+python scripts/tools/build_reference_kabprov.py --pdf "<Lampiran Kepmendagri 300.2.2-2138 Tahun 2025>.pdf" --out-dir data/reference
 ```
 Sumber, tanggal unduh, dan SHA-256 PDF: data/reference/SOURCE.md. Alias ejaan: data/reference/kabupaten_alias.csv.
 Validasi: 38 provinsi, 416 kabupaten, 98 kota.

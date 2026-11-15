@@ -1,6 +1,6 @@
 """Uji cepat bahwa DiskANN terpasang dan bisa membangun + mencari indeks.
 
-Jalankan di dalam container Docker:  python scripts/check_diskann.py
+Jalankan di dalam container Docker:  python scripts/tools/check_diskann.py
 Data acak, tidak menyentuh data penelitian.
 """
 from __future__ import annotations

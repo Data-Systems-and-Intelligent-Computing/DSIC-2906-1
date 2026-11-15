@@ -17,7 +17,7 @@ Keluaran (di --out-dir):
 - kab_prov_kepmendagri_2025.meta.json : SHA-256 PDF, versi pdftotext, hasil validasi
 
 Pemakaian:
-    python scripts/build_reference_kabprov.py \
+    python scripts/tools/build_reference_kabprov.py \
         --pdf /path/Lampiran-Kepmen_300_2_2-2138_Tahun_2025.pdf \
         --out-dir data/reference
 

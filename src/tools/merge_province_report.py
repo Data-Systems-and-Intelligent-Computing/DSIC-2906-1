@@ -5,6 +5,10 @@ normalization_report.csv dengan format kolom yang sama: doc_id, column, before, 
 doc_id diambil dari corpus.parquet lewat pasangan (source_file, row_index).
 """
 
+# Guard: this one-off tool writes files, so it must only run when executed directly, never on import
+if __name__ != "__main__":
+    raise ImportError("one-off tool: run with python src/tools/<name>.py, do not import")
+
 import os
 import shutil
 

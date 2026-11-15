@@ -5,6 +5,10 @@ Berkas di data/raw/jadesta/ sudah dirapikan sebelum build_corpus.py (perapian pr
 sehingga checksum_sha256 mencatat versi turunan. Skema manifest tidak diubah.
 """
 
+# Guard: this one-off tool writes files, so it must only run when executed directly, never on import
+if __name__ != "__main__":
+    raise ImportError("one-off tool: run with python src/tools/<name>.py, do not import")
+
 import os
 import shutil
 

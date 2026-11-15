@@ -1,6 +1,6 @@
 # Tabel referensi kabupaten/kota -> provinsi
 
-Berkas: kab_prov_kepmendagri_2025.csv (dibuat oleh scripts/build_reference_kabprov.py)
+Berkas: kab_prov_kepmendagri_2025.csv (dibuat oleh scripts/tools/build_reference_kabprov.py)
 
 ## Dasar hukum
 - Kepmendagri No. 300.2.2-2138 Tahun 2025 tentang Pemberian dan Pemutakhiran Kode,

@@ -1,7 +1,7 @@
 """Pemetaan kabupaten/kota -> provinsi dari tabel referensi resmi (K-01 / DL-10).
 
 Dipakai oleh src.corpus.build_corpus (kolom province di korpus) dan
-scripts/province_derive.py (laporan selisih terhadap workload v1), sehingga
+scripts/tools/province_derive.py (laporan selisih terhadap workload v1), sehingga
 keduanya memakai aturan yang sama persis.
 
 Aturan:

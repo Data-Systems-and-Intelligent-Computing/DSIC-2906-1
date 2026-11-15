@@ -10,8 +10,12 @@ Keluaran:
   data/reports/template_effect.json  -> ringkasan yang sama + metadata (commit, waktu)
 
 Dijalankan dari root repo:
-  python src/corpus/template_effect.py
+  python src/tools/template_effect.py
 """
+
+# Guard: this one-off tool writes files, so it must only run when executed directly, never on import
+if __name__ != "__main__":
+    raise ImportError("one-off tool: run with python src/tools/<name>.py, do not import")
 
 import glob
 import json

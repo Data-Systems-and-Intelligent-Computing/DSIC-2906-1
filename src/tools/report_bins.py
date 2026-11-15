@@ -8,6 +8,10 @@ Keluaran:
   results/tables/match_rate_per_bin.csv
 """
 
+# Guard: this one-off tool writes files, so it must only run when executed directly, never on import
+if __name__ != "__main__":
+    raise ImportError("one-off tool: run with python src/tools/<name>.py, do not import")
+
 import os
 
 import pandas as pd
