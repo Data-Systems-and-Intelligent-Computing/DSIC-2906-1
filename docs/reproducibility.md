@@ -67,8 +67,21 @@ Parameter beku dan timeout: configs/main_benchmark.yaml (berlaku hanya bila froz
 scripts/09_main_single_filters.sh
 scripts/10_main_compound_filters.sh
 REPEATS=5 scripts/12_stability.sh
-scripts/11_resource_benchmark.sh      # menunggu keputusan DT-6
+scripts/11_resource_benchmark.sh      # profil core RC-small/RC-medium/RC-reference (configs/resource_profiles.yaml)
 ```
+Lingkungan run acuan: OMP_NUM_THREADS=OPENBLAS_NUM_THREADS=MKL_NUM_THREADS=1, PYTHONUNBUFFERED=1,
+RESOURCE_PROFILE=lightsail-t3.xlarge-thread1. Skrip 11 dijalankan setelah 09, 10, dan 12 selesai (tidak bersamaan).
+
+Run acuan 15 Nov 2026 UTC (commit ddf690c untuk 09/10/12, commit 072ac39 untuk 11), SHA-256 log mentah:
+```
+aa866c3620d2c341debb37b96d90e1898f53d33598e2f6d820c38db778d39e7e  main_single_lightsail-t3.xlarge-thread1_2026-11-15.jsonl     (13.644 baris)
+9e7bb46d05a9f7d90485982e0cd141cec748475a5ae9ea4867b2e95d1df126e8  main_compound_lightsail-t3.xlarge-thread1_2026-11-15.jsonl   (10.836 baris)
+de051b05cf676000ea7fab7165d5c931e922aee4d99e99c1bb5557d94215d678  stability_lightsail-t3.xlarge-thread1_2026-11-15.jsonl       (122.400 baris)
+eced6e9e7b22221ca7d17967b352d6b120c38145dfa1b9e37883e86922804505  resource_RC-small_2026-11-15.jsonl                           (24.480 baris)
+e579bbb54917e78a5fb645b9d039d4a8ed753799fa2dc2a101d7815351b9f90d  resource_RC-medium_2026-11-15.jsonl                          (24.480 baris)
+cff9e2e3a8c62d5c313d1e063bb2ac5d499d6b1443c7d91028e09c4c7699922c  resource_RC-reference_2026-11-15.jsonl                       (24.480 baris)
+```
+Log mentah tidak masuk git (results/raw di-.gitignore); salinannya disimpan di luar repo.
 Runner menolak berjalan bila parameter belum beku, dan memeriksa hash workload terhadap manifest.
 Setiap baris log mencatat commit, workload_id, hash workload dan ground truth, profil, dan jumlah thread.
 
@@ -76,11 +89,21 @@ Setiap baris log mencatat commit, workload_id, hash workload dan ground truth, p
 ```
 scripts/14_report.sh <tanggal-run>
 ```
-Hasil: results/summary/main_<profil>_<tanggal>/ (CSV + _meta.json berisi SHA-256 log sumber)
-dan results/figures/main_<profil>_<tanggal>/ (PNG dan SVG).
+Ringkasan stabilitas dibuat oleh skrip 12; bila dihitung ulang:
+python -m src.benchmark.stability --log results/raw/stability_<profil>_<tanggal>.jsonl --out results/summary/stability_<profil>_<tanggal>.csv
+
+Hasil, dipisah per set (DT-1): results/summary/main_<profil>_<tanggal>_{utama,ekstensi}/
+(main_table, per_match_rate, per_query_in_filter, per_sumber_kueri, failure_taxonomy, _meta.json berisi SHA-256 log sumber)
+dan results/figures/main_<profil>_<tanggal>_{utama,ekstensi}/ (PNG).
+
+Tabel statistik korpus (README bagian 40 item 1):
+python -m src.evaluation.corpus_table --out-dir results/summary/corpus_2026-11-15
+
+Uji reproduksi (README bagian 47): menjalankan ulang 14_report.sh dari log mentah acuan menghasilkan
+main_table.csv yang identik dengan versi ter-commit (git diff kosong pada folder _utama dan _ekstensi).
 
 ## 10. Pengujian
 ```
 python -m pytest -q
 ```
-Log uji yang dilampirkan di naskah: results/summary/pytest_2026-11-05.txt.
+Log uji yang dilampirkan di naskah: results/summary/pytest_2026-11-16.txt (67 lulus).
