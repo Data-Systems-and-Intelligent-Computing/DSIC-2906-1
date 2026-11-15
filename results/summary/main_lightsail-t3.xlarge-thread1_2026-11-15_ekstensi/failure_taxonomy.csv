@@ -1,0 +1,7 @@
+bin,method,n_baris,low_recall,ok,underfilled_topk
+B1,adaptivel,891,0.0,9.9,90.1
+B1,postfilter,1782,0.0,9.7,90.3
+B1,twohop,891,3.7,27.9,68.4
+B2,adaptivel,909,0.7,31.7,67.7
+B2,postfilter,1818,0.0,29.2,70.8
+B2,twohop,909,6.6,57.4,36.0
