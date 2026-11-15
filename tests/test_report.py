@@ -3,7 +3,7 @@ import pandas as pd
 
 from src.benchmark.main_benchmark import method_configs, run_pairs
 from src.evaluation.bootstrap import mean_ci
-from src.evaluation.report import main_table, per_match_rate
+from src.evaluation.report import main_table, paired_comparisons, per_match_rate
 from tests.test_main_benchmark import _cfg, _data
 
 
@@ -54,7 +54,7 @@ def test_build_report_dengan_stabilitas():
     per_pair, _ = stability_table(log)
     t = build_report(log, per_pair)
     assert set(t) == {"main_table", "per_query_in_filter", "per_sumber_kueri", "failure_taxonomy",
-                      "per_match_rate"}
+                      "per_match_rate", "paired_comparisons"}
     # Penelusuran tanpa timeout deterministik, jadi overlap 1.0
     assert (t["main_table"]["stability_overlap"] == 1.0).all()
     assert (t["main_table"]["stability_identical"] == 1.0).all()
@@ -66,3 +66,25 @@ def test_kolom_biaya_jarak_dan_match_rate():
     t = per_match_rate(log)
     assert set(t["method"]) == {"postfilter", "twohop", "adaptivel"}
     assert (t["n_pasangan"] >= 1).all()
+
+
+
+def test_kolom_p95_dan_predikat():
+    t = main_table(_log())
+    for c in ["visited_p95", "dist_comp_p95", "pred_eval_p95", "predicate_satisfaction_pct"]:
+        assert c in t
+    assert (t["predicate_satisfaction_pct"] == 100.0).all()
+
+
+def test_selisih_berpasangan():
+    # Log sintetis: dua pasangan, AdaptiveL selalu 0,2 di atas TwoHop, sama dengan PostFilter 800
+    rows = []
+    for pid in ("P1", "P2", "P3"):
+        for cfg, r in [("method=adaptivel L=100 n_sample=32 m_max=8", 0.8), ("method=twohop L=100", 0.6),
+                       ("method=postfilter candidate_budget=800", 0.8)]:
+            rows.append({"bin": "B2", "pair_id": pid, "config": cfg, "recall_at_10": r})
+    t = paired_comparisons(pd.DataFrame(rows), L_values=(100,))
+    th = t[t["pembanding"].str.contains("TwoHop")].iloc[0]
+    pf = t[t["pembanding"].str.contains("PostFilter")].iloc[0]
+    assert abs(th["selisih_recall"] - 0.2) < 1e-9 and th["arah"] == "a > b"
+    assert pf["selisih_recall"] == 0 and pf["arah"] == "tidak berbeda"

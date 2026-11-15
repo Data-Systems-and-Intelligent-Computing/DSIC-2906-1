@@ -1,0 +1,7 @@
+{
+  "n_queries": 300,
+  "L": 100,
+  "seed": 2906,
+  "recall_at_10_python": 0.9957,
+  "recall_at_10_diskannpy": 0.9959
+}

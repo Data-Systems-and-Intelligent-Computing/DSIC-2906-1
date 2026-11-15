@@ -3,6 +3,6 @@ Scientific core: metadata-filtered ANN search on tourism evidence
 Primary method: AdaptiveL; baselines: PostFilter, TwoHopSearch
 Primary index: DiskANN (R=64, L_build=100), graph traversal in Python
 Primary metrics: filtered Recall@10, QPS (Python), p50/p95, search cost (D, E), under-fill, stability
-Pipeline: scripts/00-14 (one stage per script); helper tools in scripts/tools/ and src/tools/
-Code map: docs/peta-kode.md; reproduction: docs/reproducibility.md
+Pipeline: scripts/00-14 (satu tahap per skrip); alat bantu di scripts/tools/ dan src/tools/
+Peta kode: docs/peta-kode.md; reproduksi: docs/reproducibility.md
 Old conflict-aware routing files are intentionally not carried forward.

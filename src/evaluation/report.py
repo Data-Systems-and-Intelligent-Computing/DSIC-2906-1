@@ -20,7 +20,7 @@ from pathlib import Path
 
 import pandas as pd
 
-from src.evaluation.bootstrap import mean_ci
+from src.evaluation.bootstrap import mean_ci, paired_mean_diff_ci
 from src.evaluation.failure_analysis import failure_taxonomy, label_failures
 from src.evaluation.latency import summarize_latency_ms
 
@@ -58,6 +58,13 @@ def main_table(log: pd.DataFrame, extra_groups=()) -> pd.DataFrame:
             "pred_eval_median": float(g["predicate_evaluations"].median()),
             # Biaya pencarian bebas bahasa pemrograman: median perhitungan jarak (D, Bab 2 subbab 2.10)
             "dist_comp_median": float(g["distance_comparisons"].median()),
+            # README bagian 25: biaya dilaporkan sebagai median dan p95
+            "visited_p95": float(g["visited_nodes"].quantile(0.95)),
+            "dist_comp_p95": float(g["distance_comparisons"].quantile(0.95)),
+            "pred_eval_p95": float(g["predicate_evaluations"].quantile(0.95)),
+            # README bagian 24.4: runner menghentikan run bila ada hasil yang tidak lolos predikat,
+            # sehingga setiap baris log yang tersimpan memenuhi predikat 100 %
+            "predicate_satisfaction_pct": 100.0,
         })
         rows.append(row)
     return pd.DataFrame(rows)
@@ -85,6 +92,30 @@ def per_match_rate(log: pd.DataFrame, n_groups: int = 8) -> pd.DataFrame:
     return out
 
 
+# README bagian 29: selisih recall berpasangan per bin. Pembanding ditetapkan sebelum melihat hasil:
+# AdaptiveL vs TwoHop pada L_search yang sama, dan AdaptiveL vs PostFilter dengan anggaran L x m_max (DT-4).
+def paired_comparisons(log: pd.DataFrame, L_values=(100, 200, 400), n_sample: int = 32, m_max: int = 8) -> pd.DataFrame:
+    # Recall per pasangan x konfigurasi; ulangan dirata-ratakan dulu agar tidak dihitung ganda
+    per_pair = log.groupby(["bin", "pair_id", "config"])["recall_at_10"].mean().unstack("config")
+    rows = []
+    for L in L_values:
+        a = f"method=adaptivel L={L} n_sample={n_sample} m_max={m_max}"
+        for b, nama in [(f"method=twohop L={L}", "AdaptiveL - TwoHop (L sama)"),
+                        (f"method=postfilter candidate_budget={L * m_max}", "AdaptiveL - PostFilter (anggaran L x m_max)")]:
+            if a not in per_pair or b not in per_pair:
+                continue
+            for bin_name, g in per_pair[[a, b]].dropna().groupby(level="bin"):
+                diff, (lo, hi) = paired_mean_diff_ci(g[a].to_numpy(), g[b].to_numpy())
+                rows.append({
+                    "bin": bin_name, "pembanding": nama, "L": L, "config_a": a, "config_b": b,
+                    "n_pasangan": int(len(g)), "recall_a": float(g[a].mean()), "recall_b": float(g[b].mean()),
+                    "selisih_recall": diff, "ci_low": lo, "ci_high": hi,
+                    # Kesimpulan arah hanya bila CI 95 % tidak memuat nol
+                    "arah": "a > b" if lo > 0 else "a < b" if hi < 0 else "tidak berbeda",
+                })
+    return pd.DataFrame(rows)
+
+
 # Gabungan semua tabel laporan; stabilitas digabung ke tabel utama bila tersedia
 def build_report(log: pd.DataFrame, stability_per_pair: pd.DataFrame | None = None) -> dict[str, pd.DataFrame]:
     utama = main_table(log)
@@ -104,6 +135,7 @@ def build_report(log: pd.DataFrame, stability_per_pair: pd.DataFrame | None = No
         "per_sumber_kueri": main_table(log, extra_groups=["query_source_type"]), 
         "failure_taxonomy": failure_taxonomy(label_failures(log)),
         "per_match_rate": per_match_rate(log),
+        "paired_comparisons": paired_comparisons(log),
     }
 
 

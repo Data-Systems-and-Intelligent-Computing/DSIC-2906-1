@@ -40,7 +40,8 @@ Model paraphrase-multilingual-MiniLM-L12-v2, 384 dimensi. Hash vektor dasar:
 ## 5. Indeks DiskANN
 `python -m src.index.build_diskann` (atau `scripts/06_build_index.sh`), dijalankan di lingkungan Docker berisi diskannpy 0.7.0 (Linux x86_64)
 Parameter dan hash berkas indeks: data/manifests/index_manifest.json (R = 64, L_build = 100).
-Sanity: recall@10 tanpa filter 0,9959.
+Sanity: recall@10 tanpa filter 0,9959 (diskannpy). Penelusuran Python yang dipakai ketiga metode: 0,9957
+(300 kueri, L = 100; `python scripts/tools/check_unfiltered_recall.py`, hasil di results/summary/unfiltered_recall_python.json).
 
 ## 6. Workload dan ground truth (beku, v2)
 ```
