@@ -1,0 +1,10 @@
+            overlap_mean  identik_pct  timeout_pct
+method                                            
+adaptivel          0.634        100.0          0.0
+postfilter         0.551        100.0          0.0
+twohop             0.833        100.0          0.0
+            overlap_mean  identik_pct  timeout_pct
+method                                            
+adaptivel          0.565       96.992       43.878
+postfilter         0.550       99.160       34.384
+twohop             0.832       99.694       47.446

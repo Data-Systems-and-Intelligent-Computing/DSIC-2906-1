@@ -1,0 +1,39 @@
+ profile                                     config     method  workers  n_kueri  wall_s     qps  recall_mean  timeout_pct
+RC-small     method=postfilter candidate_budget=100 postfilter        1     2040   7.216 282.692        0.369          0.0
+RC-small     method=postfilter candidate_budget=200 postfilter        1     2040  11.913 171.243        0.448          0.0
+RC-small     method=postfilter candidate_budget=400 postfilter        1     2040  21.624  94.337        0.524          0.0
+RC-small     method=postfilter candidate_budget=800 postfilter        1     2040  37.773  54.007        0.599          0.0
+RC-small    method=postfilter candidate_budget=1600 postfilter        1     2040  69.095  29.525        0.685          0.0
+RC-small    method=postfilter candidate_budget=3200 postfilter        1     2040 138.936  14.683        0.757          0.0
+RC-small                        method=twohop L=100     twohop        1     2040  43.725  46.655        0.802          0.0
+RC-small                        method=twohop L=200     twohop        1     2040  73.574  27.727        0.804          0.0
+RC-small                        method=twohop L=400     twohop        1     2040 124.366  16.403        0.805          0.0
+RC-small method=adaptivel L=100 n_sample=32 m_max=8  adaptivel        1     2040  28.207  72.324        0.495          0.0
+RC-small method=adaptivel L=200 n_sample=32 m_max=8  adaptivel        1     2040  48.930  41.692        0.618          0.0
+RC-small method=adaptivel L=400 n_sample=32 m_max=8  adaptivel        1     2040  85.938  23.738        0.726          0.0
+  profile                                     config     method  workers  n_kueri  wall_s     qps  recall_mean  timeout_pct
+RC-medium     method=postfilter candidate_budget=100 postfilter        2     2040   3.948 516.776        0.369          0.0
+RC-medium     method=postfilter candidate_budget=200 postfilter        2     2040   6.647 306.884        0.448          0.0
+RC-medium     method=postfilter candidate_budget=400 postfilter        2     2040  11.549 176.639        0.524          0.0
+RC-medium     method=postfilter candidate_budget=800 postfilter        2     2040  21.448  95.113        0.599          0.0
+RC-medium    method=postfilter candidate_budget=1600 postfilter        2     2040  40.737  50.077        0.685          0.0
+RC-medium    method=postfilter candidate_budget=3200 postfilter        2     2040  74.876  27.245        0.757          0.0
+RC-medium                        method=twohop L=100     twohop        2     2040  23.679  86.152        0.802          0.0
+RC-medium                        method=twohop L=200     twohop        2     2040  39.795  51.262        0.804          0.0
+RC-medium                        method=twohop L=400     twohop        2     2040  67.117  30.395        0.805          0.0
+RC-medium method=adaptivel L=100 n_sample=32 m_max=8  adaptivel        2     2040  15.571 131.014        0.495          0.0
+RC-medium method=adaptivel L=200 n_sample=32 m_max=8  adaptivel        2     2040  28.260  72.187        0.618          0.0
+RC-medium method=adaptivel L=400 n_sample=32 m_max=8  adaptivel        2     2040  55.669  36.645        0.726          0.0
+     profile                                     config     method  workers  n_kueri  wall_s     qps  recall_mean  timeout_pct
+RC-reference     method=postfilter candidate_budget=100 postfilter        4     2040   3.697 551.742        0.369          0.0
+RC-reference     method=postfilter candidate_budget=200 postfilter        4     2040   6.275 325.096        0.448          0.0
+RC-reference     method=postfilter candidate_budget=400 postfilter        4     2040  10.768 189.443        0.524          0.0
+RC-reference     method=postfilter candidate_budget=800 postfilter        4     2040  19.687 103.623        0.599          0.0
+RC-reference    method=postfilter candidate_budget=1600 postfilter        4     2040  38.603  52.846        0.685          0.0
+RC-reference    method=postfilter candidate_budget=3200 postfilter        4     2040  67.986  30.006        0.757          0.0
+RC-reference                        method=twohop L=100     twohop        4     2040  17.417 117.126        0.802          0.0
+RC-reference                        method=twohop L=200     twohop        4     2040  29.280  69.672        0.804          0.0
+RC-reference                        method=twohop L=400     twohop        4     2040  48.331  42.209        0.805          0.0
+RC-reference method=adaptivel L=100 n_sample=32 m_max=8  adaptivel        4     2040  14.395 141.716        0.495          0.0
+RC-reference method=adaptivel L=200 n_sample=32 m_max=8  adaptivel        4     2040  25.666  79.483        0.618          0.0
+RC-reference method=adaptivel L=400 n_sample=32 m_max=8  adaptivel        4     2040  46.137  44.216        0.726          0.0
