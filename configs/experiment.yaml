@@ -5,7 +5,10 @@ primary_k: 10
 warmup_queries: 0                 # tidak ada warm-up terpisah; efeknya diperiksa pada log stabilitas:
                                   # median latensi ulangan ke-1 18,58 ms vs ulangan ke-2..5 18,42-18,48 ms (< 1 %)
 measured_repetitions: 1           # benchmark utama (09, 10, 11)
-stability_repetitions: 5          # skrip 12 (REPEATS=5)
+stability_repetitions: 5          # skrip 12 (REPEATS=5), berurutan satu thread
+concurrent_stability:             # skrip 16 (DT-7): dua salinan kueri bersamaan, 4 proses, timeout 700 dan 45 ms
+  config: configs/parallel_benchmark.yaml
+parallel_throughput: configs/parallel_benchmark.yaml   # skrip 15 (P5): W proses = jumlah core
 threads: 1                        # OMP/OPENBLAS/MKL_NUM_THREADS=1
 method_order: fixed_per_pair      # tiap pasangan menjalankan semua konfigurasi berurutan (desain berpasangan)
 metrics:

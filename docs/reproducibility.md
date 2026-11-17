@@ -108,3 +108,22 @@ main_table.csv yang identik dengan versi ter-commit (git diff kosong pada folder
 python -m pytest -q
 ```
 Log uji yang dilampirkan di naskah: results/summary/pytest_2026-11-16.txt (67 lulus).
+
+## 11. Analisis tambahan atas permintaan draf pembimbing
+
+Robustness DT-3 opsi C dan P7 (predikat wilayah/kategori bernilai tunggal; dapat dijalankan di luar mesin benchmark, hanya recall dan biaya D/E):
+```
+python -m src.evaluation.robustness_dt3 \
+  --main-log results/raw/main_single_lightsail-t3.xlarge-thread1_2026-11-15.jsonl results/raw/main_compound_lightsail-t3.xlarge-thread1_2026-11-15.jsonl \
+  --out-log results/raw/robustness_dt3_2026-11-16.jsonl --out-dir results/summary/robustness_dt3_2026-11-16
+```
+
+P5 (QPS dengan kueri paralel per profil core) dan DT-7 (stabilitas konkuren, timeout 700 dan 45 ms), di Lightsail,
+dengan configs/parallel_benchmark.yaml beku (commit 92c8e94, perbaikan pemeriksaan beku ea33b2d):
+```
+scripts/15_parallel_throughput.sh
+scripts/16_concurrent_stability.sh
+```
+Ringkasan, log run, vmstat, dan SHA-256 log mentah: results/summary/parallel_2026-11-15/.
+Hasil throughput di ketiga profil identik 100 % dengan benchmark utama; steal CPU maksimum 5 % (vmstat).
+Catatan: t3.xlarge memiliki 4 vCPU dari 2 core fisik (hyperthreading), sehingga kenaikan QPS dari 2 ke 4 proses kecil.

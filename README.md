@@ -1265,51 +1265,51 @@ Gunakan hanya bila benar-benar diperlukan untuk preprocessing skala besar atau a
 
 ## 33. Quality Gate — Data
 
-- [ ] Source snapshot frozen.
-- [ ] Corpus manifest tersedia.
-- [ ] Metadata schema frozen.
-- [ ] Embedding configuration frozen.
-- [ ] Vector count dilaporkan.
-- [ ] Duplicate policy jelas.
-- [ ] Temporal metadata diaudit.
-- [ ] Filter cardinality table tersedia.
-- [ ] Match-rate distribution tersedia.
-- [ ] Query provenance tersedia.
-- [ ] Self-match leakage dicegah.
+- [x] Source snapshot frozen.
+- [x] Corpus manifest tersedia.
+- [x] Metadata schema frozen.
+- [x] Embedding configuration frozen.
+- [x] Vector count dilaporkan.
+- [x] Duplicate policy jelas.
+- [x] Temporal metadata diaudit.
+- [x] Filter cardinality table tersedia.
+- [x] Match-rate distribution tersedia.
+- [x] Query provenance tersedia.
+- [x] Self-match leakage dicegah.
 
 ---
 
 ## 34. Quality Gate — Algorithm
 
-- [ ] Exact filtered ground truth lolos unit test.
-- [ ] B0 PostFilter lolos predicate correctness.
-- [ ] B1 TwoHop sesuai pseudocode paper.
-- [ ] P1 AdaptiveL sesuai prinsip Algorithm 2/3 paper.
-- [ ] Semua method menggunakan similarity metric yang sama.
-- [ ] Semua returned points memenuhi predicate.
-- [ ] Instrumentation visited-node tersedia atau keterbatasannya dijelaskan.
-- [ ] Search parameter freeze dilakukan sebelum held-out benchmark.
+- [x] Exact filtered ground truth lolos unit test.
+- [x] B0 PostFilter lolos predicate correctness.
+- [x] B1 TwoHop sesuai pseudocode paper.
+- [x] P1 AdaptiveL sesuai prinsip Algorithm 2/3 paper.
+- [x] Semua method menggunakan similarity metric yang sama.
+- [x] Semua returned points memenuhi predicate.
+- [x] Instrumentation visited-node tersedia atau keterbatasannya dijelaskan.
+- [x] Search parameter freeze dilakukan sebelum held-out benchmark.
 
 ---
 
 ## 35. Quality Gate — Experiment
 
-- [ ] Same queries across methods.
-- [ ] Same predicates across methods.
-- [ ] Same exact ground truth.
-- [ ] Same index snapshot.
-- [ ] Same resource profile.
-- [ ] Same thread count.
-- [ ] Same timeout policy.
-- [ ] Warm-up dilakukan.
-- [ ] Repetition count frozen.
-- [ ] Recall@10 tersedia.
-- [ ] QPS tersedia.
-- [ ] p50/p95 latency tersedia.
-- [ ] Under-filled rate tersedia.
-- [ ] Match-rate stratification tersedia.
-- [ ] Stability tersedia.
-- [ ] Failure cases diaudit.
+- [x] Same queries across methods.
+- [x] Same predicates across methods.
+- [x] Same exact ground truth.
+- [x] Same index snapshot.
+- [x] Same resource profile.
+- [x] Same thread count.
+- [x] Same timeout policy.
+- [ ] Warm-up dilakukan. (tidak dilakukan; efek awal < 1 %, lihat configs/experiment.yaml)
+- [x] Repetition count frozen.
+- [x] Recall@10 tersedia.
+- [x] QPS tersedia.
+- [x] p50/p95 latency tersedia.
+- [x] Under-filled rate tersedia.
+- [x] Match-rate stratification tersedia.
+- [x] Stability tersedia.
+- [x] Failure cases diaudit.
 
 ---
 
@@ -1746,24 +1746,24 @@ Liu, F., Manohar, M., Chen, Q., Tan, L., Zhang, J., He, X., Deyneko, D., Truong,
 DSIC-2906 dinyatakan selesai ketika:
 
 ```text
-[ ] corpus dan metadata snapshot frozen
-[ ] embeddings frozen
-[ ] exact filtered kNN ground truth tersedia
-[ ] DiskANN shared index tersedia
-[ ] PostFilter baseline tersedia
-[ ] TwoHopSearch tersedia dan teruji
-[ ] AdaptiveL tersedia dan teruji
-[ ] single-predicate workload selesai
-[ ] compound-predicate workload selesai
-[ ] minimal 3 empirical match-rate regimes dianalisis
-[ ] Recall@10–QPS curves tersedia
-[ ] p50/p95 latency tersedia
-[ ] under-filled result rate tersedia
-[ ] stability tersedia
-[ ] resource-constrained benchmark tersedia
-[ ] failure analysis tersedia
-[ ] satu main table dapat direproduksi
-[ ] satu main figure dapat direproduksi
+[x] corpus dan metadata snapshot frozen
+[x] embeddings frozen
+[x] exact filtered kNN ground truth tersedia
+[x] DiskANN shared index tersedia
+[x] PostFilter baseline tersedia
+[x] TwoHopSearch tersedia dan teruji
+[x] AdaptiveL tersedia dan teruji
+[x] single-predicate workload selesai
+[x] compound-predicate workload selesai
+[x] minimal 3 empirical match-rate regimes dianalisis
+[x] Recall@10–QPS curves tersedia
+[x] p50/p95 latency tersedia
+[x] under-filled result rate tersedia
+[x] stability tersedia
+[x] resource-constrained benchmark tersedia
+[x] failure analysis tersedia
+[x] satu main table dapat direproduksi
+[x] satu main figure dapat direproduksi
 [ ] paper tidak overclaim novelty
 ```
 

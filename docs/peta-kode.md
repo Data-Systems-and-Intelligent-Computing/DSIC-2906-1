@@ -25,6 +25,8 @@ Semua perintah dijalankan dari root repo dengan virtualenv aktif. `make <target>
 | 15 | Draf P5: QPS kueri paralel per profil core | `15_parallel_throughput.sh` / `make parallel` | `src/benchmark/parallel_benchmark.py` | `results/raw/parallel_RC-*.jsonl` + `_ringkas.csv` | `test_parallel_benchmark.py` |
 | 16 | DT-7: stabilitas konkuren + timeout (700 / 45 ms) | `16_concurrent_stability.sh` / `make concurrent` | `src/benchmark/parallel_benchmark.py` | `results/raw/concurrent_stability_t*.jsonl` + `_ringkas.csv` | `test_parallel_benchmark.py` |
 
+Robustness DT-3 (draf pembimbing DT-3 opsi C dan P7): `python -m src.evaluation.robustness_dt3 --main-log <main_single> <main_compound> --out-log results/raw/robustness_dt3_<tanggal>.jsonl --out-dir results/summary/robustness_dt3_<tanggal>` (tes: `test_robustness_dt3.py`).
+
 Tabel statistik korpus (README 40 item 1): `python -m src.evaluation.corpus_table --out-dir results/summary/corpus_<tanggal>`.
 
 ## Metode pencarian (dipakai 07, 09-13)

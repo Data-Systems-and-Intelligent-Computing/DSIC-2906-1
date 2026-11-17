@@ -18,7 +18,7 @@ def sha(p):
 
 gagal = []
 # Config yang wajib beku
-for c in ["configs/main_benchmark.yaml", "configs/resource_profiles.yaml"]:
+for c in ["configs/main_benchmark.yaml", "configs/resource_profiles.yaml", "configs/parallel_benchmark.yaml"]:
     beku = yaml.safe_load(Path(c).read_text(encoding="utf-8")).get("frozen") is True
     print(f"{'OK ' if beku else 'GAGAL'} {c} frozen={beku}")
     gagal += [] if beku else [c]

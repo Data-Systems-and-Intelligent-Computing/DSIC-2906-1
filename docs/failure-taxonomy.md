@@ -72,3 +72,18 @@ dan bukan kesalahan implementasi.
 
 `metadata_incorrect` tidak dapat dideteksi otomatis karena ground truth dibentuk dari metadata yang sama; kebenaran metadata
 bergantung pada audit korpus (protokol T-01 s.d. T-04, `docs/provinsi-k01.md`).
+
+### F-4. Timeout ketat memotong perluasan frontier AdaptiveL (DT-7)
+
+Sumber: `results/summary/parallel_2026-11-15/concurrent_stability_t{700,45}_2026-11-15_ringkas.csv` (dua salinan kueri
+identik dijalankan bersamaan oleh 4 proses).
+
+- Timeout 700 ms: 0 % timeout dan 100 % hasil identik untuk ketiga metode; eksekusi bersamaan saja tidak menimbulkan ketidakstabilan.
+- Timeout 45 ms: timeout terpicu pada AdaptiveL 19-60 %, PostFilter 33-36 %, TwoHop 0-92 % pencarian. Hasil identik antarsalinan
+  AdaptiveL 94-99 %, PostFilter 98,5-99,7 %, TwoHop 99,4-100 %. Recall AdaptiveL (L = 400) turun paling banyak
+  (utama B2 0,69 -> 0,46; B3 0,85 -> 0,64), PostFilter dan TwoHop hampir tidak berubah.
+- Mekanisme: timeout memotong kunjungan tambahan hasil pengali AdaptiveL (sampai 8 x L), sedangkan TwoHop umumnya sudah
+  menemukan hasilnya sebelum timeout dan yang terpotong hanya ekor pemeriksaan predikat.
+- Batasan: 45 ms diambil dari batas latensi produksi paper (bagian 3.2), tetapi relatif jauh lebih ketat untuk implementasi
+  Python ini (median latensi AdaptiveL L = 400 sekitar 40 ms). Hasil ini menggambarkan perilaku pada anggaran waktu ketat,
+  bukan replikasi kondisi produksi paper.
