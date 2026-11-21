@@ -1,0 +1,9 @@
+{
+  "params_frozen_at": "2026-11-16",
+  "sumber_log_utama": [
+    "results/raw/main_single_lightsail-t3.xlarge-thread1_2026-11-15.jsonl",
+    "results/raw/main_compound_lightsail-t3.xlarge-thread1_2026-11-15.jsonl"
+  ],
+  "log_robust": "results/raw/robustness_dt3_2026-11-16.jsonl",
+  "aturan": "DT-3 opsi B: dokumen bernilai ganda pada kolom predikat (kabupaten/provinsi/kategori) dikeluarkan"
+}

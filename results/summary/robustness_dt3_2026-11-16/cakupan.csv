@@ -1,0 +1,7 @@
+set,bin,n_pasangan_wilayah,n_dilewati,eligible_main_median,eligible_robust_median
+ekstensi,B1,240,9,35.0,26.0
+ekstensi,B2,243,61,84.0,51.0
+utama,B2,300,0,158.0,96.0
+utama,B3,300,0,497.5,268.5
+utama,B4,300,0,2411.0,1681.0
+utama,B5,180,0,11455.5,9110.5

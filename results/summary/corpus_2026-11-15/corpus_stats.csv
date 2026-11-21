@@ -1,0 +1,18 @@
+statistik,nilai,keterangan
+Dokumen,64354,seluruh sumber
+Titik vektor,64354,"satu vektor per dokumen, tanpa chunking"
+Dokumen atraksi JADESTA,15132,source_type = jadesta_atraksi
+Dokumen desa wisata JADESTA,6329,source_type = jadesta_desa
+Dokumen berita (judul),42893,source_type = news
+Entitas JADESTA,21461,atraksi + desa wisata
+Kabupaten/kota,483,predikat wilayah tingkat kabupaten
+Provinsi,38,"diturunkan dari kabupaten (Kepmendagri 2025, K-01)"
+Kategori,4,"alam, budaya, buatan, desa"
+Tipe sumber,3,tanpa Wikipedia/Wikidata (K-03)
+Domain penerbit sebelum normalisasi,3862,domain mentah
+Penerbit setelah normalisasi,2808,subdomain satu penerbit digabung
+Rekaman temporal,42893,tanggal terbit berita 2021-09-01 s.d. 2026-09-02
+Berita dengan wilayah ambigu,9804,lebih dari satu kabupaten (DT-3)
+Berita dengan lebih dari satu kategori,4188,
+Kelompok sindikasi (ukuran > 1),768,"ambang kemiripan 90.0, rentang 2 hari"
+Berita di dalam kelompok sindikasi,1606,"disimpan, tidak dibuang"

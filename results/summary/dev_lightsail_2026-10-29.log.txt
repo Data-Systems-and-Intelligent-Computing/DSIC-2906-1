@@ -1,0 +1,9 @@
+selesai: B5|kategori=alam (match rate 40.771%)
+selesai: B5|temporal>=2026-07-23 (match rate 12.032%)
+selesai: B4|penerbit=detik.com (match rate 7.224%)
+selesai: B4|provinsi=Bali (match rate 3.467%)
+selesai: B3|penerbit=jawapos.com (match rate 2.079%)
+selesai: B3|provinsi=Aceh (match rate 1.932%)
+selesai: B2|kabupaten=Tanggamus (match rate 0.171%)
+selesai: B2|kabupaten=Pangandaran∧alam (match rate 0.247%)
+24000 baris -> results/raw/dev_benchmark_lightsail_2026-10-29.jsonl

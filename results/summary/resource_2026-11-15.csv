@@ -1,0 +1,4 @@
+profile,cores,threads,wall_s,user_s,sys_s,peak_rss_mb
+RC-small,0,1,707.6,706.7,0.7,450.0
+RC-medium,0-1,2,710.6,710.0,0.7,479.0
+RC-reference,0-3,4,706.6,706.3,0.7,495.3

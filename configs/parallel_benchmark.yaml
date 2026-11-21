@@ -1,0 +1,14 @@
+# Analisis tambahan atas permintaan draf pembimbing (P5 dan DT-7), dibekukan sebelum dijalankan.
+# Parameter metode, k, dan workload sama dengan configs/main_benchmark.yaml (beku).
+frozen: true
+frozen_at: "2026-11-16"
+throughput:                 # P5: kueri dijalankan paralel oleh W proses; QPS = jumlah kueri / waktu dinding
+  profiles:                 # nama, daftar core taskset, jumlah proses
+    - [RC-small, "0", 1]
+    - [RC-medium, "0-1", 2]
+    - [RC-reference, "0-3", 4]
+  timeout_ms: 700           # sama dengan benchmark utama
+stability:                  # DT-7 opsi C bagian B: dua salinan kueri identik dijalankan bersamaan (paper 3.2)
+  workers: 4
+  copies: 2
+  timeout_ms: [700, 45]     # 700 = kontrol (timeout beku); 45 = batas latensi produksi di paper 3.2

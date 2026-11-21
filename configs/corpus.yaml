@@ -1,20 +1,21 @@
-# Freeze before the final benchmark.
+# Konfigurasi korpus yang benar-benar dipakai (snapshot snap-18898d4ada35, dibangun 29 Okt 2026).
+# Berkas ini dokumentasi; nilai dijalankan oleh src/corpus/build_corpus.py (argumen default skrip 01).
 sources:
-  - jadesta
-  - wikipedia
-  - wikidata
-  - news
+  - jadesta      # atraksi (alam, budaya, buatan) dan desa wisata (4 tingkat kematangan)
+  - news         # judul berita saja (keputusan hak cipta, protokol T-03)
+  # wikipedia, wikidata: tidak diakuisisi (K-03, docs/keputusan-k03.md)
 text_fields:
-  jadesta: [name, description, attraction_text, package_text]
-  wikipedia: [title, text]
-  news: [title, text]
+  jadesta_atraksi: [nama, kategori, alamat, fasilitas]          # protokol bagian 16 langkah 6
+  jadesta_desa: [nama, jenis_desa_wisata, alamat, fasilitas]
+  news: [judul]
 chunking:
-  enabled: true
-  max_chars: 1800
-  overlap_chars: 200
+  enabled: false   # teks terpanjang 441 karakter; protokol bagian 16 langkah 7 (tidak menggelembungkan titik vektor)
 deduplication:
-  exact_text_hash: true
-  syndicated_news_policy: mark_not_drop
+  syndicated_news_policy: mark_not_drop   # story_lineage_id, semua anggota disimpan (protokol bagian 17)
+  syndication_title_similarity: 90.0
+  syndication_max_days: 2
+province:
+  source: turunan_kab_kepmendagri_2025    # K-01; kolom provinsi mentah tidak dipakai
 required_point_fields:
   - doc_id
   - chunk_id

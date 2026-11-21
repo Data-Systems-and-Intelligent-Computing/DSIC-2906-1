@@ -1,0 +1,38 @@
+{
+  "dibuat_utc": "2026-10-29T11:09:26+00:00",
+  "dibuat_oleh": "scripts/ringkasan_bimbingan.py semua --csv results/summary/dev_2026-10-26 --catatan-run Dev benchmark 26 Okt 2026 di laptop (resource_profile dev-local), 100 kueri dev, seed 2906, korpus v1 (provinsi versi Antigravity), self-match hanya mengeluarkan dokumen kueri. JSONL tidak mencatat commit; run utama selesai 18.47 WIB sebelum commit 9316403 (18.58), run robustness 16.45 WIB sebelum commit 0094fa6 (16.50), jadi keduanya memakai working tree yang belum di-commit. Akan diganti run ulang setelah aturan self-match disamakan (butir 3).",
+  "commit_repo_saat_ringkasan": "a956d40",
+  "working_tree_bersih": false,
+  "workload_manifest": {
+    "workload_id": "dsic2906-1-workload-v2",
+    "query_file": "data/processed/queries.parquet",
+    "filter_file": "data/processed/filters.parquet",
+    "n_queries": 2008,
+    "k": 10,
+    "match_rate_bins": "{\"B1\": 297, \"B2\": 663, \"B3\": 360, \"B4\": 420, \"B5\": 300}",
+    "frozen_at": "2026-10-29T10:38:58+00:00",
+    "checksum_sha256": "b5d7d6f8c48155db84a26927ef717d521e0e44fef98c5307f0cadb50ca67c520"
+  },
+  "sumber_jsonl": {
+    "results/raw/dev_benchmark.jsonl": {
+      "sha256": "3133c0fe7dc241496af70f8d3fe005bca1070f312fc2c281c8e95fdfca57cb95",
+      "n_baris": 24000,
+      "diubah_utc": "2026-10-26T11:47:18+00:00"
+    },
+    "results/raw/dev_benchmark_robust.jsonl": {
+      "sha256": "bdfc93b5af425edc2ac9650b1b9690341e60df76facf669bac8ddad7de8ac41b",
+      "n_baris": 13500,
+      "diubah_utc": "2026-10-26T09:45:40+00:00"
+    }
+  },
+  "catatan_run": "Dev benchmark 26 Okt 2026 di laptop (resource_profile dev-local), 100 kueri dev, seed 2906, korpus v1 (provinsi versi Antigravity), self-match hanya mengeluarkan dokumen kueri. JSONL tidak mencatat commit; run utama selesai 18.47 WIB sebelum commit 9316403 (18.58), run robustness 16.45 WIB sebelum commit 0094fa6 (16.50), jadi keduanya memakai working tree yang belum di-commit. Akan diganti run ulang setelah aturan self-match disamakan (butir 3).",
+  "berkas_csv": [
+    "dt4_distance_comparisons_median.csv",
+    "dt4_recall_at_10_mean.csv",
+    "p11_visited_over_L_median.csv",
+    "p3_sp_hat_multiplier_per_bin.csv",
+    "p4_twohop_predicate_evaluations_median.csv",
+    "robust_dt3_any_vs_tanpa_ambigu.csv",
+    "workload_per_set_bin.csv"
+  ]
+}

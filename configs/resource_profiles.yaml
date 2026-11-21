@@ -1,17 +1,21 @@
-# Fill with actual available limits before the final benchmark and freeze.
+# Profil sumber daya E4 / RQ3 (naskah 4.4), dibekukan sebelum hasil benchmark utama dilihat.
+# CPU dibatasi dengan taskset + jumlah thread; memori tidak dibatasi (tanpa akses cgroup), puncak RSS diukur.
+# Mesin: AWS Lightsail t3.xlarge (4 vCPU burstable, 16 GB, mesin bersama).
+frozen: true
+frozen_at: "2026-11-16"
 profiles:
   RC-small:
     cpu_cores: 1
-    ram_gb: 2
+    taskset: "0"
     threads: 1
-    query_timeout_ms: null
+    ram_gb: null        # diukur, tidak dibatasi
   RC-medium:
     cpu_cores: 2
-    ram_gb: 4
+    taskset: "0-1"
     threads: 2
-    query_timeout_ms: null
-  RC-reference:
-    cpu_cores: null
     ram_gb: null
-    threads: null
-    query_timeout_ms: null
+  RC-reference:
+    cpu_cores: 4
+    taskset: "0-3"
+    threads: 4
+    ram_gb: null

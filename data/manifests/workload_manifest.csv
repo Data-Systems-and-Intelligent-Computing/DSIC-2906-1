@@ -1,1 +1,2 @@
 workload_id,query_file,filter_file,n_queries,k,match_rate_bins,frozen_at,checksum_sha256
+dsic2906-1-workload-v2,data/processed/queries.parquet,data/processed/filters.parquet,2008,10,"{""B1"": 297, ""B2"": 663, ""B3"": 360, ""B4"": 420, ""B5"": 300}",2026-10-29T11:47:39+00:00,b5d7d6f8c48155db84a26927ef717d521e0e44fef98c5307f0cadb50ca67c520

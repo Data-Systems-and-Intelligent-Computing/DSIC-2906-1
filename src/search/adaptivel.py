@@ -1,6 +1,22 @@
-"""AdaptiveL search helpers based on Liu et al. (2026), Algorithms 2 and 3."""
+"""P1 — AdaptiveL, mengikuti Algorithm 2 dan 3 pada Liu et al. (2026).
+
+Ringkasan Algorithm 2:
+- penelusuran graf standar: seluruh tetangga titik yang dikunjungi masuk frontier B,
+  tanpa memedulikan predikat (navigasi boleh melewati titik yang tidak lolos);
+- predikat dievaluasi pada titik yang dikunjungi p*; yang lolos masuk himpunan hasil dan
+  menambah n_match;
+- B dipangkas ke ukuran L_search;
+- ketika jumlah titik dikunjungi |V| = n_sample, L_search dikali ComputeAdaptiveL(n_match / n_sample, m).
+  Baris 10 pada paper tertulis "L_search <- L_search" (faktor pengali tidak tercetak); interpretasi
+  di sini mengikuti teks bagian 2 dan Algorithm 3.
+"""
 from __future__ import annotations
+
 import math
+
+import numpy as np
+
+from src.search.graph_index import Beam, deadline_from, expired
 
 
 def compute_adaptive_multiplier(sp_hat: float, m_max: float) -> float:
@@ -18,5 +34,62 @@ def compute_adaptive_multiplier(sp_hat: float, m_max: float) -> float:
     return min(float(m_max), 2.0 ** l)
 
 
-def adaptivel_search(*args, **kwargs):
-    raise NotImplementedError("Integrate AdaptiveL into the verified DiskANN traversal implementation.")
+def adaptivel_search(query: np.ndarray, vectors: np.ndarray, neighbors: list[np.ndarray], start: int,
+                     eligible: np.ndarray, k: int = 10, L: int = 100, n_sample: int = 64,
+                     m_max: float = 8, timeout_ms: float | None = None) -> tuple[list[int], dict]:
+    """Penelusuran greedy dengan ukuran frontier yang menyesuaikan estimasi match rate (Algorithm 2)."""
+    deadline = deadline_from(timeout_ms)
+    seen = np.zeros(len(vectors), dtype=bool)
+    seen[start] = True
+    beam = Beam(L, len(vectors))
+    beam.push(float(1.0 - vectors[start] @ query), start)
+    results: list[tuple[float, int]] = []
+    n_visited, n_match, n_dist = 0, 0, 1
+    sp_hat, multiplier = None, 1.0
+
+    # Batas waktu dicek sebelum setiap kunjungan; bila habis, penelusuran berhenti dengan hasil parsial
+    while not (timed_out := expired(deadline)) and (top := beam.pop_unvisited()) is not None:
+        # Titik terdekat di frontier yang belum dikunjungi (baris 5-6)
+        nxt_d, nxt = top
+        n_visited += 1
+
+        # Predikat dievaluasi pada titik yang dikunjungi (baris 7)
+        if eligible[nxt]:
+            n_match += 1
+            results.append((nxt_d, nxt))
+
+        # Seluruh tetangga baru masuk frontier yang dipangkas ke L (baris 8-9)
+        nb = neighbors[nxt]
+        new = nb[~seen[nb]]
+        if len(new):
+            seen[new] = True
+            d = 1.0 - vectors[new] @ query
+            n_dist += len(new)
+            for dist, i in zip(d.tolist(), new.tolist()):
+                beam.push(dist, i)
+
+        # Setelah n_sample titik dikunjungi, L_search diskalakan sekali (baris 10, Algorithm 3)
+        if sp_hat is None and n_visited == n_sample:
+            sp_hat = n_match / n_sample
+            multiplier = compute_adaptive_multiplier(sp_hat, m_max)
+            beam.L = int(math.ceil(L * multiplier))
+
+    results.sort()
+    result = [i for _, i in results[:k]]
+    return result, {
+        "method": "adaptivel",
+        "L": L,
+        "n_sample": n_sample,
+        "m_max": m_max,
+        "sample_reached": sp_hat is not None,
+        "sp_hat": sp_hat,
+        "n_match_sample": None if sp_hat is None else int(round(sp_hat * n_sample)),
+        "multiplier": multiplier,
+        "L_final": beam.L,
+        "visited_nodes": n_visited,
+        "distance_comparisons": n_dist,
+        "predicate_evaluations": n_visited,
+        "returned_count": len(result),
+        "underfilled": len(result) < k,
+        "timeout": timed_out,
+    }

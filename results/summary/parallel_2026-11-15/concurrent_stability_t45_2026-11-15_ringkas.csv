@@ -1,0 +1,73 @@
+set,bin,method,config,n_pasangan,overlap_mean,identik_pct,timeout_pct
+ekstensi,B1,adaptivel,method=adaptivel L=100 n_sample=32 m_max=8,297,0.1872053872053872,98.98989898989899,21.548821548821547
+ekstensi,B1,adaptivel,method=adaptivel L=200 n_sample=32 m_max=8,297,0.22323232323232323,96.96969696969697,71.71717171717171
+ekstensi,B1,adaptivel,method=adaptivel L=400 n_sample=32 m_max=8,297,0.23872053872053875,96.96969696969697,87.54208754208754
+ekstensi,B1,postfilter,method=postfilter candidate_budget=100,297,0.11245791245791245,100.0,0.33670033670033667
+ekstensi,B1,postfilter,method=postfilter candidate_budget=1600,297,0.30033670033670035,99.66329966329967,87.87878787878788
+ekstensi,B1,postfilter,method=postfilter candidate_budget=200,297,0.1383838383838384,100.0,0.33670033670033667
+ekstensi,B1,postfilter,method=postfilter candidate_budget=3200,297,0.3861952861952862,97.3063973063973,100.0
+ekstensi,B1,postfilter,method=postfilter candidate_budget=400,297,0.1723905723905724,100.0,0.0
+ekstensi,B1,postfilter,method=postfilter candidate_budget=800,297,0.22794612794612795,99.66329966329967,22.22222222222222
+ekstensi,B1,twohop,method=twohop L=100,297,0.39494949494949494,100.0,0.6734006734006733
+ekstensi,B1,twohop,method=twohop L=200,297,0.39494949494949494,100.0,0.0
+ekstensi,B1,twohop,method=twohop L=400,297,0.39494949494949494,100.0,0.33670033670033667
+ekstensi,B2,adaptivel,method=adaptivel L=100 n_sample=32 m_max=8,303,0.3805280528052805,98.67986798679867,15.841584158415841
+ekstensi,B2,adaptivel,method=adaptivel L=200 n_sample=32 m_max=8,303,0.4234323432343235,95.04950495049505,61.71617161716172
+ekstensi,B2,adaptivel,method=adaptivel L=400 n_sample=32 m_max=8,303,0.436963696369637,95.04950495049505,78.21782178217822
+ekstensi,B2,postfilter,method=postfilter candidate_budget=100,303,0.23432343234323433,100.0,0.0
+ekstensi,B2,postfilter,method=postfilter candidate_budget=1600,303,0.527062706270627,97.6897689768977,90.42904290429043
+ekstensi,B2,postfilter,method=postfilter candidate_budget=200,303,0.2966996699669967,100.0,0.33003300330033003
+ekstensi,B2,postfilter,method=postfilter candidate_budget=3200,303,0.6079207920792079,93.72937293729373,100.0
+ekstensi,B2,postfilter,method=postfilter candidate_budget=400,303,0.3716171617161716,100.0,0.0
+ekstensi,B2,postfilter,method=postfilter candidate_budget=800,303,0.4462046204620462,99.66996699669967,13.531353135313532
+ekstensi,B2,twohop,method=twohop L=100,303,0.6501650165016502,100.0,1.65016501650165
+ekstensi,B2,twohop,method=twohop L=200,303,0.6501650165016502,100.0,1.3201320132013201
+ekstensi,B2,twohop,method=twohop L=400,303,0.6501650165016502,100.0,3.3003300330033
+utama,B2,adaptivel,method=adaptivel L=100 n_sample=32 m_max=8,360,0.40305555555555556,98.88888888888889,11.944444444444445
+utama,B2,adaptivel,method=adaptivel L=200 n_sample=32 m_max=8,360,0.4547222222222222,95.27777777777777,60.27777777777777
+utama,B2,adaptivel,method=adaptivel L=400 n_sample=32 m_max=8,360,0.4558333333333333,93.88888888888889,79.16666666666666
+utama,B2,postfilter,method=postfilter candidate_budget=100,360,0.24166666666666667,100.0,0.0
+utama,B2,postfilter,method=postfilter candidate_budget=1600,360,0.6022222222222222,97.77777777777777,93.88888888888889
+utama,B2,postfilter,method=postfilter candidate_budget=200,360,0.31083333333333335,100.0,0.2777777777777778
+utama,B2,postfilter,method=postfilter candidate_budget=3200,360,0.7244444444444444,95.0,100.0
+utama,B2,postfilter,method=postfilter candidate_budget=400,360,0.3808333333333333,100.0,0.5555555555555556
+utama,B2,postfilter,method=postfilter candidate_budget=800,360,0.4683333333333333,99.44444444444444,11.11111111111111
+utama,B2,twohop,method=twohop L=100,360,0.9508333333333334,99.44444444444444,43.611111111111114
+utama,B2,twohop,method=twohop L=200,360,0.9513888888888888,99.72222222222223,70.27777777777777
+utama,B2,twohop,method=twohop L=400,360,0.9502777777777779,99.16666666666667,72.22222222222221
+utama,B3,adaptivel,method=adaptivel L=100 n_sample=32 m_max=8,360,0.5994444444444444,98.05555555555556,12.777777777777777
+utama,B3,adaptivel,method=adaptivel L=200 n_sample=32 m_max=8,360,0.643888888888889,93.61111111111111,55.27777777777778
+utama,B3,adaptivel,method=adaptivel L=400 n_sample=32 m_max=8,360,0.6363888888888889,90.0,79.44444444444444
+utama,B3,postfilter,method=postfilter candidate_budget=100,360,0.3047222222222222,100.0,0.0
+utama,B3,postfilter,method=postfilter candidate_budget=1600,360,0.7958333333333333,98.33333333333333,96.94444444444444
+utama,B3,postfilter,method=postfilter candidate_budget=200,360,0.4116666666666666,100.0,0.0
+utama,B3,postfilter,method=postfilter candidate_budget=3200,360,0.8786111111111111,95.55555555555556,100.0
+utama,B3,postfilter,method=postfilter candidate_budget=400,360,0.5466666666666667,100.0,0.5555555555555556
+utama,B3,postfilter,method=postfilter candidate_budget=800,360,0.6725,99.72222222222223,20.27777777777778
+utama,B3,twohop,method=twohop L=100,360,0.9994444444444445,99.44444444444444,77.77777777777779
+utama,B3,twohop,method=twohop L=200,360,0.9991666666666666,99.16666666666667,99.72222222222223
+utama,B3,twohop,method=twohop L=400,360,0.9991666666666666,99.44444444444444,100.0
+utama,B4,adaptivel,method=adaptivel L=100 n_sample=32 m_max=8,420,0.8328571428571429,99.76190476190476,5.476190476190476
+utama,B4,adaptivel,method=adaptivel L=200 n_sample=32 m_max=8,420,0.8661904761904762,99.28571428571429,35.476190476190474
+utama,B4,adaptivel,method=adaptivel L=400 n_sample=32 m_max=8,420,0.8530952380952381,97.38095238095238,55.714285714285715
+utama,B4,postfilter,method=postfilter candidate_budget=100,420,0.5566666666666666,100.0,0.0
+utama,B4,postfilter,method=postfilter candidate_budget=1600,420,0.8964285714285715,99.76190476190476,89.52380952380953
+utama,B4,postfilter,method=postfilter candidate_budget=200,420,0.6892857142857143,100.0,0.0
+utama,B4,postfilter,method=postfilter candidate_budget=3200,420,0.920952380952381,98.57142857142858,100.0
+utama,B4,postfilter,method=postfilter candidate_budget=400,420,0.7821428571428571,99.76190476190476,0.7142857142857143
+utama,B4,postfilter,method=postfilter candidate_budget=800,420,0.8557142857142856,99.76190476190476,6.904761904761905
+utama,B4,twohop,method=twohop L=100,420,1.0,100.0,59.76190476190476
+utama,B4,twohop,method=twohop L=200,420,1.0,100.0,71.66666666666667
+utama,B4,twohop,method=twohop L=400,420,0.9995238095238096,99.76190476190476,80.71428571428572
+utama,B5,adaptivel,method=adaptivel L=100 n_sample=32 m_max=8,300,0.8266666666666667,99.66666666666667,1.3333333333333335
+utama,B5,adaptivel,method=adaptivel L=200 n_sample=32 m_max=8,300,0.8466666666666667,99.33333333333333,18.666666666666668
+utama,B5,adaptivel,method=adaptivel L=400 n_sample=32 m_max=8,300,0.856,99.0,37.666666666666664
+utama,B5,postfilter,method=postfilter candidate_budget=100,300,0.7273333333333333,100.0,0.0
+utama,B5,postfilter,method=postfilter candidate_budget=1600,300,0.8823333333333333,99.0,93.0
+utama,B5,postfilter,method=postfilter candidate_budget=200,300,0.782,100.0,0.0
+utama,B5,postfilter,method=postfilter candidate_budget=3200,300,0.905,99.33333333333333,100.0
+utama,B5,postfilter,method=postfilter candidate_budget=400,300,0.8113333333333334,100.0,0.0
+utama,B5,postfilter,method=postfilter candidate_budget=800,300,0.835,100.0,9.0
+utama,B5,twohop,method=twohop L=100,300,0.9993333333333334,99.66666666666667,38.666666666666664
+utama,B5,twohop,method=twohop L=200,300,1.0,100.0,56.99999999999999
+utama,B5,twohop,method=twohop L=400,300,0.9973333333333333,98.66666666666667,75.33333333333333

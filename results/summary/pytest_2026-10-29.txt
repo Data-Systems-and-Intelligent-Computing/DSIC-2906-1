@@ -1,0 +1,20 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.12.15, pytest-9.1.1, pluggy-1.6.0
+rootdir: /Users/angels/Desktop/github TA/DSIC-2906-1
+configfile: pyproject.toml
+testpaths: tests
+plugins: platformdirs-4.13.0, anyio-4.15.1
+collected 32 items
+
+tests/test_adaptivel.py .....                                            [ 15%]
+tests/test_corpus_build.py .......                                       [ 37%]
+tests/test_dev_exclusion.py ...                                          [ 46%]
+tests/test_exact_groundtruth.py .                                        [ 50%]
+tests/test_graph_search.py ...                                           [ 59%]
+tests/test_postfilter.py .                                               [ 62%]
+tests/test_predicates.py .                                               [ 65%]
+tests/test_twohop.py ...                                                 [ 75%]
+tests/test_workload_build.py .......                                     [ 96%]
+tests/test_workload_freeze.py .                                          [100%]
+
+============================= 32 passed in 20.16s ==============================

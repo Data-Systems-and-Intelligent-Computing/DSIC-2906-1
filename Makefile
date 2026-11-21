@@ -1,6 +1,6 @@
 PYTHON ?= python3
 
-.PHONY: audit corpus embed queries filters groundtruth index dev freeze single compound resource stability ablation report test
+.PHONY: audit corpus embed queries filters groundtruth index dev freeze single compound resource stability ablation report parallel concurrent test
 
 audit:
 	bash scripts/00_audit_corpus.sh
@@ -31,7 +31,11 @@ stability:
 ablation:
 	bash scripts/13_ablation.sh
 report:
-	bash scripts/14_report.sh
+	bash scripts/14_report.sh $(TANGGAL)
+parallel:
+	bash scripts/15_parallel_throughput.sh
+concurrent:
+	bash scripts/16_concurrent_stability.sh
 
 test:
 	$(PYTHON) -m pytest

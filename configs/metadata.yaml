@@ -1,3 +1,5 @@
+# Metadata alami yang dipakai: kabupaten, provinsi (turunan K-01), kategori, tipe sumber, penerbit (publisher_id), tanggal terbit.
+# Kombinasi majemuk aktual dan syarat kecukupan ada di configs/workload.yaml (beku).
 # Natural metadata only; do not synthesize labels solely for the experiment.
 fields:
   region:

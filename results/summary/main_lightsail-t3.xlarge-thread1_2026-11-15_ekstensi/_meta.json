@@ -1,0 +1,24 @@
+{
+  "dibuat_utc": "2026-11-15T21:08:33+00:00",
+  "commit_repo": "6d6072f",
+  "sumber_log": {
+    "results/raw/main_single_lightsail-t3.xlarge-thread1_2026-11-15.jsonl": "aa866c3620d2c341debb37b96d90e1898f53d33598e2f6d820c38db778d39e7e",
+    "results/raw/main_compound_lightsail-t3.xlarge-thread1_2026-11-15.jsonl": "9e7bb46d05a9f7d90485982e0cd141cec748475a5ae9ea4867b2e95d1df126e8"
+  },
+  "sumber_stabilitas": {
+    "results/summary/stability_lightsail-t3.xlarge-thread1_2026-11-15_per_pasangan.csv": "db4c762d135689996e59953b085e182cd0bf21c785ccffd3e8b2b867337c6919"
+  },
+  "set": "ekstensi",
+  "n_baris_log": 7200,
+  "berkas_csv": [
+    "adaptivel_multiplier.csv",
+    "adaptivel_sp_hat.csv",
+    "failure_taxonomy.csv",
+    "main_table.csv",
+    "paired_comparisons.csv",
+    "per_match_rate.csv",
+    "per_query_in_filter.csv",
+    "per_sumber_kueri.csv",
+    "visited_per_L.csv"
+  ]
+}
